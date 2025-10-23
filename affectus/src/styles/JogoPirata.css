@@ -1,0 +1,315 @@
+.jogo-pitara-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Nunito', sans-serif;
+  min-height: 100vh;
+  padding: 20px;
+  background-image: url('../assets/PIRATA/FUNDO.png');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.jogo-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 60px;
+}
+
+.titulo-jogo {
+  font-size: 1.8rem;
+  text-align: center;
+  flex: 1;
+  margin: 0 10px;
+  color: #333;
+}
+
+.botao-som-pirata {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* ================== Área principal ================== */
+.jogo-pirata-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  flex: 1;
+  position: relative;
+}
+
+/* ================== Layout com Pirata - Tabuleiro - Tesouro ================== */
+.tabuleiro-lateral {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  width: 100%;
+  margin-top: 40px;
+  position: relative;
+}
+
+.tabuleiro-lateral.esconder {
+  display: none;
+}
+
+.pirata-lateral {
+  width: 140px;
+  height: auto;
+  animation: balance 2s infinite ease-in-out;
+}
+
+.tesouro-lateral {
+  width: 140px;
+  height: auto;
+  animation: brilho 2.5s infinite ease-in-out;
+}
+
+/* ================== Tabuleiro ================== */
+.tabuleiro-container {
+  display: grid;
+  grid-template-columns: repeat(5, 60px);
+  grid-template-rows: repeat(4, 60px);
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.casa {
+  width: 60px;
+  height: 60px;
+  background-color: white;
+  border-radius: 10px;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.casa.passada {
+  background-color: #2ecc71;
+}
+
+.casa.ativa {
+  background-color: #f1c40f;
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/* ================== Ícone do navio/pirata que avança ================== */
+.icone-pirata {
+  position: absolute;
+  width: 45px;
+  height: 45px;
+  transition: all 0.5s ease;
+  z-index: 3;
+}
+
+/* ================== Modal / Perguntas ================== */
+.overlay-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.area-pergunta-central {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: rgba(255,255,255,0.95);
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: none; /* remove sombra */
+  z-index: 11;
+}
+
+.img-pergunta-topo {
+  width: 180px;
+  height: auto;
+  display: block;
+  margin: 0 auto 15px auto;
+}
+
+.img-pergunta-pirata {
+  height: 100px;
+  margin-bottom: 15px;
+}
+
+.opcoes-respostas-pistas {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  width: 100%;
+}
+
+.opcoes-respostas-pistas button {
+  width: 100%;
+  max-width: 320px;
+  padding: 12px 16px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.2s ease;
+  text-align: center;
+}
+
+.opcoes-respostas-pistas button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+/* ================== Vitória ================== */
+.tela-vitoria {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.tesouro-vitoria {
+  height: 120px;
+  margin: 15px 0;
+}
+
+.tela-vitoria button {
+  padding: 10px 20px;
+  background-color: #f39c12;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.tela-vitoria button:hover {
+  background-color: #d35400;
+  transform: scale(1.05);
+}
+
+/* ================== Botões ================== */
+.botao-comecar {
+  margin-top: 20px;
+  padding: 10px 25px;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.botao-comecar:hover {
+  background-color: #732d91;
+  transform: scale(1.05);
+}
+
+.pirata-footer {
+  margin-top: 20px;
+}
+
+.botao-sair {
+  padding: 8px 20px;
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.botao-sair:hover {
+  background-color: #e74c3c;
+}
+
+/* ================== Derrota ================== */
+.tela-derrota {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 40px;
+  border-radius: 15px;
+  animation: fadeIn 0.8s ease;
+}
+
+.tela-derrota h2 {
+  font-size: 1.8rem;
+  color: #ff6b6b;
+}
+
+.pirata-triste {
+  width: 180px;
+  animation: balance 1.5s infinite ease-in-out;
+}
+
+/* ================== Animações ================== */
+@keyframes balance {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+
+@keyframes brilho {
+  0%, 100% { filter: brightness(1); }
+  50% { filter: brightness(1.3); }
+}
+
+/* ================== Responsividade ================== */
+@media (max-width: 700px) {
+  .tabuleiro-lateral {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pirata-lateral,
+  .tesouro-lateral {
+    width: 100px;
+  }
+
+  .tabuleiro-container {
+    grid-template-columns: repeat(5, 40px);
+    grid-template-rows: repeat(4, 40px);
+    gap: 8px;
+  }
+
+  .casa {
+    width: 40px;
+    height: 40px;
+  }
+
+  .icone-pirata {
+    width: 30px;
+    height: 30px;
+  }
+}

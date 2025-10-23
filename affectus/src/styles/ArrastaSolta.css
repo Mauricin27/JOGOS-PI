@@ -1,0 +1,387 @@
+
+/* CONTAINER GERAL              */
+.arrastaSolta-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: 'Chewy', cursive;
+  background-image: url('../assets/ARRASTA/jj.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* HEADER                       */
+
+.arrastaSolta-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-top: -20px;
+  position: relative;
+  height: 70px;
+  color: #ffffff;
+}
+
+.arrastaSolta-tempo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  font-weight: bold;
+  color: #ece6e6;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.arrasta-logo {
+  height: 180px;
+  width: 100px;
+  object-fit: contain;
+  margin-left: 70px;
+  margin-top: 50px;
+
+}
+
+.musicaAS-btn {
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(135deg, #3e7db4, #104366);
+  box-shadow: 0 5px 8px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+  margin-right: 70px;
+}
+
+.musicaAS-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  background: linear-gradient(135deg, #2196f3, #21cbf3);
+}
+
+.musicaAS-btn:active {
+  transform: translateY(2px) scale(0.95);
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+}
+
+
+/* JOGO                         */
+
+.arrastaSolta-jogo {
+  display: flex;
+  width: 100%;
+  gap: 40px;
+  justify-content: center;
+  margin-top: 50px;
+  margin-left: 100px;
+}
+
+/* Campo de hábitos */
+.campo-habitos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 500px;
+  gap: 7px;
+  height: 600px;
+  padding: 15px;
+  border-radius: 10px;
+  color: #ece6e6;
+}
+
+.habito {
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  cursor: grab; 
+  text-align: center;
+  padding: 5px; 
+  border-radius: 10px; 
+  overflow: hidden; 
+  width: 80%;
+  height: 95px;
+  background: rgba(251, 251, 252, 0.95); 
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+}
+
+.habito:hover {
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.habito:active {
+  cursor: grabbing;
+  transform: scale(0.97);
+}
+
+.habito-img {
+  width: 50px;
+  height: 40px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+.habito-texto {
+  font-size: 15px;
+  text-align: center;
+  color: #242424;
+  margin-top: 1px;
+  font-weight: bold;
+  border-radius: 6px;
+  width: 94%;
+  height: 42px;
+}
+
+/* Campos de destino */
+.campos-destino {
+  display: flex;
+  gap: 40px;
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.campo-destino-certos,
+.campo-destino-errados {
+  display: grid;
+  width: 500px;
+  gap: 7px;
+  height: 600px;
+  border-radius: 10px;
+  padding: 12px;
+  grid-template-columns: repeat(3, 1fr);
+  border: 3px solid #ece6e6;
+  box-shadow: 0px 3px 3px rgba(0,0,0,0.3);
+}
+
+.campo-destino-certos h3,
+.campo-destino-errados h3 {
+  text-align: center;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #ece6e6;
+}
+
+.habito-solto {
+  display: grid;
+  place-items: center;
+  cursor: grab;
+  padding: 5px;
+  border-radius: 10px;
+  width: 80%;
+  height: 95px;
+  background: rgba(251, 251, 252, 0.95); 
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.3);
+}
+
+.habito-solto:hover {
+  transform: scale(1.05) rotate(-1deg);
+}
+
+.habito-solto:active {
+  transform: scale(1.1) rotate(2deg);
+}
+
+.habito-solto img {
+  width: 60px;
+  height: 45px;
+  object-fit: contain;
+  margin-bottom: 5px;
+}
+
+
+/* BOTÕES                        */
+.botoes-jogo {
+  display: flex;
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.botao-sair-arrasta,
+.botao-reinicia-arrasta,
+.botao-enviar-arrasta {
+  border: none;
+  outline: none;
+  padding: 12px 20px;
+  border-radius: 20px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.6);
+  margin: 8px;
+}
+
+.botao-sair-arrasta {
+  background: #da3f4e;
+  width: 120px;
+}
+
+.botao-sair-arrasta:hover {
+  background: linear-gradient(135deg, #e75c5c, #a7281a);
+  transform: scale(1.08) rotate(-1deg);
+}
+
+.botao-reinicia-arrasta {
+  background-image: url('../assets/ARRASTA/vv.png');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: white;
+}
+
+.botao-reinicia-arrasta:hover {
+  background: linear-gradient(135deg, #5d7ce2, #1b4f72);
+   transform: scale(1.08) rotate(-1deg);
+}
+
+.botao-enviar-arrasta {
+  background: linear-gradient(135deg, #34915b);
+  width: 120px;
+}
+
+.botao-enviar-arrasta:hover {
+  background: linear-gradient(135deg, #2ecc71, #1e8449);
+   transform: scale(1.08) rotate(-1deg);
+}
+
+
+/* ANIMAÇÕES */
+/* ACERTO - DESTACA VERDE */
+@keyframes pulseGreen {
+  0%   { transform: scale(1.); box-shadow: 0 0 0px rgba(0, 255, 0, 0.4); }
+  50%  { transform: scale(1.3); box-shadow: 0 0 15px rgba(0, 255, 0, 0.6); }
+  100% { transform: scale(1); box-shadow: 0 0 0px rgba(0, 255, 0, 0.4); }
+}
+
+.acerto {
+  animation: pulseGreen 0.6s ease forwards;
+  border: 3px solid #28a745;
+  background-color: rgba(40, 167, 70, 0.521);
+}
+
+/* ERRO - DESTACA VERMELHO */
+@keyframes shakeRed {
+  0% { transform: translateX(); }
+  25% { transform: translateX(-10px); }
+  50% { transform: translateX(15px); }
+  75% { transform: translateX(-10px); }
+  100% { transform: translateX(); }
+}
+
+.erro {
+  animation: shakeRed 0.6s ease forwards;
+  border: 3px solid #dc3545;
+  background-color: rgba(220, 53, 70, 0.521);
+}
+
+
+.habito.drop,
+.habito-solto.drop {
+  animation: dropSmooth 0.6s ease forwards;
+  box-shadow: none;
+}
+
+
+/* MODAL */
+.modalArrasta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.6); /* um pouco mais escuro para foco */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  backdrop-filter: blur(4px); /* desfoque suave do fundo */
+}
+
+.modalArrasta-content {
+  background: linear-gradient(to bottom, #9bccfd, #1d6cad); /* leve mudança no ângulo do gradiente */
+  border-radius: 25px; /* borda mais suave */
+  padding: 30px;
+  font-family: 'Chewy', cursive;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45); /* sombra mais profunda */
+  max-width: 500px;
+  width: 90%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modalArrasta-content:hover {
+  transform: translateY(-5px); /* leve movimento ao passar o mouse */
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modalArrasta-content h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #f8f1f1;
+}
+
+.modalArrasta-content p {
+  font-size: 18px;
+  margin: 15px 0;
+  color: #f8f1f1;
+  font-weight: 500;
+}
+
+/* imagem */
+.modal-img {
+  width: 110px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+/* botão fechar */
+.fechar-arrastaModal {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: rgba(255,255,255,0.2); /* botão mais elegante */
+  color: #050505;
+  border: none;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.fechar-arrastaModal:hover {
+  color: #ff4b5c;
+  background: rgba(255,255,255,0.35);
+  transform: scale(1.2);
+}
+
+/* botão voltar ao jogo */
+.modalArrasta-content button:not(.fechar-arrastaModal) {
+  margin-top: 20px;
+  background: #318855;
+  color: white;
+  font-family: 'Chewy', cursive;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modalArrasta-content button:not(.fechar-arrastaModal):hover {
+  background: #0c7047;
+  transform: scale(1.08) rotate(-1deg); /* pequeno efeito divertido */
+  box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}

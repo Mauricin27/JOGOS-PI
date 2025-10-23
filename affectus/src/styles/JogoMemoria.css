@@ -1,0 +1,347 @@
+/* Container principal */
+.jogoMemoria-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url("../assets/JogoMemoria/fundo.png") center/cover no-repeat;
+}
+
+/* Container central */
+.jogoMemoria-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 20px;
+  border-radius: 20px;
+  background: linear-gradient(to right, #85c5fa, #77c7fc);
+  box-shadow: 0 15px 38px rgba(0,0,0,0.6);
+}
+
+/* Bordas entre seções */
+.jogoMemoria-topbar,
+.jogoMemoria-grid,
+.jogoMemoria-actions {
+  width: 100%;
+  padding: 15px 0;
+  border-bottom: 2px solid #acdbfa;
+}
+
+.jogoMemoria-actions {
+  border-bottom: none;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap; 
+}
+
+/* Topbar */
+.jogoMemoria-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.jogoMemoria-container-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.jogoMemoria-tile {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: #1f1f1f;
+}
+
+.stats {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1f1f1f;
+}
+
+.jogoMemoria-musicaON-OFF {
+  border: none;
+  border-radius: 50%;
+  font-size: 28px;
+  padding: 8px;
+  cursor: pointer;
+  background: linear-gradient(45deg, #2eb2eb, #19457e);
+  color: #fff;
+  background-size: 300% 300%; 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.jogoMemoria-musicaON-OFF:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  animation: gradientHover 2.5s ease infinite;
+}
+
+@keyframes gradientHover {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.memoriaLogo-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
+}
+
+/* Grid das cartas */
+.jogoMemoria-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  justify-items: center;
+  width: 100%;
+}
+
+/* Cartas */
+.carta-memoria {
+  perspective: 1000px;
+  border: none;
+  background: none;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  width: 90%;
+  max-width: 130px;  
+  height: 180px;
+  overflow: hidden; 
+}
+
+.carta-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  transform-style: preserve-3d;
+}
+
+.carta-memoria:hover .carta-inner {
+  transform: rotateY(var(--rotate-y, 0deg)) scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+.carta-memoria.flipped .carta-inner {
+  transform: rotateY(180deg) scale(0.8);
+}
+
+.carta-front, .carta-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}
+
+.carta-front img,
+.carta-back img {
+  object-fit: contain;
+  transition: all 0.4s ease;
+  border-radius: 12px;
+}
+
+.carta-front img { width: 90%; height: 90%; }
+.carta-back img { width: 80%; height: 80%; }
+
+.carta-back {
+  background: #faf9f9;
+  transform: rotateY(180deg);
+  box-shadow: 0 5px 4px rgba(0,0,0,0.6);
+}
+
+/* Base para botões */
+.jogoMemoria-btn, 
+.jogoMemoria-btn-sair {
+  padding: 14px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 22px;
+  min-width: 120px;
+  width: 140px;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, background-position 0.5s ease;
+  box-shadow: 0px 6px 12px rgba(0,0,0,0.6); 
+  background-size: 200% 100%;
+  background-position: left center;
+}
+
+.jogoMemoria-btn {
+  background: linear-gradient(45deg, #26b485, #0d774c); 
+  color: #fff;
+}
+
+.jogoMemoria-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #0d774c, #26b485); 
+  box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+}
+
+.jogoMemoria-btn-sair {
+  background: linear-gradient(45deg, #ff5252, #ff1744);
+  color: #fff;
+}
+
+.jogoMemoria-btn-sair:hover {
+  transform: scale(1.05);
+  background: linear-gradient(45deg, #ff1744, #ff5252);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+}
+
+/* Modal vitória */
+/* Modal de vitória - moderno e infantil */
+/* Modal de vitória - azul céu e infantil */
+.jogoMemoria-votoria {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); /* leve sombreado */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.vitoria-carta {
+  background: linear-gradient(135deg, #9cd7fa, #4d99cc); /* azul céu */
+  padding: 40px 50px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 25px rgba(93, 173, 226, 0.5) inset;
+  animation: popIn 0.5s ease-out;
+  max-width: 90%;
+  color: #000; /* textos pretos */
+  border: 5px solid #7fb3d5;
+  position: relative;
+}
+
+.modalVitoria-img {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+  margin-bottom: 20px;
+  animation: bounceWin 1s infinite;
+}
+
+.vitoria-carta h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #000; /* preto */
+  text-shadow: 1px 1px #d0e6f9;
+  margin-bottom: 10px;
+}
+
+.vitoria-carta p {
+  font-size: 1.3rem;
+  color: #000; /* preto */
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.vitoria-acoes button {
+  background: linear-gradient(45deg, #e25d5d, #c12e2e); /* azul mais escuro */
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 28px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.vitoria-acoes button:hover {
+  background: linear-gradient(45deg, #c12e2e, #e25d5d);
+  transform: scale(1.1) rotate(-2deg);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  color: #fff;
+}
+
+
+/* Modal acerto/erro */
+.modal-acerto, .modal-erro {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  pointer-events: none;
+}
+
+.modal-acerto-img, .modal-erro-img {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+}
+
+.modal-acerto-img { animation: acertoAnim 2s forwards; }
+.modal-erro-img { animation: erroAnim 1s forwards; }
+
+/* Animações */
+@keyframes popIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes acertoAnim {
+  0% { transform: translate(-50%, -50%) scale(0.5) rotate(0deg); opacity: 0; }
+  20% { transform: translate(-50%, -50%) scale(1.1) rotate(-5deg); opacity: 1; }
+  40% { transform: translate(-50%, -50%) scale(1.1) rotate(5deg); }
+  60% { transform: translate(-50%, -50%) scale(1.1) rotate(-5deg); }
+  80% { transform: translate(-50%, -50%) scale(1.1) rotate(5deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0; }
+}
+
+@keyframes erroAnim {
+  0% { transform: translate(-50%, -50%) scale(0.5) rotate(0deg); opacity: 0; }
+  20% { transform: translate(-50%, -50%) scale(1.1) rotate(-5deg); opacity: 1; }
+  40% { transform: translate(-50%, -50%) scale(1.1) rotate(5deg); }
+  60% { transform: translate(-50%, -50%) scale(1.1) rotate(-5deg); }
+  80% { transform: translate(-50%, -50%) scale(1.1) rotate(5deg); }
+  100% { transform: translate(-50%, -50%) scale(1) rotate(0deg); opacity: 0; }
+}
+
+/* Responsividade */
+@media (min-width: 1600px) {
+  .carta-memoria { max-width: 180px; height: 220px; }
+}
+@media (max-width: 1200px) {
+  .jogoMemoria-grid { grid-template-columns: repeat(5, 1fr); }
+}
+@media (max-width: 992px) {
+  .jogoMemoria-grid { grid-template-columns: repeat(4, 1fr); }
+  .memoriaLogo-img { width: 90px; height: 90px; }
+}
+@media (max-width: 768px) {
+  .jogoMemoria-grid { grid-template-columns: repeat(3, 1fr); }
+  .jogoMemoria-btn, .jogoMemoria-btn-sair {
+    font-size: 1rem; padding: 10px 16px; min-width: 100px;
+  }
+}
+@media (max-width: 576px) {
+  .jogoMemoria-grid { grid-template-columns: repeat(2, 1fr); gap: 15px; }
+  .jogoMemoria-container { padding: 15px; }
+  .jogoMemoria-topbar { flex-direction: column; gap: 10px; }
+}
+
+

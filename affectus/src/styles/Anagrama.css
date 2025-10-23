@@ -1,0 +1,390 @@
+/*  CONTAINER PRINCIPAL  */
+.anagrama-jogo-container {
+  text-align: center;
+  font-family: 'Chewy', cursive;
+  width: 100%;
+  min-height: 100vh;
+  background-image: url("../assets/ANAGRAMA/ll.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+/*  CONTEÚDO */
+.anagrama-jogo-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 80px; /* compensação do header fixo */
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/*  HEADER  */
+.anagrama-jogo-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background-image: url("../assets/ANAGRAMA/ll.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: rgb(245, 242, 242);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 70px;
+  z-index: 1000;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.anagrama-header-left,
+.anagrama-header-center,
+.anagrama-header-right {
+  display: flex;
+  align-items: center;
+}
+
+.anagrama-header-icone {
+  width: 105px;
+  height: 135px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.anagrama-header-progresso,
+.anagrama-header-pontuacao {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 60px;
+}
+
+.anagrama-header-progresso {
+  font-size: 28px;
+}
+
+.anagrama-header-btn-som {
+  margin-left: 12px;
+  padding: 7px 7px;
+  font-size: 20px;
+  background: transparent;
+  border-radius: 50px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background-color: #7e4cb4;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.anagrama-header-btn-som:hover {
+  background-color: #6b4691;
+}
+
+/*  ÁREA DO JOGO */
+.anagrama-jogo-area {
+  width: 100%;
+  max-width: 1250px;
+  background: linear-gradient(188deg, #a67dd8, #7a4db6, #5f3885);
+  border-radius: 14px;
+  padding: 25px;
+  margin-top: 20px;
+  height: 700px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/*  DICA  */
+.anagrama-jogo-dica h2 {
+  color: #2f0b52;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  background-color: #d1b5eb;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  margin-top: -5px;
+}
+
+/*  LETRAS EMBARALHADAS */
+.anagrama-jogo-letras {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin-top: 30px;
+  margin-bottom: 25px;
+}
+
+.anagrama-letra-btn,
+.anagrama-carta-movida {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Chewy', cursive;
+  color: #242424;
+  font-size: 36px;
+  border: none;
+  width: 120px;
+  height: 130px;
+  font-weight: bold;
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  background-color: transparent;
+}
+
+.anagrama-letra-btn:hover {
+  transform: scale(1.07) rotate(-3deg);
+}
+
+.anagrama-letra-btn.movendo {
+  animation: cairResposta 0.5s forwards;
+  z-index: 10;
+}
+
+@keyframes cairResposta {
+  0% {
+    transform: scale(1.1) rotate(10deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.05) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.anagrama-carta-movida {
+  transform: rotate(0deg) scale(1.05);
+}
+
+.anagrama-letra-btn.usada {
+  opacity: 0.3;        /* desbotada */
+  cursor: not-allowed; /* não clicável */
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+}
+
+/* RESPOSTA  */
+.anagrama-jogo-resposta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1px;
+  margin-bottom: 25px;
+}
+
+.anagrama-resposta-letra-container {
+  width: 120px;
+  height: 140px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  background: transparent;
+  border-radius: 10px;
+  margin-top: 25px;
+  color: #f7f3f3;
+}
+
+/* BOTÃO PRÓXIMA PALAVRA */
+.anagrama-proxima-container {
+  display: flex;
+  justify-content: center;
+  margin: 23px 0 25px 0;
+}
+
+.anagrama-proxima-btn {
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 18px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Chewy', cursive;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.anagrama-proxima-btn.inativo {
+  opacity: 0.3;
+  cursor: not-allowed;
+  background-color: #bdc3c7;
+  color: #ecf0f1;
+}
+
+.anagrama-proxima-btn.ativo {
+  background-color: #8a4bce;
+  color: white;
+}
+
+.anagrama-proxima-btn:hover:not(:disabled) {
+  background: #543674;
+}
+
+/* FOOTER */
+.anagrama-jogo-footer {
+  display: flex;
+  justify-content: center;
+  gap: 70px;
+  margin-top: 75px;
+}
+
+.anagrama-footer-btn-reiniciar,
+.anagrama-footer-btn-sair {
+  background: linear-gradient(to right, #FF512F 0%, #bd7613  51%, #FF512F  100%);
+  width: 140px;
+  font-size: 20px;
+  font-family: 'Chewy', cursive;
+  font-weight: 700;
+  padding: 10px 10px;
+  color: #080808;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+}
+
+.anagrama-footer-btn-reiniciar:hover {
+  background: linear-gradient(to right, #365776 0%, #4c7db4 51%, #365276 100%);
+}
+
+.anagrama-footer-btn-sair:hover {
+  background: linear-gradient(to right, #d92f2f 0%, #ff5a5a 51%, #d92f2f 100%);
+}
+
+/* MODAL DE VITÓRIA */
+.anagrama-modal-vitoria {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1500;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.anagrama-modal-content {
+  background: linear-gradient(135deg, #a67dd8, #8958c9);
+  padding: 30px;
+  border-radius: 20px;
+  text-align: center;
+  max-width: 400px;
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  font-family: 'Chewy', cursive;
+  animation: popIn 0.3s ease-out;
+}
+
+.anagrama-modal-image {
+  width: 180px;
+  height: 160px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+}
+
+.anagrama-modal-mensagem {
+  margin: 10px 0;
+}
+
+.anagrama-modal-pontuacao {
+  font-weight: 600;
+  font-size: 22px;
+  margin: 10px 0;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
+
+.anagrama-modal-btn-voltar {
+  background: linear-gradient(to right, #FF512F 0%, #bd7613  51%, #FF512F  100%);
+  color: #080808;
+  font-weight: bold;
+  border: none;
+  padding: 12px 25px;
+  margin-top: 15px;
+  font-family: 'Chewy', cursive;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease-in-out;
+}
+
+.anagrama-modal-btn-voltar:hover {
+  background: linear-gradient(to right, #FF512F 0%, #bd7613  51%, #FF512F  100%);
+  color: #f0ecec;
+  transform: scale(1.05);
+}
+
+/* ANIMAÇÃO DE PRÊMIO */
+.anagrama-premio-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  animation: fadePremio 2s ease-in-out forwards;
+}
+
+.anagrama-premio-gif {
+  width: 250px;
+  height: auto;
+  border: none;
+}
+
+@keyframes fadePremio {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  20% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+}
+
+/* ANIMAÇÃO DE ERRO */
+.anagrama-erro-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  animation: fadeOut 2s forwards;
+}
+
+.anagrama-erro-img {
+  width: 150px;
+  height: auto;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  80% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+}
+
+/* Keyframes genéricos */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
