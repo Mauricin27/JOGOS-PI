@@ -1,45 +1,85 @@
-.jogo-pitara-container {
+/* ================== CONTAINER GERAL ================== */
+.jogo-pirata-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
   padding: 20px;
-  background-image: url('../assets/PIRATA/FUNDO.png');
+  background-image: url('../assets/PIRATA/ah.jpg');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
+/* ================== CABEÇALHO ================== */
 .jogo-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
   max-width: 900px;
+  height: 80px;
   margin-bottom: 20px;
+  background-color: #f8a36b;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-.logo {
-  height: 60px;
+.botao-voltar-pirata {
+  background: #e6554a;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  margin-left: 10px;
+  cursor: pointer;
+  box-shadow: 0 3px 7px rgba(0,0,0,0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.titulo-jogo {
-  font-size: 1.8rem;
-  text-align: center;
-  flex: 1;
-  margin: 0 10px;
-  color: #333;
+.botao-voltar-pirata:hover {
+  background: #e05353;
+  transform: scale(1.05);
 }
 
+
+.barra-progresso-pirata {
+  position: relative;
+  width: 40%;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.753);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 auto;
+  box-shadow: 0 0 8px rgba(0,0,0,0.3);
+}
+
+.barra-progresso-pirata .preenchimento {
+  height: 100%;
+  background: linear-gradient(90deg, #3fcf8c, #0f9959);
+  border-radius: 10px;
+  transition: width 0.5s ease-in-out;
+}
+
+/* ================== SOM ================== */
 .botao-som-pirata {
   background: none;
   border: none;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   cursor: pointer;
+  color: white;
+  transition: transform 0.2s ease;
+  margin-right: 10px;
 }
 
-/* ================== Área principal ================== */
+.botao-som-pirata:hover {
+  transform: scale(1.1);
+}
+
+/* ================== ÁREA PRINCIPAL ================== */
 .jogo-pirata-area {
   display: flex;
   flex-direction: column;
@@ -48,182 +88,399 @@
   max-width: 1000px;
   flex: 1;
   position: relative;
+  margin-top: 20px;
 }
 
-/* ================== Layout com Pirata - Tabuleiro - Tesouro ================== */
-.tabuleiro-lateral {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 40px;
-  width: 100%;
-  margin-top: 40px;
-  position: relative;
-}
-
-.tabuleiro-lateral.esconder {
-  display: none;
-}
-
-.pirata-lateral {
-  width: 140px;
-  height: auto;
-  animation: balance 2s infinite ease-in-out;
-}
-
-.tesouro-lateral {
-  width: 140px;
-  height: auto;
-  animation: brilho 2.5s infinite ease-in-out;
-}
-
-/* ================== Tabuleiro ================== */
+/* ================== TABULEIRO ================== */
 .tabuleiro-container {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(5, 60px);
-  grid-template-rows: repeat(4, 60px);
-  gap: 12px;
+  grid-template-columns: repeat(3, 120px);
+  grid-template-rows: repeat(4, 120px);
   justify-content: center;
   align-items: center;
-  position: relative;
+  margin: 20px auto;
+  gap: 12px;
 }
 
 .casa {
-  width: 60px;
-  height: 60px;
-  background-color: white;
+  width: 120px;
+  height: 120px;
   border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
   transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .casa.passada {
-  background-color: #2ecc71;
+  background: rgba(26, 112, 79, 0.404);
 }
 
 .casa.ativa {
-  background-color: #f1c40f;
-  transform: scale(1.1);
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  transform: scale(1.10);
+  box-shadow: 0 0 12px rgb(0, 0, 0);
 }
 
-/* ================== Ícone do navio/pirata que avança ================== */
+/* ================== TESOURO ================== */
+.tesouro-casa {
+  width: 100px;
+  height: 130px;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* ================== NAVIO ================== */
 .icone-pirata {
   position: absolute;
-  width: 45px;
-  height: 45px;
-  transition: all 0.5s ease;
-  z-index: 3;
+  width: 100px;
+  height: 140px;
+  background: transparent;
+  border: none;
+  transition: top 0.8s ease, left 0.8s ease;
+  animation: navio-balançando 2s ease-in-out infinite;
+  z-index: 1;
 }
 
-/* ================== Modal / Perguntas ================== */
-.overlay-modal {
+@keyframes navio-balançando {
+  0%, 100% { transform: translateY(0) rotate(-10deg); }
+  50% { transform: translateY(-4px) rotate(10deg); }
+}
+
+.icone-pirata.acerto {
+  animation: navio-avanco 1.5s ease-in-out, navio-balançando 3s ease-in-out infinite;
+}
+
+.icone-pirata.erro {
+  animation: navio-recuo 1.5s ease-in-out, navio-balançando 3s ease-in-out infinite;
+}
+
+@keyframes navio-avanco {
+  0% { transform: translate(-50%, -50%) translateX(0); }
+  50% { transform: translate(-50%, -50%) translateX(12px); }
+  100% { transform: translate(-50%, -50%) translateX(0); }
+}
+
+@keyframes navio-recuo {
+  0% { transform: translate(-50%, -50%) translateX(0); }
+  50% { transform: translate(-50%, -50%) translateX(-12px); }
+  100% { transform: translate(-50%, -50%) translateX(0); }
+}
+
+/* ================== PERGUNTA FLUTUANTE ================== */
+.pergunta-flutuante {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  height: 560px;
+  max-width: 500px;
+  background: radial-gradient(circle at center, #fff8e1 0%, #f1d59a 100%);
+  border: 5px solid #7b4b13;
+  border-radius: 20px;
+  padding: 30px 40px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  font-family: "Nunito", sans-serif;
+  z-index: 9999;
+  animation: aparecer 0.6s ease forwards;
+  margin-top: -30px;
+}
+
+.pergunta-flutuante::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.titulo-pergunta {
+  font-size: 1.6rem;
+  color: #5a330c;
+  text-shadow: 1px 1px 2px #fff;
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.img-pergunta {
+  width: 100px;
+  height: auto;
+  margin: 10px auto 15px;
+}
+
+.texto-pergunta {
+  font-size: 1.2rem;
+  color: #3b210a;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.divisor {
+  height: 2px;
+  background: #7b4b13;
+  margin: 15px auto;
+  width: 80%;
+  opacity: 0.4;
+}
+
+.titulo-respostas {
+  font-size: 1.3rem;
+  color: #5a330c;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 5px;
+  align-items: center;
+}
+
+.botao-resposta {
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  max-width: 250px;
+  background: linear-gradient(180deg, #f7d58b, #d9a84f);
+  border: 3px solid #7b4b13;
+  border-radius: 12px;
+  color: #3b210a;
+  font-size: 1.1rem;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.botao-resposta:hover {
+  transform: scale(1.05);
+  background: linear-gradient(180deg, #ffe4a8, #e0b65c);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.botao-comecar.esconder {
+  display: none;
+}
+
+/* ================== VITÓRIA ================== */
+.modal-vitoria-pirata {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-fundo {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 10, 5, 0.8);
+  backdrop-filter: blur(2px);
+  animation: fadeInFundoPirata 0.8s ease forwards;
+}
+
+/* ===================== PERGAMINHO ===================== */
+.pergaminho-vitoria-pirata {
+  position: relative;
+  width: 90%;
+  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(180deg, #fff6d2 0%, #f7e0a0 45%, #f2c96b 100%);
+  border: 5px solid #8b5a2b;
+  border-radius: 25px;
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.6),
+    inset 0 0 15px rgba(255, 220, 150, 0.8);
+  z-index: 10;
+  animation: aparecerPergaminhoPirata 1s ease-out forwards;
+  overflow: hidden;
+}
+
+/* Simula topo e rolo do pergaminho */
+
+/* ===================== CONTEÚDO DO PERGAMINHO ===================== */
+.conteudo-pergaminho {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 25px;
+  width: 100%;
+}
+
+/* ===================== TÍTULO ===================== */
+.titulo-vitoria-pirata {
+  font-size: 1.9rem;
+  color: #4a2c0a;
+  margin-bottom: 25px;
+  text-shadow: 2px 2px 3px #fff6b3, 0 0 8px rgba(255, 255, 200, 0.6);
+  font-weight: 900;
+  letter-spacing: 1px;
+  line-height: 1.4;
+  text-align: center;
+  animation: brilhoTituloPirata 2.2s ease-in-out infinite alternate;
+}
+
+/* ===================== TESOURO ===================== */
+.imagem-tesouro-container {
+  margin: 20px 0;
+}
+
+.imagem-tesouro-pirata {
+  height: 130px;
+  animation: brilhoTesouroPirata 1.8s infinite alternate ease-in-out;
+  filter: drop-shadow(0 0 8px #ffd700);
+}
+
+/* ===================== BOTÃO ===================== */
+.botao-vitoria-pirata {
+  padding: 12px 30px;
+  background: linear-gradient(180deg, #f1b33b, #d78b00);
+  color: white;
+  font-weight: bold;
+  border: 3px solid #8b5a2b;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.25s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.botao-vitoria-pirata:hover {
+  background: linear-gradient(180deg, #ffcc4d, #c97a00);
+  transform: scale(1.08);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* ===================== ANIMAÇÕES ===================== */
+@keyframes fadeInFundoPirata {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes aparecerPergaminhoPirata {
+  0% { opacity: 0; transform: scale(0.85) rotateX(25deg); }
+  70% { opacity: 1; transform: scale(1.03) rotateX(0deg); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes brilhoTituloPirata {
+  from { text-shadow: 1px 1px 2px #fff6b3; }
+  to { text-shadow: 0 0 10px #ffe77a, 0 0 20px #fff6b3; }
+}
+
+@keyframes brilhoTesouroPirata {
+  from { filter: drop-shadow(0 0 2px #ffd700) brightness(1); transform: scale(1); }
+  to { filter: drop-shadow(0 0 14px #fff176) brightness(1.3); transform: scale(1.05); }
+}
+
+
+/* ================== MODAL DERROTA ================== */
+.modal-derrota-pirata {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 5;
 }
 
-.area-pergunta-central {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.modal-derrota-pirata .modal-fundo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* fundo escurecido */
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+.modal-derrota-pirata .conteudo-derrota {
+  position: relative;
+  background: radial-gradient(circle at top left, #fff4e1 0%, #f5d6a1 100%);
+  border: 5px solid #7b4b13;
+  border-radius: 20px;
+  padding: 40px 30px;
   text-align: center;
-  background: rgba(255,255,255,0.95);
-  padding: 20px;
-  border-radius: 15px;
-  max-width: 500px;
   width: 90%;
-  box-shadow: none; /* remove sombra */
-  z-index: 11;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  font-family: "Nunito", sans-serif;
+  color: #5a330c;
+  animation: fadeInDerrota 0.6s ease forwards;
+  z-index: 2;
 }
 
-.img-pergunta-topo {
-  width: 180px;
-  height: auto;
-  display: block;
-  margin: 0 auto 15px auto;
+.modal-derrota-pirata .conteudo-derrota h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 2px #fff8e1;
 }
 
-.img-pergunta-pirata {
-  height: 100px;
-  margin-bottom: 15px;
-}
-
-.opcoes-respostas-pistas {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  margin-top: 20px;
-  width: 100%;
-}
-
-.opcoes-respostas-pistas button {
-  width: 100%;
-  max-width: 320px;
-  padding: 12px 16px;
-  background-color: #3498db;
+.modal-derrota-pirata .conteudo-derrota .botao-comecar {
+  padding: 12px 25px;
+  background-color: #c0392b;
   color: white;
   border: none;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: background 0.2s ease, transform 0.2s ease;
-  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.opcoes-respostas-pistas button:hover {
-  background-color: #2980b9;
+.modal-derrota-pirata .conteudo-derrota .botao-comecar:hover {
+  background-color: #e74c3c;
   transform: scale(1.05);
 }
 
-/* ================== Vitória ================== */
-.tela-vitoria {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+/* ================== ANIMAÇÃO ================== */
+@keyframes fadeInDerrota {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-.tesouro-vitoria {
-  height: 120px;
-  margin: 15px 0;
-}
 
-.tela-vitoria button {
-  padding: 10px 20px;
-  background-color: #f39c12;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
 
-.tela-vitoria button:hover {
-  background-color: #d35400;
-  transform: scale(1.05);
-}
-
-/* ================== Botões ================== */
+/* ================== BOTÃO COMEÇAR ================== */
 .botao-comecar {
   margin-top: 20px;
-  padding: 10px 25px;
+  padding: 12px 25px;
   background-color: #8e44ad;
   color: white;
   border: none;
   border-radius: 12px;
   cursor: pointer;
   font-size: 1.1rem;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
 
 .botao-comecar:hover {
@@ -231,85 +488,13 @@
   transform: scale(1.05);
 }
 
-.pirata-footer {
-  margin-top: 20px;
+/* ================== ANIMAÇÕES ================== */
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
 }
 
-.botao-sair {
-  padding: 8px 20px;
-  background-color: #c0392b;
-  color: white;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-}
-
-.botao-sair:hover {
-  background-color: #e74c3c;
-}
-
-/* ================== Derrota ================== */
-.tela-derrota {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.75);
-  color: white;
-  padding: 40px;
-  border-radius: 15px;
-  animation: fadeIn 0.8s ease;
-}
-
-.tela-derrota h2 {
-  font-size: 1.8rem;
-  color: #ff6b6b;
-}
-
-.pirata-triste {
-  width: 180px;
-  animation: balance 1.5s infinite ease-in-out;
-}
-
-/* ================== Animações ================== */
-@keyframes balance {
-  0%, 100% { transform: rotate(-3deg); }
-  50% { transform: rotate(3deg); }
-}
-
-@keyframes brilho {
-  0%, 100% { filter: brightness(1); }
-  50% { filter: brightness(1.3); }
-}
-
-/* ================== Responsividade ================== */
-@media (max-width: 700px) {
-  .tabuleiro-lateral {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .pirata-lateral,
-  .tesouro-lateral {
-    width: 100px;
-  }
-
-  .tabuleiro-container {
-    grid-template-columns: repeat(5, 40px);
-    grid-template-rows: repeat(4, 40px);
-    gap: 8px;
-  }
-
-  .casa {
-    width: 40px;
-    height: 40px;
-  }
-
-  .icone-pirata {
-    width: 30px;
-    height: 30px;
-  }
+@keyframes brilhoTesouro {
+  from { filter: brightness(1); }
+  to { filter: brightness(1.5); }
 }
