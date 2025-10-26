@@ -19,7 +19,9 @@ export default function GamesScreen(){
     { id: 3, img: anagramaImg, name: "Anagrama" },
     { id: 4, img: matematica, name: "Jogo Matemático" },
     { id: 5, img: "/assets/jogo.png", name: "Formas" },
-    { id: 6, img: PIRATAIMG, name: "Caça ao Tesouro" }
+    { id: 6, img: PIRATAIMG, name: "Caça ao Tesouro" },
+    { id: 7, img: PIRATAIMG, name: "Jogo do Dente" },
+
     ];
 
     return (

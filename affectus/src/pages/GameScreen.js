@@ -6,6 +6,8 @@ import AnagramaJogo from "../pages/Anagrama.js";
 import JogoMatematico from "../pages/JogoMatematico.js";
 import JogoEscovacao from '../pages/JogoEscovacao.js';
 import JogoPirata from "../pages/JogoPirata.js";
+import JogoDePares from "../pages/JogoDePares.js";
+
 
 
 
@@ -29,18 +31,18 @@ export default function GameScreen() {
             <ArrastaSolta />
           </div>
         );
-        case "3":
+      case "3":
+        return(
+          <div>
+            < AnagramaJogo />
+          </div>
+        );
+        case "4":
           return(
             <div>
-              < AnagramaJogo />
+              <JogoMatematico />
             </div>
           );
-          case "4":
-            return(
-              <div>
-               <JogoMatematico />
-              </div>
-            );
 
           case "5":
             return(
@@ -48,15 +50,20 @@ export default function GameScreen() {
                 <JogoEscovacao />
               </div>
             );
+          case "6":
+            return(
+              <div>
+                <JogoPirata />
+              </div>
+            );
+            case "7":
+            return(
+              <div>
+                <JogoDePares />
+              </div>
+            );
 
-            case "6":
-              return(
-                <div>
-                  <JogoPirata />
-                </div>
-              );
-     
-      
+          
     default:
       return (
         <div style={{ textAlign: "center", padding: "40px" }}>
