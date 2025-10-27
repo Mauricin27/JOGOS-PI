@@ -20,18 +20,19 @@ import somBeep from "../assets/JODOPARES/MOVER.mp3";
 
 // Cores (fundo transparente)
 const cores = {
-  1: "rgba(105, 105, 105, 0)",
-  2: "rgba(105, 105, 105, 0)",
-  3: "rgba(105, 105, 105, 0)",
-  4: "rgba(105, 105, 105, 0)",
-  5: "rgba(105, 105, 105, 0)",
-  6: "rgba(105, 105, 105, 0)",
-  7: "rgba(105, 105, 105, 0)",
-  8: "rgba(105, 105, 105, 0)",
-  9: "rgba(105, 105, 105, 0)",
-  10: "rgba(105, 105, 105, 0)",
-  11: "rgba(105, 105, 105, 0)"
+  1: "rgba(255, 105, 97, 0.9)",   // Vermelho pastel vivo
+  2: "rgba(255, 214, 102, 0.9)",  // Amarelo pastel vivo
+  3: "rgba(119, 187, 255, 0.9)",  // Azul pastel vivo
+  4: "rgba(144, 238, 144, 0.9)",  // Verde pastel vivo
+  5: "rgba(255, 105, 97, 0.9)",   // Vermelho pastel vivo
+  6: "rgba(255, 214, 102, 0.9)",  // Amarelo pastel vivo
+  7: "rgba(119, 187, 255, 0.9)",  // Azul pastel vivo
+  8: "rgba(144, 238, 144, 0.9)",  // Verde pastel vivo
+  9: "rgba(255, 105, 97, 0.9)",   // Vermelho pastel vivo
+  10: "rgba(255, 214, 102, 0.9)", // Amarelo pastel vivo
+  11: "rgba(119, 187, 255, 0.9)"  // Azul pastel vivo
 };
+
 
 // Níveis
 const niveis = [4, 6, 8, 10];

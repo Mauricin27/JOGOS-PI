@@ -116,6 +116,26 @@
   margin-bottom: 25px;
 }
 
+
+.anagrama-jogo-container img {
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
+}
+
+.anagrama-jogo-container, 
+.anagrama-jogo-container * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+
+
 .anagrama-letra-btn,
 .anagrama-carta-movida {
   display: flex;

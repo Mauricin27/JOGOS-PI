@@ -6,7 +6,7 @@
   font-family: 'Nunito', sans-serif;
   min-height: 100vh;
   padding: 20px;
-  background-image: url('../assets/PIRATA/BACK.png');
+  background-image: url('../assets/PIRATA/bb.png');
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -21,28 +21,33 @@
   max-width: 900px;
   height: 80px;
   margin-bottom: 20px;
-  background-color: #f8a36b;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-.botao-voltar-pirata {
-  background: #e6554a;
-  color: #fff;
-  font-size: 1.2rem;
-  font-weight: 700;
-  border: none;
+  background: #fff8dc; /* cor tipo pergaminho claro */
+  border: 4px solid #d9a84f; /* borda tipo pergaminho envelhecido */
   border-radius: 20px;
-  padding: 8px 16px;
-  margin-left: 10px;
-  cursor: pointer;
-  box-shadow: 0 3px 7px rgba(0,0,0,0.4);
-  transition: background 0.3s ease, transform 0.2s ease;
+  padding: 0 20px;
+  font-family: 'Nunito', sans-serif;
+  box-shadow: inset -2px -2px 0 #f0e2b6, inset 2px 2px 0 #f0e2b6; /* efeito desenho à mão */
 }
 
-.botao-voltar-pirata:hover {
-  background: #e05353;
-  transform: scale(1.05);
+/* ================== BOTÕES DO HEADER ESTILO PEGAMINHO INFANTIL ================== */
+.botao-voltar-pirata,
+.botao-som-pirata {
+  background: #fff8dc;
+  border: 3px solid #d9a84f;
+  border-radius: 15px;
+  font-weight: 700;
+  color: #5a330c;
+  padding: 6px 14px;
+  cursor: pointer;
+  font-size: 1rem;
+  box-shadow: inset -1px -1px 0 #f0e2b6, inset 1px 1px 0 #f0e2b6;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.botao-voltar-pirata:hover,
+.botao-som-pirata:hover {
+  transform: scale(1.1);
+  background: #fff3c4;
 }
 
 .barra-progresso-pirata {
@@ -63,19 +68,6 @@
   transition: width 0.5s ease-in-out;
 }
 
-.botao-som-pirata {
-  background: none;
-  border: none;
-  font-size: 1.8rem;
-  cursor: pointer;
-  color: white;
-  transition: transform 0.2s ease;
-  margin-right: 10px;
-}
-
-.botao-som-pirata:hover {
-  transform: scale(1.1);
-}
 
 /* ================== ÁREA PRINCIPAL ================== */
 .jogo-pirata-area {
@@ -172,8 +164,9 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
-  height: 560px;
   max-width: 500px;
+  max-height: 90vh;      /* altura máxima da tela */
+  height: auto;          /* altura ajustável */
   background: radial-gradient(circle at center, #fff8e1 0%, #f1d59a 100%);
   border: 5px solid #7b4b13;
   border-radius: 20px;
@@ -181,20 +174,21 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
   text-align: center;
   font-family: "Nunito", sans-serif;
-  z-index: 9999;
-  animation: aparecer 0.6s ease forwards;
-  margin-top: -30px;
+  z-index: 10000;        /* garante que fique acima do tabuleiro */
+  overflow-y: auto;      /* rolagem se conteúdo for grande */
 }
 
-.pergunta-flutuante-pirata::before {
-  content: "";
+/* Fundo escuro atrás do modal */
+.pergunta-flutuante-fundo {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: -1;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 9999;          /* abaixo do modal, acima do tabuleiro */
 }
+
 
 .titulo-pergunta-pirata {
   font-size: 1.6rem;
@@ -421,21 +415,23 @@
 
 /* ================== BOTÃO COMEÇAR ================== */
 .botao-comecar-pirata {
-  margin-top: 20px;
-  padding: 12px 25px;
-  background-color: #8e44ad;
-  color: white;
-  border: none;
-  border-radius: 12px;
+  background: #fff8dc;
+  border: 3px solid #d9a84f;
+  border-radius: 15px;
+  font-weight: 700;
+  color: #5a330c;
+  padding: 10px 20px;
   cursor: pointer;
   font-size: 1.1rem;
-  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: inset -1px -1px 0 #f0e2b6, inset 1px 1px 0 #f0e2b6;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .botao-comecar-pirata:hover {
-  background-color: #732d91;
-  transform: scale(1.05);
+  transform: scale(1.1);
+  background: #fff3c4;
 }
+
 
 /* ================== ANIMAÇÕES ================== */
 @keyframes popIn {
@@ -467,4 +463,74 @@
 @keyframes fadeInDerrota {
   from { opacity: 0; transform: translateY(-20px) scale(0.95); }
   to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+
+/* ================== RESPONSIVIDADE ================== */
+
+/* ================== RESPONSIVIDADE ================== */
+
+/* DESKTOP GRANDE (>1366px) */
+@media (min-width: 1367px) {
+  .jogo-header-pirata { height: 80px; max-width: 900px; }
+  .barra-progresso-pirata { width: 40%; height: 20px; }
+  .tabuleiro-container-pirata { grid-template-columns: repeat(3, 120px); grid-template-rows: repeat(4, 120px); gap: 12px; }
+  .casa { width: 120px; height: 120px; }
+  .icone-pirata { width: 100px; height: 140px; }
+  .tesouro-casa-pirata { width: 100px; height: 130px; }
+  .pergunta-flutuante-pirata { width: 90%; max-width: 500px; height: auto; max-height: 90vh; padding: 30px 40px; }
+  .botao-resposta-pirata { max-width: 250px; font-size: 1.1rem; }
+  .imagem-tesouro-pirata { height: 130px; }
+}
+
+/* NOTEBOOKS GRANDES (1024px - 1366px) */
+@media (max-width: 1366px) {
+  .jogo-header-pirata { height: 75px; max-width: 85%; }
+  .barra-progresso-pirata { width: 45%; height: 18px; }
+  .tabuleiro-container-pirata { grid-template-columns: repeat(3, 100px); grid-template-rows: repeat(4, 100px); gap: 10px; }
+  .casa { width: 100px; height: 100px; }
+  .icone-pirata { width: 80px; height: 115px; }
+  .tesouro-casa-pirata { width: 90px; height: 115px; }
+  .pergunta-flutuante-pirata { width: 90%; max-width: 480px; height: auto; max-height: 90vh; padding: 25px 35px; }
+  .botao-resposta-pirata { max-width: 220px; font-size: 1rem; }
+  .imagem-tesouro-pirata { height: 120px; }
+}
+
+/* TABLETS (768px - 1024px) */
+@media (max-width: 1024px) {
+  .jogo-header-pirata { height: 70px; max-width: 95%; padding: 0 10px; }
+  .barra-progresso-pirata { width: 50%; height: 16px; }
+  .tabuleiro-container-pirata { grid-template-columns: repeat(3, 80px); grid-template-rows: repeat(4, 80px); gap: 8px; }
+  .casa { width: 80px; height: 80px; }
+  .icone-pirata { width: 70px; height: 95px; }
+  .tesouro-casa-pirata { width: 80px; height: 110px; }
+  .pergunta-flutuante-pirata { width: 90%; max-width: 450px; height: auto; max-height: 90vh; padding: 20px 30px; }
+  .botao-resposta-pirata { max-width: 200px; font-size: 0.95rem; }
+  .imagem-tesouro-pirata { height: 110px; }
+}
+
+/* CELULARES MÉDIOS (480px - 767px) */
+@media (max-width: 767px) {
+  .jogo-header-pirata { flex-direction: column; height: auto; padding: 10px; }
+  .barra-progresso-pirata { width: 60%; height: 14px; margin: 8px 0; }
+  .tabuleiro-container-pirata { grid-template-columns: repeat(3, 60px); grid-template-rows: repeat(4, 60px); gap: 6px; }
+  .casa { width: 60px; height: 60px; }
+  .icone-pirata { width: 55px; height: 70px; }
+  .tesouro-casa-pirata { width: 70px; height: 100px; }
+  .pergunta-flutuante-pirata { width: 90%; max-width: 400px; height: auto; max-height: 90vh; padding: 15px 20px; }
+  .botao-resposta-pirata { max-width: 180px; font-size: 0.9rem; }
+  .imagem-tesouro-pirata { height: 100px; }
+}
+
+/* CELULARES PEQUENOS (<480px) */
+@media (max-width: 479px) {
+  .jogo-header-pirata { flex-direction: column; height: auto; padding: 5px; }
+  .barra-progresso-pirata { width: 70%; height: 12px; margin: 6px 0; }
+  .tabuleiro-container-pirata { grid-template-columns: repeat(3, 50px); grid-template-rows: repeat(4, 50px); gap: 4px; }
+  .casa { width: 50px; height: 50px; }
+  .icone-pirata { width: 33px; height: 50px; }
+  .tesouro-casa-pirata { width: 60px; height: 90px; }
+  .pergunta-flutuante-pirata { width: 95%; max-width: 350px; height: auto; max-height: 90vh; padding: 10px 15px; }
+  .botao-resposta-pirata { max-width: 160px; font-size: 0.85rem; }
+  .imagem-tesouro-pirata { height: 90px; }
 }

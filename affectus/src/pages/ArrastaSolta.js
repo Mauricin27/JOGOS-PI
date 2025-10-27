@@ -167,68 +167,69 @@ export default function ArrastaSolta() {
         </button>
       </header>
 
-      <div className="arrastaSolta-jogo">
-        <div className="campo-habitos">
-          <h3>HÁBITOS</h3>
-          {habitos.map(h => (
+      {/* HABITOS EM CIMA */}
+      <div className="campo-habitos">
+        {habitos.map(h => (
+          <div
+            key={h.id}
+            className={`habito ${animacoes[h.id] || ""}`}
+            draggable
+            onDragStart={(e) => arrastar(e, h)}
+            onAnimationEnd={() => setAnimacoes(prev => ({ ...prev, [h.id]: "" }))}
+          >
+            <img src={h.img} className="habito-img" alt={h.texto} />
+            <span className="habito-texto">{h.texto}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* CAMPOS CERTO / ERRADO */}
+      <div className="campos-destino">
+        <div
+          className="campo-destino-certos"
+          onDrop={(e) => soltar(e, "certos")}
+          onDragOver={permitirSoltar}
+        >
+          <h3>CERTO</h3>
+          {certos.map(h => (
             <div
               key={h.id}
-              className={`habito ${animacoes[h.id] || ""}`}
-              draggable
-              onDragStart={(e) => arrastar(e, h)}
+              className={`habito-solto ${animacoes[h.id] || ""}`}
               onAnimationEnd={() => setAnimacoes(prev => ({ ...prev, [h.id]: "" }))}
             >
-              <img src={h.img} className="habito-img" alt={h.texto} />
+              <img src={h.img} className="habito-img" alt={h.texto}/>
               <span className="habito-texto">{h.texto}</span>
             </div>
           ))}
         </div>
 
-        <div className="campos-destino">
-          <div
-            className="campo-destino-certos"
-            onDrop={(e) => soltar(e, "certos")}
-            onDragOver={permitirSoltar}
-          >
-            <h3>CERTO</h3>
-            {certos.map(h => (
-              <div
-                key={h.id}
-                className={`habito-solto ${animacoes[h.id] || ""}`}
-                onAnimationEnd={() => setAnimacoes(prev => ({ ...prev, [h.id]: "" }))}
-              >
-                <img src={h.img} className="habito-img" alt={h.texto}/>
-                <span className="habito-texto">{h.texto}</span>
-              </div>
-            ))}
-          </div>
-
-          <div
-            className="campo-destino-errados"
-            onDrop={(e) => soltar(e, "errados")}
-            onDragOver={permitirSoltar}
-          >
-            <h3>ERRADO</h3>
-            {errados.map(h => (
-              <div
-                key={h.id}
-                className={`habito-solto ${animacoes[h.id] || ""}`}
-                onAnimationEnd={() => setAnimacoes(prev => ({ ...prev, [h.id]: "" }))}
-              >
-                <img src={h.img} className="habito-img" alt={h.texto}/>
-                <span className="habito-texto">{h.texto}</span>
-              </div>
-            ))}
-          </div>
+        <div
+          className="campo-destino-errados"
+          onDrop={(e) => soltar(e, "errados")}
+          onDragOver={permitirSoltar}
+        >
+          <h3>ERRADO</h3>
+          {errados.map(h => (
+            <div
+              key={h.id}
+              className={`habito-solto ${animacoes[h.id] || ""}`}
+              onAnimationEnd={() => setAnimacoes(prev => ({ ...prev, [h.id]: "" }))}
+            >
+              <img src={h.img} className="habito-img" alt={h.texto}/>
+              <span className="habito-texto">{h.texto}</span>
+            </div>
+          ))}
         </div>
       </div>
 
+      {/* BOTÕES */}
       <div className="botoes-jogo">
         <button className="botao-sair-arrasta" onClick={() => window.location.href = "/"}>SAIR</button>
         <button className="botao-reinicia-arrasta" onClick={reiniciar}>CANCELAR</button>
         <button className="botao-enviar-arrasta" onClick={handleEnviar}>ENVIAR</button>
       </div>
 
+      {/* MODAL */}
       {modalAberto && (
         <div className="modalArrasta">
           <div className="modalArrasta-content">

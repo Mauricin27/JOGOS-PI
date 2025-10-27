@@ -7,7 +7,7 @@
   min-height: 100vh;
   font-family: "Nunito", sans-serif;
   color: #fff;
-  background-image: url("../assets/JODOPARES/tt.png");
+  background-image: url("../assets/JODOPARES/qq.png");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -19,18 +19,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 60px;
-  padding: 10px 20px;
-  border-radius: 10px;
-  background-color: rgb(18, 60, 100);
-  box-shadow: 0 3px 9px rgba(0,0,0,0.3);
+  height: 50px;
+  padding: 10px 30px;
+  background-color: transparent;
   font-weight: bold;
   margin-top: -10px;
 }
 
 .botoes-header-jogo-pares {
   display: flex;
-  gap: 10px;
+  gap: 25px;
 }
 
 .botoes-header-jogo-pares button {
@@ -58,6 +56,7 @@
   font-weight: bold;
   text-align: center;
   flex-grow: 1;
+  margin-left: -40px;
 }
 
 .botao-som-jogo-pares {
@@ -83,13 +82,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(18, 60, 100);
-  padding: 25px;
-  border-radius: 20px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+  background-color: #122866;
+  padding: 25px 15px;
+  border-radius: 10px;
+  box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 900px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .tabuleiro-montar-pares {
@@ -142,6 +141,11 @@
   width: 85%;
   height: 85%;
   object-fit: contain;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   pointer-events: none;
 }
 
