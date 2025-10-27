@@ -1,4 +1,3 @@
-/* ======== CONTAINER GERAL ======== */
 .escovacao-container {
   position: relative;
   overflow: hidden;
@@ -8,31 +7,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(180deg, #faf8f9 0%, #f8f7f7 50%, #c56087 100%);
-}
-
-/* ======== ONDAS ROSA SUAVES ======== */
-.escovacao-container::before,
-.escovacao-container::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 300%;
-  height: 300%;
-  background-repeat: repeat-x;
-  border-radius: 50%;
-  opacity: 0.15;
-  z-index: 0;
-  pointer-events: none;
+  background-image: url("../assets//ESCOVACAO/dd.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 
-@keyframes escovacao-ondas {
-  0% { transform: translateX(0) translateY(0) scale(1); }
-  50% { transform: translateX(-10%) translateY(3%) scale(1.02); }
-  100% { transform: translateX(-18%) translateY(0) scale(1); }
-}
 
 /* Conteúdo do jogo acima do fundo */
 .escovacao-tela,
@@ -48,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   gap: 25px;
-  background: #ffffffdd;
+  background: #eeeaeadd;
   padding: 45px 65px;
   border-radius: 20px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -93,6 +74,10 @@
   border-radius: 20px;
   overflow: hidden;
   animation: fadeIn 0.4s ease;
+  background-color: #f6f7fc;
+  padding: 70px 70px;
+  margin-top: -20px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.4);
 }
 
 /* ======== HEADER DO JOGO ======== */
@@ -101,10 +86,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 10px 6px;
-  max-width: 800px;
+  max-width: 1000px;
+  width: 80%;
   width: auto;
   border-radius: 20px 20px 0 0;
   position: relative;
+  margin-top: -10px;
 }
 
 .escovacao-btn.voltar,
@@ -146,13 +133,15 @@
   align-items: center;
   position: relative;
   margin-top: 10px;
-  width: 600px;
+  width: 500px;
   height: auto;
   overflow: visible;
+  border-radius: 10px;
+  
 }
 
 .escovacao-menina {
-  width: 100%;
+  width: 390px;
   transition: all 0.4s ease;
 }
 
@@ -163,36 +152,27 @@
   border-radius: 50%;
   pointer-events: none;
   transition: opacity 0.5s ease;
-  margin-top: 215px;
-  margin-left: 140px;
-
-  /* Verde mais vibrante e estilo “bactéria” */
-  background: radial-gradient(
-    circle at 30% 30%, 
-    rgba(83, 82, 17, 0.95),  /* centro mais vivo */
-    rgba(83, 82, 17, 0.95)     /* bordas mais escuras */
-  );
-
-  /* Pequeno movimento contínuo */
+  margin-top: 100px;
+  margin-left: 110px;
   animation: mancha-flutua 8s ease-in-out infinite alternate;
 }
 
 /* tamanhos — exatamente iguais */
 .escovacao-mancha.pequena { 
-  width: 18px; 
-  height: 18px; 
+  width: 12px; 
+  height: 12px; 
   background: transparent;
 }
 
 .escovacao-mancha.media { 
-  width: 18px; 
-  height: 18px; 
+  width: 12px; 
+  height: 12px; 
   background: transparent;
 }
 
 .escovacao-mancha.grande { 
-  width: 18px; 
-  height: 18px; 
+  width: 12; 
+  height: 12px; 
   background: transparent;
 }
 
@@ -209,10 +189,10 @@
 /*   EFEITOS DA FUMAÇA DO HÁLITO   */
 .escovacao-fumaca {
   position: absolute;
-  width: 100px;
-  height: 18px;
-  margin-top: 250px;
-  margin-left: 1px;
+  width: 70px;
+  height: 14px;
+  margin-top: 130px;
+  margin-left: -30px;
   border-radius: 50% 50% 40% 40%; /* mais arredondado tipo nuvem */
   background: radial-gradient(circle at 50% 50%, rgba(0, 255, 34, 0.137), rgba(0, 0, 0, 0.089));
   animation: fumaca-flutua 5s ease-in-out infinite alternate;
@@ -232,8 +212,8 @@
   top: 140px;
   display: flex;
   gap: 8px;
-  margin-top: 180px;
-  margin-left: 110px;
+  margin-top: 70px;
+  margin-left: 50px;
   z-index: 20;
 }
 
@@ -320,15 +300,15 @@
   pointer-events: none;
   box-shadow: 0 0 6px rgba(200, 220, 255, 0.6);
   animation: bolha-flutua 1.5s ease-out forwards;
-  width: 22px;
-  height: 22px;
+  width: 12px;
+  height: 12px;
   margin: -28px 0 0 -28px;
 }
 
 @keyframes bolha-flutua {
-  0% { transform: translateY(0) scale(1); opacity: 1; }
-  50% { transform: translateY(-12px) scale(1.15); opacity: 0.8; }
-  100% { transform: translateY(-24px) scale(1.3); opacity: 0; }
+  0% { transform: translateY(0) scale(0.9); opacity: 1; }
+  50% { transform: translateY(-12px) scale(1.10); opacity: 0.8; }
+  100% { transform: translateY(-24px) scale(1.2); opacity: 0; }
 }
 
 /* ======== BRILHO ======== */
@@ -338,8 +318,8 @@
   height: 100px;
   pointer-events: none;
   z-index: 15;
-  margin-top: 140px;
-  margin-right: 50px;
+  margin-top: 120px;
+  margin-right: 40px;
 }
 
 .escovacao-estrela {
@@ -503,3 +483,4 @@
     transform: scale(1);
   }
 }
+

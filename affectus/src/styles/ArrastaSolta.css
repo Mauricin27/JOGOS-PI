@@ -385,3 +385,181 @@
   transform: scale(1.08) rotate(-1deg); /* pequeno efeito divertido */
   box-shadow: 0 8px 20px rgba(0,0,0,0.5);
 }
+
+
+/* ================= MEDIA QUERIES ================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .arrastaSolta-jogo {
+    flex-direction: column;
+    margin-left: 0;
+    gap: 30px;
+  }
+
+  .campo-habitos,
+  .campo-destino-certos,
+  .campo-destino-errados {
+    width: 90%;
+    height: auto;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .habito,
+  .habito-solto {
+    width: 90%;
+    height: 85px;
+  }
+
+  .habito-img,
+  .habito-solto img {
+    width: 45px;
+    height: 35px;
+  }
+
+  .habito-texto {
+    font-size: 14px;
+    height: 38px;
+  }
+
+  .arrastaSolta-tempo {
+    font-size: 22px;
+  }
+
+  .arrasta-logo {
+    width: 80px;
+    height: 150px;
+    margin-left: 40px;
+    margin-top: 40px;
+  }
+
+  .musicaAS-btn {
+    font-size: 22px;
+    padding: 7px;
+    margin-right: 40px;
+  }
+
+  .botoes-jogo {
+    gap: 20px;
+  }
+
+  .botao-sair-arrasta,
+  .botao-reinicia-arrasta,
+  .botao-enviar-arrasta {
+    font-size: 16px;
+    padding: 10px 16px;
+  }
+
+  .modalArrasta-content {
+    max-width: 400px;
+    padding: 25px;
+  }
+
+  .modalArrasta-content h2 {
+    font-size: 22px;
+  }
+
+  .modalArrasta-content p {
+    font-size: 16px;
+  }
+
+  .modal-img {
+    width: 90px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .arrastaSolta-jogo {
+    flex-direction: column;
+    margin-left: 0;
+    gap: 20px;
+  }
+
+  .campo-habitos,
+  .campo-destino-certos,
+  .campo-destino-errados {
+    width: 95%;
+    height: auto;
+    grid-template-columns: 1fr;
+    padding: 10px;
+  }
+
+  .habito,
+  .habito-solto {
+    width: 95%;
+    height: 75px;
+  }
+
+  .habito-img,
+  .habito-solto img {
+    width: 40px;
+    height: 30px;
+  }
+
+  .habito-texto {
+    font-size: 13px;
+    height: 35px;
+  }
+
+  .arrastaSolta-tempo {
+    font-size: 18px;
+  }
+
+  .arrasta-logo {
+    width: 60px;
+    height: 120px;
+    margin-left: 20px;
+    margin-top: 30px;
+  }
+
+  .musicaAS-btn {
+    font-size: 20px;
+    padding: 6px;
+    margin-right: 20px;
+  }
+
+  .botoes-jogo {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .botao-sair-arrasta,
+  .botao-reinicia-arrasta,
+  .botao-enviar-arrasta {
+    width: 100px;
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+
+  .modalArrasta-content {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .modalArrasta-content h2 {
+    font-size: 20px;
+  }
+
+  .modalArrasta-content p {
+    font-size: 14px;
+  }
+
+  .modal-img {
+    width: 80px;
+  }
+
+  .fechar-arrastaModal {
+    top: 10px;
+    right: 12px;
+    font-size: 18px;
+    padding: 4px 8px;
+  }
+
+  .modalArrasta-content button:not(.fechar-arrastaModal) {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+

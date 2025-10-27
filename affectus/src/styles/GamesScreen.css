@@ -203,3 +203,126 @@
   margin: 2px 0 0 0;
 }
 
+/* ================= MEDIA QUERIES ================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .areaJogos-header {
+    flex-direction: column;
+    height: auto;
+    gap: 25px;
+  }
+
+  .areaJogosHeader-center {
+    width: 80%;
+  }
+
+  .imgLeft-container,
+  .imgRight-container {
+    width: 180px;
+  }
+
+  .areaJogosLeft-img {
+    width: 260px;
+    height: auto;
+    margin-top: 20px;
+  }
+
+  .areaJogosRight-img {
+    width: 260px;
+    height: auto;
+    margin-top: -10px;
+  }
+
+  .areaJogosTitle,
+  .areaJogosTitle2 {
+    font-size: 2rem;
+  }
+
+  .areaJogosPlay-btn {
+    font-size: 20px;
+    padding: 0.5rem 2rem;
+  }
+
+  .jogosPlace-container {
+    height: auto;
+    padding: 0 15px;
+  }
+
+  .jogosPlace-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .game-card {
+    height: 200px;
+  }
+
+  .jogosPlaceH1 {
+    font-size: 28px;
+  }
+
+  .jogosPlace-title {
+    font-size: 20px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .areaJogos-header {
+    flex-direction: column;
+    height: auto;
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  .areaJogosHeader-center {
+    width: 95%;
+  }
+
+  .imgLeft-container,
+  .imgRight-container {
+    width: 140px;
+  }
+
+  .areaJogosLeft-img,
+  .areaJogosRight-img {
+    width: 180px;
+    height: auto;
+    margin-top: 10px;
+  }
+
+  .areaJogosTitle,
+  .areaJogosTitle2 {
+    font-size: 1.6rem;
+  }
+
+  .areaJogosPlay-btn {
+    font-size: 18px;
+    padding: 0.4rem 1.8rem;
+  }
+
+  .jogosPlace-container {
+    height: auto;
+    padding: 0 10px;
+  }
+
+  .jogosPlace-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .game-card {
+    height: 180px;
+  }
+
+  .jogosPlaceH1 {
+    font-size: 24px;
+  }
+
+  .jogosPlace-title {
+    font-size: 18px;
+  }
+}
+
+

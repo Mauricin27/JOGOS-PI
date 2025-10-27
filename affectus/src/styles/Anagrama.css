@@ -29,17 +29,13 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 90px;
-  background-image: url("../assets/ANAGRAMA/ll.png");
-  background-size: cover;
-  background-repeat: no-repeat;
+  height: 70px;
   color: rgb(245, 242, 242);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 70px;
+  padding: 10px 80px;
   z-index: 1000;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
 }
 
 .anagrama-header-left,
@@ -50,8 +46,8 @@
 }
 
 .anagrama-header-icone {
-  width: 105px;
-  height: 135px;
+  width: 100px;
+  height: 115px;
   cursor: pointer;
   margin-top: 20px;
 }
@@ -60,11 +56,10 @@
 .anagrama-header-pontuacao {
   font-size: 18px;
   font-weight: bold;
-  margin-right: 60px;
 }
 
 .anagrama-header-progresso {
-  font-size: 28px;
+  font-size: 25px;
 }
 
 .anagrama-header-btn-som {
@@ -88,10 +83,10 @@
 .anagrama-jogo-area {
   width: 100%;
   max-width: 1250px;
-  background: linear-gradient(188deg, #a67dd8, #7a4db6, #5f3885);
+  background: linear-gradient(188deg, #906ac0, #7a4db6, #522f75);
   border-radius: 14px;
   padding: 25px;
-  margin-top: 20px;
+  margin-top: 10px;
   height: 700px;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.6);
   display: flex;
@@ -105,7 +100,7 @@
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 20px;
-  background-color: #d1b5eb;
+  background-color: #dbc2f3;
   padding: 10px 16px;
   border: none;
   border-radius: 10px;
@@ -117,7 +112,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1px;
   margin-top: 30px;
   margin-bottom: 25px;
 }
@@ -147,21 +141,28 @@
   transform: scale(1.07) rotate(-3deg);
 }
 
-.anagrama-letra-btn.movendo {
-  animation: cairResposta 0.5s forwards;
-  z-index: 10;
-}
 
 @keyframes cairResposta {
   0% {
-    transform: scale(1.1) rotate(10deg);
+    transform: translateY(-200px) scale(1.1);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(50px) scale(1.05);
     opacity: 0.9;
   }
   100% {
-    transform: scale(1.05) rotate(0deg);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
+
+.anagrama-letra-btn.movendo {
+  animation: cairResposta 0.7s ease-out forwards;
+  z-index: 10;
+}
+
+
 
 .anagrama-carta-movida {
   transform: rotate(0deg) scale(1.05);
@@ -179,8 +180,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1px;
-  margin-bottom: 25px;
+  margin-bottom: 29px;
 }
 
 .anagrama-resposta-letra-container {
@@ -243,7 +243,7 @@
 
 .anagrama-footer-btn-reiniciar,
 .anagrama-footer-btn-sair {
-  background: linear-gradient(to right, #FF512F 0%, #bd7613  51%, #FF512F  100%);
+   background: linear-gradient(to right, #bba424 0%, #c4c706 100%);
   width: 140px;
   font-size: 20px;
   font-family: 'Chewy', cursive;
@@ -254,6 +254,7 @@
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
 }
+
 
 .anagrama-footer-btn-reiniciar:hover {
   background: linear-gradient(to right, #365776 0%, #4c7db4 51%, #365276 100%);
@@ -309,19 +310,18 @@
   text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
 }
 
-.anagrama-modal-btn-voltar {
-  background: linear-gradient(to right, #FF512F 0%, #bd7613  51%, #FF512F  100%);
-  color: #080808;
-  font-weight: bold;
-  border: none;
-  padding: 12px 25px;
-  margin-top: 15px;
+.anagrama-footer-btn-reiniciar,
+.anagrama-footer-btn-sair {
+  background: linear-gradient(158deg, #FFD500, #b19714);
+  width: 140px;
+  font-size: 20px;
   font-family: 'Chewy', cursive;
-  border-radius: 15px;
-  cursor: pointer;
-  font-size: 16px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-  transition: all 0.2s ease-in-out;
+  font-weight: 700;
+  padding: 10px 10px;
+  color: #080808;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
 }
 
 .anagrama-modal-btn-voltar:hover {
@@ -388,3 +388,107 @@
   from { transform: scale(0.8); opacity: 0; }
   to { transform: scale(1); opacity: 1; }
 }
+
+
+/* ================= MEDIA QUERIES ================= */
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .anagrama-jogo-area {
+    max-width: 90%;
+    padding: 15px;
+    min-height: 450px;
+  }
+
+  .anagrama-letra-btn,
+  .anagrama-carta-movida {
+    width: 80px;
+    height: 90px;
+    font-size: 28px;
+  }
+
+  .anagrama-resposta-letra-container {
+    width: 80px;
+    height: 90px;
+    font-size: 18px;
+  }
+
+  .anagrama-header-progresso,
+  .anagrama-header-pontuacao {
+    font-size: 22px;
+    margin-right: 30px;
+  }
+
+  .anagrama-header-btn-som {
+    padding: 6px 6px;
+    font-size: 18px;
+  }
+
+  .anagrama-footer-btn-reiniciar,
+  .anagrama-footer-btn-sair {
+    width: 120px;
+    font-size: 16px;
+    padding: 8px 10px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .anagrama-jogo-area {
+    padding: 12px;
+    min-height: 400px;
+  }
+
+  .anagrama-letra-btn,
+  .anagrama-carta-movida {
+    width: 60px;
+    height: 70px;
+    font-size: 24px;
+  }
+
+  .anagrama-resposta-letra-container {
+    width: 60px;
+    height: 70px;
+    font-size: 16px;
+  }
+
+  .anagrama-proxima-btn {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .anagrama-footer-btn-reiniciar,
+  .anagrama-footer-btn-sair {
+    width: 100px;
+    font-size: 14px;
+    padding: 6px 8px;
+  }
+
+  .anagrama-header-icone {
+    width: 50px;
+    height: 70px;
+    margin-top: 10px;
+  }
+
+  .anagrama-header-progresso,
+  .anagrama-header-pontuacao {
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  .anagrama-header-btn-som {
+    padding: 5px 5px;
+    font-size: 16px;
+  }
+
+  .anagrama-modal-content {
+    max-width: 90%;
+    padding: 20px;
+  }
+
+  .anagrama-modal-btn-voltar {
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+}
+

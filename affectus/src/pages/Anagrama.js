@@ -185,7 +185,6 @@ export default function AnagramaJogo() {
             </button>
           ))}
         </div>
-
         {/* RESPOSTA */}
         <div className="anagrama-jogo-resposta">
           {palavraAtual.split("").map((_, index) => (

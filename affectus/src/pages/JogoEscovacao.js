@@ -72,9 +72,9 @@ export default function JogoEscovacao() {
   }, [jogoIniciado]);
 
   const gerarManchas = () => {
-    const novas = Array.from({ length: 15 }).map(() => ({
+    const novas = Array.from({ length: 12 }).map(() => ({
       id: Math.random(),
-      x: 50 + Math.random() * 170,
+      x: 50 + Math.random() * 150,
       y: 100 + Math.random() * 50,
       sizeClass: classesTamanho[Math.floor(Math.random() * classesTamanho.length)],
       vida: 40,
@@ -107,8 +107,8 @@ export default function JogoEscovacao() {
 
   // Movimento da escova
   useEffect(() => {
-    const marginLeft = 140;
-    const marginTop = 215;
+    const marginTop = 100;
+    const marginLeft = 110;
     const escovaLargura = 80;
 
     const handleMouseMove = (e) => {
@@ -175,81 +175,81 @@ export default function JogoEscovacao() {
 
 
   // Movimento do enxaguante (arrastar e apagar fumaça)
-    useEffect(() => {
-    if (!enxaguanteSelecionado) return;
+  // Movimento do enxaguante (arrastar e apagar fumaça)
+useEffect(() => {
+  if (!enxaguanteSelecionado) return;
 
-    const area = areaRef.current;
-    if (!area) return;
+  const area = areaRef.current;
+  if (!area) return;
 
-    const enxaguanteLargura = 80;
+  const enxaguanteLargura = 80;
 
-    if (somAtivo) {
-      aguaAudioRef.current?.play().catch(() => {});
-    }
+  const handleMouseMove = (e) => {
+    const rect = area.getBoundingClientRect();
+    const x = e.clientX - rect.left - enxaguanteLargura / 2;
+    const y = e.clientY - rect.top - enxaguanteLargura / 2;
+    setEnxaguantePos({ x, y });
 
-   const handleMouseMove = (e) => {
-  const rect = area.getBoundingClientRect();
-  const x = e.clientX - rect.left - enxaguanteLargura / 2;
-  const y = e.clientY - rect.top - enxaguanteLargura / 2;
-  setEnxaguantePos({ x, y });
+    let tocouFumaca = false;
 
-  let tocouFumaca = false;
+    setFumaca((prevFumaca) => {
+      const novas = prevFumaca
+        .map((f) => {
+          const fx = f.x - 30; // Ajuste de margem
+          const fy = f.y + 130; // Ajuste de margem
+          const distancia = Math.hypot(fx - x, fy - y);
 
-  setFumaca((prevFumaca) => {
-    const novas = prevFumaca
-      .map((f) => {
-        // Considera margin-top e margin-left da fumaça
-        const fx = f.x + 1; // margin-left
-        const fy = f.y + 250; // margin-top
-        const distancia = Math.hypot(fx - x, fy - y);
+          if (distancia <= enxaguanteLargura / 2) {
+            tocouFumaca = true;
+            return { ...f, vida: f.vida - 1 };
+          }
+          return f;
+        })
+        .filter((f) => f.vida > 0);
 
-        if (distancia <= enxaguanteLargura / 2) {
-          tocouFumaca = true;
-          return { ...f, vida: f.vida - 1 };
+      // Só tocar o som quando todas as fumacas forem removidas
+      if (novas.length === 0 && !refrescantePlayedRef.current) {
+        refrescantePlayedRef.current = true;
+        setMostrarRefrescante(true);
+        if (somAtivo) {
+          aguaAudioRef.current?.play().catch(() => {});
         }
-        return f;
-      })
-      .filter((f) => f.vida > 0);
+        setTimeout(() => setMostrarRefrescante(false), 3000);
+      }
 
-    if (novas.length === 0 && !refrescantePlayedRef.current) {
-      refrescantePlayedRef.current = true;
-      setMostrarRefrescante(true);
-      if (somAtivo) new Audio(refrescanteSom).play().catch(() => {});
-      setTimeout(() => setMostrarRefrescante(false), 3000);
-    }
-
-    if (tocouFumaca) {
-      const id = Math.random();
-      setAgua((prev) => [...prev, { id, x, y }]);
-      setTimeout(() => {
-        setAgua((prev) => prev.filter((a) => a.id !== id));
-      }, 600);
-    }
+      if (tocouFumaca) {
+        const id = Math.random();
+        setAgua((prev) => [...prev, { id, x, y }]);
+        setTimeout(() => {
+          setAgua((prev) => prev.filter((a) => a.id !== id));
+        }, 600);
+      }
 
       return novas;
     });
   };
 
-    const handleClickAnywhere = () => {
-      setEnxaguanteSelecionado(false);
-      setEnxaguanteAtivo(false);
-      aguaAudioRef.current?.pause();
-      aguaAudioRef.current.currentTime = 0;
-    };
+  const handleClickAnywhere = () => {
+    setEnxaguanteSelecionado(false);
+    setEnxaguanteAtivo(false);
+    aguaAudioRef.current?.pause();
+    aguaAudioRef.current.currentTime = 0;
+  };
 
-    document.body.classList.add("cursor-none");
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("click", handleClickAnywhere);
+  document.body.classList.add("cursor-none");
+  window.addEventListener("mousemove", handleMouseMove);
+  window.addEventListener("click", handleClickAnywhere);
 
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("click", handleClickAnywhere);
-      document.body.classList.remove("cursor-none");
-      aguaAudioRef.current?.pause();
-      aguaAudioRef.current.currentTime = 0;
-    };
-   }, [enxaguanteSelecionado, somAtivo]);
+  return () => {
+    window.removeEventListener("mousemove", handleMouseMove);
+    window.removeEventListener("click", handleClickAnywhere);
+    document.body.classList.remove("cursor-none");
+    aguaAudioRef.current?.pause();
+    aguaAudioRef.current.currentTime = 0;
+  };
+}, [enxaguanteSelecionado, somAtivo]);
 
+    
  
 
   const handleSelecionarEscova = (e) => {

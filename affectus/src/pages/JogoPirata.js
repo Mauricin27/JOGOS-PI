@@ -163,13 +163,13 @@ export default function JogoPirata() {
 
   return (
     <div className="jogo-pirata-container">
-      <header className="jogo-header">
+      <header className="jogo-header-pirata">
         <button className="botao-voltar-pirata" onClick={() => window.location.href = "/"}>
           ←
         </button>
 
         <div className="barra-progresso-pirata">
-          <div className="preenchimento" style={{ width: `${progressoAtual}%` }}></div>
+          <div className="preenchimento-pirata" style={{ width: `${progressoAtual}%` }}></div>
         </div>
 
         <button className="botao-som-pirata" onClick={() => setSomAtivo(!somAtivo)}>
@@ -178,13 +178,13 @@ export default function JogoPirata() {
       </header>
 
       <div className="jogo-pirata-area">
-        <div className="tabuleiro-container">
+        <div className="tabuleiro-container-pirata">
           {Array.from({ length: 12 }).map((_, i) => (
             <div
               key={i}
               className={`casa ${i < posicao ? "passada" : ""} ${i === posicao ? "ativa" : ""}`}
             >
-              {i === 11 && <img src={TesouroImg} alt="Tesouro" className="tesouro-casa" />}
+              {i === 11 && <img src={TesouroImg} alt="Tesouro" className="tesouro-casa-pirata" />}
             </div>
           ))}
 
@@ -197,22 +197,22 @@ export default function JogoPirata() {
         </div>
 
         {!jogoIniciado && !fimDeJogo && (
-          <button className="botao-comecar" onClick={iniciarJogo}>
+          <button className="botao-comecar-pirata" onClick={iniciarJogo}>
             Começar jogo
           </button>
         )}
 
         {jogoIniciado && mostrarPergunta && !fimDeJogo && (
-          <div className={`pergunta-flutuante ${animacao}`}>
-            <div className="conteudo-pergunta">
-              <h3 className="titulo-pergunta">🧭 Pergunta:</h3>
-              <img src={perguntas[perguntaIndex].imagem} alt="Pergunta" className="img-pergunta" />
-              <p className="texto-pergunta">{perguntas[perguntaIndex].pergunta}</p>
-              <div className="divisor"></div>
-              <h4 className="titulo-respostas">Respostas:</h4>
-              <div className="opcoes">
+          <div className={`pergunta-flutuante-pirata ${animacao}`}>
+            <div className="conteudo-pergunta-pirata">
+              <h3 className="titulo-pergunta-pirata">🧭 Pergunta:</h3>
+              <img src={perguntas[perguntaIndex].imagem} alt="Pergunta" className="img-pergunta-pirata" />
+              <p className="texto-pergunta-pirata">{perguntas[perguntaIndex].pergunta}</p>
+              <div className="divisor-pirata"></div>
+              <h4 className="titulo-respostas-pirata">Respostas:</h4>
+              <div className="opcoes-pirata">
                 {perguntas[perguntaIndex].opcoes.map((op, i) => (
-                  <button key={i} className="botao-resposta" onClick={() => responder(i)}>
+                  <button key={i} className="botao-resposta-pirata" onClick={() => responder(i)}>
                     {op}
                   </button>
                 ))}
@@ -223,10 +223,10 @@ export default function JogoPirata() {
 
         {fimDeJogo && (
           <div className="modal-vitoria-pirata">
-            <div className="modal-fundo"></div>
+            <div className="modal-fundo-pirata"></div>
             <div className="pergaminho-vitoria-pirata">
-              <div className="pergaminho-topo"></div>
-              <div className="conteudo-pergaminho">
+              <div className="pergaminho-topo-pirata"></div>
+              <div className="conteudo-pergaminho-pirata">
                 <h2 className="titulo-vitoria-pirata">
                   🏴‍☠️ Parabéns, você encontrou o tesouro! 💰
                 </h2>
@@ -237,17 +237,17 @@ export default function JogoPirata() {
                   Jogar novamente
                 </button>
               </div>
-              <div className="pergaminho-rodape"></div>
+              <div className="pergaminho-rodape-pirata"></div>
             </div>
           </div>
         )}
 
         {derrota && (
           <div className="modal-derrota-pirata">
-            <div className="modal-fundo"></div>
-            <div className="conteudo-derrota">
+            <div className="modal-fundo-pirata"></div>
+            <div className="conteudo-derrota-pirata">
               <h2>💀 Você perdeu! 💀</h2>
-              <button className="botao-comecar" onClick={() => window.location.href = "/game/6"}>
+              <button className="botao-comecar-pirata" onClick={() => window.location.href = "/game/6"}>
                 Começar jogo
               </button>
             </div>

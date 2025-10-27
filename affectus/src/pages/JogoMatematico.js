@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../styles/JogoMatematica.css';
+import "../styles/JogoMatematica.css";
 import professor from "../assets/MATEMATICA/x2.png";
 import FORMOU from "../assets/MATEMATICA/FORMOU.png";
 import logo from "../assets/MATEMATICA/LOGO.png";
@@ -7,6 +7,7 @@ import somAcerto from "../assets/MATEMATICA/ACERTA.mp3";
 import somErro from "../assets/MATEMATICA/ERRA.mp3";
 import VENCEU from "../assets/MATEMATICA/VENCEU.mp3";
 import PERDEU from "../assets/MATEMATICA/PERDEU.mp3";
+import QUADRO from "../assets/MATEMATICA/BOARD.png";
 
 export default function JogoMatematico() {
   const perguntas = [
@@ -67,104 +68,97 @@ export default function JogoMatematico() {
     setRespostaClicada(null);
   }
 
-  function sairJogo() {
-    window.location.reload();
-  }
-
   return (
-  <div className="container-geral">
-    <div className="container-jogo">
-      {/* Header */}
-      <div className="header-jogo">
-        <img src={logo} className="logo-jogo" alt="logo" />
-
-        <div className="header-centro">
-          {!finalizado && <h2 className="titulo-jogo">Desafio Matemático</h2>}
-
-          <div className="barra-progresso">
-            <div
-              className="barra-preenchida"
-              style={{ width: `${progresso}%` }}
-            ></div>
-          </div>
-        </div>
-
-        <button className="botao-som" onClick={() => setSomAtivo(!somAtivo)}>
-          {somAtivo ? "🔊" : "🔇"}
-        </button>
-      </div>
-
-      {/* Pergunta */}
-      {!finalizado && (
-        <div className="professor-container">
-          <img src={professor} className="professor-img" alt="professor" />
-          <div className="balao">
-            <p>{perguntas[indice].conta} = ?</p>
-          </div>
-        </div>
-      )}
-
-      {/* Respostas */}
-      {!finalizado && (
-        <div className="respostas-container">
-          {perguntas[indice].opcoes.map((opcao, i) => (
-            <div
-              key={i}
-              className={`card-resposta ${
-                respostaClicada === opcao
-                  ? opcao === perguntas[indice].resposta
-                    ? "correto"
-                    : "errado"
-                  : ""
-              }`}
-              onClick={() => verificarResposta(opcao)}
-            >
-              {opcao}
+    <div className="container-geral">
+      <div className="container-jogo">
+        {/* Header */}
+        <div className="header-jogo">
+          <img src={logo} className="logo-jogo" alt="logo" />
+          <div className="header-centro">
+            {!finalizado && <h2 className="titulo-jogo">Desafio Matemático</h2>}
+            <div className="barra-progresso">
+              <div
+                className="barra-preenchida"
+                style={{ width: `${progresso}%` }}
+              ></div>
             </div>
-          ))}
-        </div>
-      )}
-
-      {!finalizado && (
-        <div className="botoes-jogo-fixo">
-          <button className="btn-sair" onClick={() => (window.location.href = "/")}>
-            Sair
-          </button>
-          <button className="btn-reiniciar" onClick={reiniciarJogo}>
-            Reiniciar
+          </div>
+          <button className="botao-som" onClick={() => setSomAtivo(!somAtivo)}>
+            {somAtivo ? "🔊" : "🔇"}
           </button>
         </div>
-      )}
 
-      {/* Modal final */}
-      {finalizado && (
-        <div className="modal-final">
-          {acertos >= 6 ? (
-            <>
-              <h2>Parabéns!</h2>
-              {somAtivo && <audio autoPlay src={VENCEU}></audio>}
-              <p>Você acertou {acertos} de {perguntas.length}!</p>
-              <img src={FORMOU} className="modal-img" alt="vic" />
-              <button className="btn-reiniciar" onClick={reiniciarJogo}>
-                Jogar Novamente
-              </button>
-            </>
-          ) : (
-            <>
-              <h2>Você pode melhorar!</h2>
-              {somAtivo && <audio autoPlay src={PERDEU}></audio>}
-              <p>Você acertou {acertos} de {perguntas.length}.</p>
-              <img src={FORMOU} className="modal-img" alt="lose" />
-              <button className="btn-reiniciar" onClick={reiniciarJogo}>
-                Jogar Novamente
-              </button>
-            </>
-          )}
-        </div>
-      )}
+        {/* Pergunta */}
+        {!finalizado && (
+          <div className="professor-container">
+            <img src={professor} className="professor-img" alt="professor" />
+            <div className="balao">
+              <p>{perguntas[indice].conta} = ?</p>
+            </div>
+          </div>
+        )}
+
+        {/* Respostas */}
+        {!finalizado && (
+          <div className="respostas-container">
+            {perguntas[indice].opcoes.map((opcao, i) => (
+              <div
+                key={i}
+                className={`card-resposta ${
+                  respostaClicada === opcao
+                    ? opcao === perguntas[indice].resposta
+                      ? "correto"
+                      : "errado"
+                    : ""
+                }`}
+                onClick={() => verificarResposta(opcao)}
+                style={{ backgroundImage: `url(${QUADRO})` }}
+              >
+                <span className="texto-resposta">{opcao}</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Botões inferiores */}
+        {!finalizado && (
+          <div className="botoes-jogo-fixo">
+            <button className="btn-sair" onClick={() => (window.location.href = "/")}>
+              Sair
+            </button>
+            <button className="btn-reiniciar" onClick={reiniciarJogo}>
+              Reiniciar
+            </button>
+          </div>
+        )}
+
+        {/* Modal final */}
+        {finalizado && (
+          <div className="modal-final">
+            {acertos >= 6 ? (
+              <>
+                <h2>Parabéns!</h2>
+                {somAtivo && <audio autoPlay src={VENCEU}></audio>}
+                <p>Você acertou {acertos} de {perguntas.length}!</p>
+                <img src={FORMOU} className="modal-img" alt="venceu" />
+                <button className="btn-reiniciar" onClick={reiniciarJogo}>
+                  Jogar Novamente
+                </button>
+              </>
+            ) : (
+              <>
+                <h2>Você pode melhorar!</h2>
+                {somAtivo && <audio autoPlay src={PERDEU}></audio>}
+                <p>Você acertou {acertos} de {perguntas.length}.</p>
+                <img src={FORMOU} className="modal-img" alt="perdeu" />
+                <button className="btn-reiniciar" onClick={reiniciarJogo}>
+                  Jogar Novamente
+                </button>
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </div>
-   </div>
   );
-
- 
 }

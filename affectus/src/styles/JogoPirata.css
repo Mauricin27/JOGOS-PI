@@ -13,7 +13,7 @@
 }
 
 /* ================== CABEÇALHO ================== */
-.jogo-header {
+.jogo-header-pirata {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,7 +45,6 @@
   transform: scale(1.05);
 }
 
-
 .barra-progresso-pirata {
   position: relative;
   width: 40%;
@@ -57,14 +56,13 @@
   box-shadow: 0 0 8px rgba(0,0,0,0.3);
 }
 
-.barra-progresso-pirata .preenchimento {
+.barra-progresso-pirata .preenchimento-pirata {
   height: 100%;
   background: linear-gradient(90deg, #3fcf8c, #0f9959);
   border-radius: 10px;
   transition: width 0.5s ease-in-out;
 }
 
-/* ================== SOM ================== */
 .botao-som-pirata {
   background: none;
   border: none;
@@ -92,7 +90,7 @@
 }
 
 /* ================== TABULEIRO ================== */
-.tabuleiro-container {
+.tabuleiro-container-pirata {
   position: relative;
   display: grid;
   grid-template-columns: repeat(3, 120px);
@@ -123,7 +121,7 @@
 }
 
 /* ================== TESOURO ================== */
-.tesouro-casa {
+.tesouro-casa-pirata {
   width: 100px;
   height: 130px;
   object-fit: contain;
@@ -168,7 +166,7 @@
 }
 
 /* ================== PERGUNTA FLUTUANTE ================== */
-.pergunta-flutuante {
+.pergunta-flutuante-pirata {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -188,7 +186,7 @@
   margin-top: -30px;
 }
 
-.pergunta-flutuante::before {
+.pergunta-flutuante-pirata::before {
   content: "";
   position: fixed;
   top: 0;
@@ -198,12 +196,7 @@
   z-index: -1;
 }
 
-@keyframes aparecer {
-  from { opacity: 0; transform: translate(-50%, -40%) scale(0.9); }
-  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-
-.titulo-pergunta {
+.titulo-pergunta-pirata {
   font-size: 1.6rem;
   color: #5a330c;
   text-shadow: 1px 1px 2px #fff;
@@ -211,20 +204,20 @@
   font-weight: 800;
 }
 
-.img-pergunta {
+.img-pergunta-pirata {
   width: 100px;
   height: auto;
   margin: 10px auto 15px;
 }
 
-.texto-pergunta {
+.texto-pergunta-pirata {
   font-size: 1.2rem;
   color: #3b210a;
   font-weight: bold;
   margin-bottom: 15px;
 }
 
-.divisor {
+.divisor-pirata {
   height: 2px;
   background: #7b4b13;
   margin: 15px auto;
@@ -232,14 +225,14 @@
   opacity: 0.4;
 }
 
-.titulo-respostas {
+.titulo-respostas-pirata {
   font-size: 1.3rem;
   color: #5a330c;
   font-weight: 700;
   margin-bottom: 10px;
 }
 
-.opcoes {
+.opcoes-pirata {
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -247,7 +240,7 @@
   align-items: center;
 }
 
-.botao-resposta {
+.botao-resposta-pirata {
   display: inline-block;
   text-align: center;
   width: 100%;
@@ -264,13 +257,13 @@
   box-sizing: border-box;
 }
 
-.botao-resposta:hover {
+.botao-resposta-pirata:hover {
   transform: scale(1.05);
   background: linear-gradient(180deg, #ffe4a8, #e0b65c);
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
 }
 
-.botao-comecar.esconder {
+.botao-comecar-pirata.esconder {
   display: none;
 }
 
@@ -287,7 +280,7 @@
   justify-content: center;
 }
 
-.modal-fundo {
+.modal-vitoria-pirata .modal-fundo-pirata {
   position: absolute;
   width: 100%;
   height: 100%;
@@ -296,7 +289,6 @@
   animation: fadeInFundoPirata 0.8s ease forwards;
 }
 
-/* ===================== PERGAMINHO ===================== */
 .pergaminho-vitoria-pirata {
   position: relative;
   width: 90%;
@@ -315,10 +307,7 @@
   overflow: hidden;
 }
 
-/* Simula topo e rolo do pergaminho */
-
-/* ===================== CONTEÚDO DO PERGAMINHO ===================== */
-.conteudo-pergaminho {
+.conteudo-pergaminho-pirata {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -326,7 +315,6 @@
   width: 100%;
 }
 
-/* ===================== TÍTULO ===================== */
 .titulo-vitoria-pirata {
   font-size: 1.9rem;
   color: #4a2c0a;
@@ -339,7 +327,6 @@
   animation: brilhoTituloPirata 2.2s ease-in-out infinite alternate;
 }
 
-/* ===================== TESOURO ===================== */
 .imagem-tesouro-container {
   margin: 20px 0;
 }
@@ -350,7 +337,6 @@
   filter: drop-shadow(0 0 8px #ffd700);
 }
 
-/* ===================== BOTÃO ===================== */
 .botao-vitoria-pirata {
   padding: 12px 30px;
   background: linear-gradient(180deg, #f1b33b, #d78b00);
@@ -370,7 +356,98 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.5);
 }
 
-/* ===================== ANIMAÇÕES ===================== */
+/* ================== MODAL DERROTA ================== */
+.modal-derrota-pirata {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-derrota-pirata .modal-fundo-pirata {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(2px);
+  z-index: 1;
+}
+
+.modal-derrota-pirata .conteudo-derrota-pirata {
+  position: relative;
+  background: radial-gradient(circle at top left, #fff4e1 0%, #f5d6a1 100%);
+  border: 5px solid #7b4b13;
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+  font-family: "Nunito", sans-serif;
+  color: #5a330c;
+  animation: fadeInDerrota 0.6s ease forwards;
+  z-index: 2;
+}
+
+.modal-derrota-pirata .conteudo-derrota-pirata h2 {
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  text-shadow: 1px 1px 2px #fff8e1;
+}
+
+.modal-derrota-pirata .conteudo-derrota-pirata .botao-comecar-pirata {
+  padding: 12px 25px;
+  background-color: #c0392b;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.modal-derrota-pirata .conteudo-derrota-pirata .botao-comecar-pirata:hover {
+  background-color: #e74c3c;
+  transform: scale(1.05);
+}
+
+/* ================== BOTÃO COMEÇAR ================== */
+.botao-comecar-pirata {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background-color: #8e44ad;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.botao-comecar-pirata:hover {
+  background-color: #732d91;
+  transform: scale(1.05);
+}
+
+/* ================== ANIMAÇÕES ================== */
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes brilhoTesouroPirata {
+  from { filter: drop-shadow(0 0 2px #ffd700) brightness(1); transform: scale(1); }
+  to { filter: drop-shadow(0 0 14px #fff176) brightness(1.3); transform: scale(1.05); }
+}
+
 @keyframes fadeInFundoPirata {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -387,114 +464,7 @@
   to { text-shadow: 0 0 10px #ffe77a, 0 0 20px #fff6b3; }
 }
 
-@keyframes brilhoTesouroPirata {
-  from { filter: drop-shadow(0 0 2px #ffd700) brightness(1); transform: scale(1); }
-  to { filter: drop-shadow(0 0 14px #fff176) brightness(1.3); transform: scale(1.05); }
-}
-
-
-/* ================== MODAL DERROTA ================== */
-.modal-derrota-pirata {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 9999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-derrota-pirata .modal-fundo {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6); /* fundo escurecido */
-  backdrop-filter: blur(2px);
-  z-index: 1;
-}
-
-.modal-derrota-pirata .conteudo-derrota {
-  position: relative;
-  background: radial-gradient(circle at top left, #fff4e1 0%, #f5d6a1 100%);
-  border: 5px solid #7b4b13;
-  border-radius: 20px;
-  padding: 40px 30px;
-  text-align: center;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.6);
-  font-family: "Nunito", sans-serif;
-  color: #5a330c;
-  animation: fadeInDerrota 0.6s ease forwards;
-  z-index: 2;
-}
-
-.modal-derrota-pirata .conteudo-derrota h2 {
-  font-size: 1.8rem;
-  margin-bottom: 25px;
-  text-shadow: 1px 1px 2px #fff8e1;
-}
-
-.modal-derrota-pirata .conteudo-derrota .botao-comecar {
-  padding: 12px 25px;
-  background-color: #c0392b;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 700;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.modal-derrota-pirata .conteudo-derrota .botao-comecar:hover {
-  background-color: #e74c3c;
-  transform: scale(1.05);
-}
-
-/* ================== ANIMAÇÃO ================== */
 @keyframes fadeInDerrota {
-  from {
-    opacity: 0;
-    transform: translateY(-20px) scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-
-
-/* ================== BOTÃO COMEÇAR ================== */
-.botao-comecar {
-  margin-top: 20px;
-  padding: 12px 25px;
-  background-color: #8e44ad;
-  color: white;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  font-size: 1.1rem;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.botao-comecar:hover {
-  background-color: #732d91;
-  transform: scale(1.05);
-}
-
-/* ================== ANIMAÇÕES ================== */
-@keyframes popIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-@keyframes brilhoTesouro {
-  from { filter: brightness(1); }
-  to { filter: brightness(1.5); }
+  from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
