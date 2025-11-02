@@ -1,0 +1,342 @@
+/* === ESTILOS GERAIS === */
+.container-principal-velha {
+  margin: 0;
+   font-family: 'Chewy', cursive;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed; /* fixa o container na tela */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  background-color: #184e8d;
+  z-index: 1000; /* garante que fique acima de outros elementos */
+  overflow: hidden; /* evita scroll dentro do container */
+}
+
+
+/* === CONTAINER PRINCIPAL === */
+.container-jogo-velha {
+  background-color: #104e96;
+  border-radius: 25px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.5);
+  padding: 25px 20px;
+  width: 90%;
+  max-width: 600px;
+  border: 2px solid #083361;
+  text-align: center;
+  animation: aparecer-container 0.5s ease-in;
+  transition: all 0.3s ease;
+}
+
+@keyframes aparecer-container {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* === CABEÇALHO === */
+.header-barra-topo-velha {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
+}
+
+.titulo-jogo-velha {
+  font-size: 28px;
+  margin-top: -15px;
+  color: rgb(247, 243, 243);
+}
+
+.grupo-botoes-esquerda-velha,
+.grupo-botoes-direita-velha {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* === BOTÕES === */
+.grupo-botoes-esquerda-velha button,
+.grupo-botoes-direita-velha button,
+.botao-modo-abrir-modal {
+  margin: 0;
+  background: linear-gradient(175deg, #ee5f34, #f03d07);
+  color: #f8f5f5;
+  border: none;
+  border-radius: 50px;
+  height: 55px;
+  width: 55px;
+  border: 2px solid #ce7155f5;
+  gap: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 30px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+  margin-top: -20px;
+}
+
+.grupo-botoes-esquerda-velha button:hover,
+.grupo-botoes-direita-velha button:hover,
+.botao-modo-abrir-modal:hover {
+  background: linear-gradient(175deg, #fa9f49, #ff7a00);
+  transform: scale(1.08);
+}
+
+/* === TABULEIRO === */
+.grade-tabuleiro-jogo-velha {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: center;
+  align-content: center;
+  gap: 12px;
+  margin: 15px auto;
+  width: fit-content;
+  margin-top: 50px;
+}
+
+.celula-tabuleiro-jogo {
+  width: clamp(50px, 18vw, 100px);
+  height: clamp(50px, 18vw, 100px);
+  background: rgb(235, 231, 231);
+  border-radius: 15px;
+  font-size: clamp(2rem, 7vw, 3.8rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transform-origin: center;
+  transition: all 0.25s ease;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
+}
+
+.celula-tabuleiro-jogo:hover {
+  background: #dee0e2;
+  transform: scale(1.05);
+  z-index: 2;
+}
+
+/* === CORES DOS JOGADORES === */
+.celula-tabuleiro-jogo.vez-x-jogador {
+  color: #d61324; /* vermelho para X */
+}
+
+.celula-tabuleiro-jogo.vez-o-jogador {
+  color: #e2ba06; /* amarelo para O */
+}
+
+
+/* === CELULAS === */
+.celula-preenchida-jogo {
+  cursor: not-allowed;
+  animation: animar-celula 0.25s ease;
+}
+
+@keyframes animar-celula {
+  from {
+    transform: scale(0.5);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* === STATUS DO JOGO === */
+.area-status-jogo-velha {
+  font-size: clamp(1rem, 2.5vw, 1.6rem);
+  font-weight: bold;
+  margin-top: 10px;
+  color: rgb(247, 243, 243);
+}
+
+.texto-vencedor-jogo-velha {
+  color: #0096ff;
+  animation: animar-vencedor 2s ease;
+}
+
+.celula-vencedora {
+  background-color: #27b868 !important;
+  border-color: #27b188 !important;
+  transform: scale(1.06);
+  color: rgb(248, 245, 245);
+  animation: animar-vencedor 2s ease-in-out;
+}
+
+/* === ANIMAÇÃO DO VENCEDOR COM BALANÇO === */
+@keyframes animar-vencedor {
+  0% {
+    transform: scale(0.7) rotate(0deg);
+  }
+  20% {
+    transform: scale(0.9) rotate(-6deg);
+  }
+  40% {
+    transform: scale(1) rotate(6deg);
+  }
+  60% {
+    transform: scale(1) rotate(-6deg);
+  }
+  80% {
+    transform: scale(1) rotate(6deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.texto-empate-jogo-velha {
+  color: #ffb6b6;
+}
+
+/* === MODAL === */
+.modal-fundo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-conteudo {
+  background: #eaf6ff;
+  border-radius: 20px;
+  padding: 30px 25px;
+  text-align: center;
+  border: 4px solid #5dbbff;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  animation: animar-modal 0.3s ease;
+}
+
+.modal-conteudo h2 {
+  color: #e63946;
+  margin-bottom: 20px;
+  font-size: clamp(1rem, 3vw, 1.5rem);
+}
+
+.botao-modal {
+  display: block;
+  background: #ff7a00;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin: 10px auto;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.botao-modal:hover {
+  background: #ffa733;
+  transform: scale(1.05);
+}
+
+/* === RESPONSIVIDADE === */
+@media (min-width: 1400px) {
+  .container-jogo-velha {
+    max-width: 750px;
+    padding: 40px;
+  }
+  .celula-tabuleiro-jogo {
+    width: 140px;
+    height: 140px;
+    font-size: 4.5rem;
+  }
+}
+
+/* Notebooks */
+@media (min-width: 1200px) and (max-width: 1399px) {
+  .container-jogo-velha {
+    max-width: 700px;
+    padding: 35px;
+  }
+  .celula-tabuleiro-jogo {
+    width: 140px;
+    height: 140px;
+    font-size: 4rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 1024px) {
+  .container-jogo-velha {
+    max-width: 700px;
+  }
+  .celula-tabuleiro-jogo {
+    width: 160px;
+    height: 160px;
+  }
+
+  .grupo-botoes-esquerda-velha button,
+  .grupo-botoes-direita-velha button,
+  .botao-modo-abrir-modal {
+    width: 50px;
+    height: 50px;
+    font-size: 22px;
+  }
+}
+
+/* Celulares grandes */
+@media (max-width: 768px) {
+  .container-jogo-velha {
+    width: 95%;
+    padding: 20px;
+  }
+  .header-barra-topo-velha {
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+  }
+  .celula-tabuleiro-jogo {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+
+  .grupo-botoes-esquerda-velha button,
+  .grupo-botoes-direita-velha button,
+  .botao-modo-abrir-modal {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+  }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+  .container-jogo-velha {
+    width: 100%;
+  }
+  .celula-tabuleiro-jogo {
+    width: 65px;
+    height: 65px;
+    font-size: 1.8rem;
+  }
+
+  .grupo-botoes-esquerda-velha button,
+  .grupo-botoes-direita-velha button,
+  .botao-modo-abrir-modal {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+}

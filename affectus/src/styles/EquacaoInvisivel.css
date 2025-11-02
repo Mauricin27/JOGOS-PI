@@ -1,0 +1,303 @@
+/* ===== ÁREA DE FUNDO ===== */
+.fundo-equacao {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  font-family: 'Chewy', cursive;
+  background-image: url("../assets/EQUACAO/ee.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* ===== CONTAINER PRINCIPAL ===== */
+.container-jogo-equacao {
+  width: 80%;
+  max-width: 1100px;
+  min-height: 760px;
+  background-color: rgb(15, 107, 64);
+  border-radius: 25px;
+  overflow: hidden;
+  text-align: center;
+  animation: surgir 0.6s ease;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+}
+
+/* ===== CABEÇALHO ===== */
+.header-equacao {
+  background-color: rgb(15, 107, 64);
+  color: white;
+  padding: 15px 20px;
+  border-bottom: 2px solid rgb(172, 158, 158);
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.lado-esq-equacao button,
+.lado-dir-equacao button {
+  background-color: rgb(247, 85, 11);
+  border: none;
+  font-size: 26px;
+  height: 50px;
+  width: 50px;
+  margin: 0 5px;
+  border-radius: 50px;
+  cursor: pointer;
+  color: white;
+  border: 2px solid rgb(184, 74, 24);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
+}
+
+.lado-esq-equacao button:hover,
+.lado-dir-equacao button:hover {
+  background: rgb(180, 81, 36);
+  scale: calc(1.1);
+}
+
+.titulo-header-equacao {
+  flex: 1;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 5px 0;
+  color: #f0f3ef;
+}
+
+/* ===== ÁREA DO JOGO ===== */
+.area-jogo-equacao {
+  padding: 30px 15px;
+}
+
+.equacao-problema {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease;
+  color: #141414;
+}
+
+.detetive-logo {
+  width: 220px;
+  height: 250px;
+  margin-top: 30px;
+  border-radius: 15px;
+}
+
+.texto-equacao {
+  font-weight: 700;
+  color: #f8f6f6;
+  font-size: 40px;
+  margin-left: 20px;
+}
+
+/* ===== OPÇÕES ===== */
+.opcoes-equacao {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(180px, 220px));
+  gap: 25px 40px;
+  justify-content: center;
+  align-content: center;
+  margin-top: 30px;
+}
+
+/* BOTÃO DE RESPOSTA */
+.opcao-resposta-equacao {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 220px;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: bold;
+  background-color: transparent;
+  border: none;
+  border-radius: 10px;
+  color: #1d1d1d;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  font-family: 'Chewy', cursive;
+}
+
+/* Hover e escala */
+.opcao-resposta-equacao:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+/* ===== NOVAS ANIMAÇÕES E FEEDBACK ===== */
+.opcao-resposta-equacao.usada.correto {
+  filter: brightness(0.8) sepia(1) hue-rotate(100deg) saturate(1);
+  animation: pulse 0.4s ease-out;
+}
+
+.opcao-resposta-equacao.usada.errado {
+  filter: grayscale(0.9) brightness(0.5);
+  animation: tremer 0.4s ease-in-out;
+}
+
+@keyframes tremer {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-7px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1.1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1.1); }
+}
+
+/* ===== MODAL ===== */
+.modal-resultado-equacao {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 50, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+  padding: 15px;
+}
+
+.modal-conteudo-equacao {
+  background: linear-gradient(145deg, #2e8b57, #3cb371);
+  padding: 30px 35px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(0, 50, 0, 0.6);
+  animation: surgir 0.4s ease;
+  max-width: 90%;
+}
+
+.modal-conteudo-equacao h2 {
+  color: #e0ffd8;
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  text-shadow: 1px 1px 3px #003300;
+}
+
+.modal-conteudo-equacao p {
+  font-size: 1.2rem;
+  color: #f0fff0;
+  text-shadow: 1px 1px 2px #003300;
+  margin: 8px 0;
+}
+
+.modal-conteudo-equacao button {
+  margin-top: 20px;
+  background: #3cb371;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-conteudo-equacao button:hover {
+  background: #2e8b57;
+}
+
+/* ===== ANIMAÇÕES ===== */
+@keyframes surgir {
+  from { transform: scale(0.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 1024px) {
+  .opcoes-equacao {
+    grid-template-columns: repeat(2, minmax(150px, 180px));
+    gap: 24px 28px;
+  }
+  .opcao-resposta-equacao {
+    width: 180px;
+    height: 110px;
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-content {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+  }
+
+  .lado-esq-equacao button,
+  .lado-dir-equacao button {
+    margin: 6px;
+    height: 42px;
+    width: 42px;
+  }
+
+  .titulo-header-equacao { font-size: 1.2rem; margin: 6px 0; }
+  .equacao-problema { font-size: 1.8rem; margin-bottom: 25px; }
+  .texto-equacao { font-size: 30px; margin-left: 10px; color: #fafcfa; }
+  .detetive-logo { width: 180px; height: 200px; }
+
+  .opcoes-equacao {
+    grid-template-columns: repeat(2, minmax(130px, 150px));
+    gap: 20px 28px;
+  }
+
+  .opcao-resposta-equacao {
+    width: 150px;
+    height: 110px;
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .lado-esq-equacao button,
+  .lado-dir-equacao button {
+    margin: 6px;
+  }
+
+  .titulo-header-equacao { font-size: 1rem; }
+  .equacao-problema { font-size: 1.4rem; margin-bottom: 20px; }
+
+  .opcoes-equacao {
+    grid-template-columns: repeat(2, minmax(100px, 130px));
+    gap: 18px 22px;
+  }
+
+  .opcao-resposta-equacao {
+    width: 120px;
+    height: 95px;
+    font-size: 1.4rem;
+  }
+}
