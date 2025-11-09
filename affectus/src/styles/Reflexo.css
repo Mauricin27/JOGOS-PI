@@ -1,0 +1,307 @@
+/* ====== Layout geral ====== */
+.container-jogo-reflexo {
+  background: #050533;
+  background-attachment: fixed;
+  color: #fff;
+  font-family: 'Comic Sans MS', 'Poppins', cursive;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* centraliza o conteúdo do jogo */
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative; /* permite posicionar o header */
+}
+
+/* ====== Header ====== */
+.header-jogo-reflexo {
+  position: absolute; /* fixa o header dentro do container */
+  top: 25px; /* distância do topo */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.reflexo-btns {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 20px;
+}
+
+/* ====== Botões do Header ====== */
+.reflexo-sair-btn,
+.botao-reiniciar-reflexo {
+  border: none;
+  background: radial-gradient(circle at 30% 30%, #72cff7 0%, #3baee4 40%, #0091c9 100%);
+  color: #020f30;
+  border: 2px solid #89b8ec;
+  font-weight: bold;
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  font-size: 26px;
+  transition: all 0.2s ease;
+}
+
+
+.reflexo-sair-btn:hover,
+.botao-reiniciar-reflexo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+}
+
+/* ====== Cronômetro ====== */
+.cronometro {
+  font-size: 30px;
+  font-weight: 900;
+  text-align: center;
+  flex-grow: 1;
+  letter-spacing: 2px;
+  color: rgb(240, 235, 235);
+}
+
+/* ====== Tabuleiro ====== */
+.tabuleiro-reflexos {
+  display: grid;
+  grid-template-columns: repeat(2, 150px);
+  gap: 20px;
+  margin-top: 80px; /* dá espaço entre o header e o tabuleiro */
+  margin-bottom: 25px;
+}
+
+/* ====== Blocos ====== */
+.bloco {
+  width: 150px;
+  height: 150px;
+  background: white;
+  opacity: 0.5;
+  border-radius: 18px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.5), 0 6px 10px rgba(0,0,0,0.3);
+  transition: all 0.15s ease;
+}
+
+.bloco:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.bloco.ativo {
+  background: radial-gradient(circle at 30% 30%, #44dd98 0%, #21bb76 40%, #058b53 100%);
+  opacity: 1;
+  box-shadow: 0 0 5px #1ca158d7, inset 0 0 10px #f0ecec;
+}
+
+
+
+/* ====== Botão Iniciar ====== */
+.iniciar-jogo-reflexo {
+  background: radial-gradient(circle at 30% 30%, #72cff7 0%, #3baee4 40%, #0091c9 100%);
+  color: #020f30;
+  border: 2px solid #89b8ec;
+  border-radius: 34px;
+  padding: 14px 28px;
+  font-size: 22px;
+  font-weight: 800;
+  cursor: pointer;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.15s ease;
+  margin-top: 10px;
+}
+
+.iniciar-jogo-reflexo:hover {
+  transform: translateY(-3px);
+}
+
+.iniciar-jogo-reflexo.invisivel {
+  visibility: hidden; 
+}
+
+/* ===== Modal de Fim de Jogo ===== */
+.modal-fim-reflexo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-conteudo-reflexo {
+  background: radial-gradient(circle at center, #0b0b4a 0%, #050533 80%);
+  color: #e2e2e2;
+  text-align: center;
+  padding: 60px 70px;
+  border-radius: 25px;
+  animation: pop 0.4s ease;
+  max-width: 450px;
+  width: 90%;
+  border: 2px solid rgba(114, 207, 247, 0.3);
+}
+
+.modal-conteudo-reflexo h2 {
+  color: #b8c4c9;
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.modal-conteudo-reflexo p {
+   color: #b8c4c9;
+  font-size: 28px;
+  margin-top: 40px;
+}
+
+.btn-modal-jogar-reflexo {
+  background: radial-gradient(circle at 30% 30%, #72cff7 0%, #3baee4 40%, #0091c9 100%);
+  color: #020f30;
+  border: 2px solid #89b8ec;
+  border-radius: 50px;
+  padding: 16px 32px;
+  font-weight: bolder;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4), inset 0 0 10px rgba(255,255,255,0.2);
+  transition: all 0.25s ease;
+  margin-top: 20px;
+}
+
+.btn-modal-jogar-reflexo:hover {
+  transform: scale(1.03);
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+
+/* ===== Responsividade ===== */
+/* 📱 Celulares (telas até 600px) */
+@media (max-width: 600px) {
+    .header-jogo-reflexo {
+    justify-content: center;
+    margin-bottom: 80px;
+    padding: 0 20px;
+    margin-left: 60px;
+  }
+
+  .reflexo-btns {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 100px;
+    width: 100%;
+  }
+  .tabuleiro-reflexos {
+    grid-template-columns: repeat(2, 150px);
+    gap: 12px;
+  }
+
+  .reflexo-sair-btn,
+  .botao-reiniciar-reflexo {
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
+  }
+
+  .bloco {
+    width: 150px;
+    height: 150px;
+    border-radius: 14px;
+  }
+
+  .cronometro {
+    font-size: 20px;
+  }
+
+  .iniciar-jogo-reflexo {
+    font-size: 16px;
+    padding: 12px 22px;
+  }
+}
+
+/* 📱 Tablets (600px a 900px) */
+@media (min-width: 601px) and (max-width: 900px) {
+    .header-jogo-reflexo {
+    justify-content: center;
+    margin-bottom: 100px;
+    padding: 0 30px;
+  }
+
+  .reflexo-btns {
+    justify-content: space-evenly;
+    gap: 15px;
+    margin-bottom: 120px;
+  }
+
+  .tabuleiro-reflexos {
+    grid-template-columns: repeat(2, 230px);
+    gap: 10px;
+  }
+
+  .reflexo-sair-btn,
+  .botao-reiniciar-reflexo {
+    width: 45px;
+    height: 45px;
+    font-size: 22px;
+  }
+
+  .bloco {
+    width: 230px;
+    height: 230px;
+  }
+
+  .cronometro {
+    font-size: 22px;
+  }
+}
+
+/* 💻 Notebooks e PCs grandes */
+@media (min-width: 901px) {
+  .tabuleiro-reflexos {
+    grid-template-columns: repeat(2, 250px);
+    gap: 15px;
+  }
+
+   .reflexo-sair-btn,
+  .botao-reiniciar-reflexo {
+    width: 55px;
+    height: 55px;
+    font-size: 26px;
+  }
+
+  .bloco {
+    width: 250px;
+    height: 250px;
+  }
+}

@@ -19,10 +19,11 @@
   min-height: 760px;
   background-color: rgb(15, 107, 64);
   border-radius: 25px;
+  border: 3px solid rgb(23, 121, 75);
   overflow: hidden;
   text-align: center;
   animation: surgir 0.6s ease;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
 }
 
 /* ===== CABEÇALHO ===== */
@@ -30,7 +31,6 @@
   background-color: rgb(15, 107, 64);
   color: white;
   padding: 15px 20px;
-  border-bottom: 2px solid rgb(172, 158, 158);
 }
 
 .header-content {
@@ -70,7 +70,7 @@
   font-size: 1.8rem;
   font-weight: 700;
   margin: 5px 0;
-  color: #f0f3ef;
+  color: rgb(231, 236, 234);
 }
 
 /* ===== ÁREA DO JOGO ===== */
@@ -85,7 +85,7 @@
   font-size: 2rem;
   margin-bottom: 30px;
   transition: transform 0.3s ease;
-  color: #141414;
+  color: rgb(231, 236, 234);
 }
 
 .detetive-logo {
@@ -97,7 +97,7 @@
 
 .texto-equacao {
   font-weight: 700;
-  color: #f8f6f6;
+  color: rgb(240, 236, 236);
   font-size: 40px;
   margin-left: 20px;
 }
@@ -127,7 +127,7 @@
   background-color: transparent;
   border: none;
   border-radius: 10px;
-  color: #1d1d1d;
+  color: #1f1f1f;
   cursor: pointer;
   transition: all 0.3s ease;
   overflow: hidden;

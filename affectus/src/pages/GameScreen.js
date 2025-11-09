@@ -9,6 +9,7 @@ import JogoPirata from "../pages/JogoPirata.js";
 import JogoDePares from "../pages/JogoDePares.js";
 import JogoDaVelha from "../pages/JogoDaVelha.js";
 import EquacaoInvisivel from "../pages/EquacaoInvisivel.js";
+import JogoReflexo from "../pages/Reflexo.js";
 
 
 
@@ -73,6 +74,12 @@ export default function GameScreen() {
             return(
               <div>
                 <EquacaoInvisivel />
+              </div>
+            );
+          case "10":
+            return(
+              <div>
+                <JogoReflexo />
               </div>
             );
 
