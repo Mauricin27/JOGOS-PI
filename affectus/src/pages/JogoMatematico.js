@@ -7,6 +7,7 @@ import somErro from "../assets/MATEMATICA/ERRA.mp3";
 import VENCEU from "../assets/MATEMATICA/VENCEU.mp3";
 import PERDEU from "../assets/MATEMATICA/PERDEU.mp3";
 import QUADRO from "../assets/MATEMATICA/BOARD.png";
+import REPROVADO from "../assets/MATEMATICA/REPROVADO.png";
 
 export default function JogoMatematico() {
   const perguntas = [
@@ -134,7 +135,7 @@ export default function JogoMatematico() {
           <div className="modal-final">
             {acertos >= 6 ? (
               <>
-                <h2>Parabéns!</h2>
+                <h2>PARABÉNS! VOCÊ FOI APROVADO!</h2>
                 {somAtivo && <audio autoPlay src={VENCEU}></audio>}
                 <p>Você acertou {acertos} de {perguntas.length}!</p>
                 <img src={FORMOU} className="modal-img" alt="venceu" />
@@ -144,10 +145,10 @@ export default function JogoMatematico() {
               </>
             ) : (
               <>
-                <h2>Você pode melhorar!</h2>
+                <h2>OPS... VOCÊ FOI REPROVADO!</h2>
                 {somAtivo && <audio autoPlay src={PERDEU}></audio>}
                 <p>Você acertou {acertos} de {perguntas.length}.</p>
-                <img src={FORMOU} className="modal-img" alt="perdeu" />
+                <img src={REPROVADO} className="modal-img" alt="perdeu" />
                 <button className="btn-reiniciar" onClick={reiniciarJogo}>
                   Jogar Novamente
                 </button>

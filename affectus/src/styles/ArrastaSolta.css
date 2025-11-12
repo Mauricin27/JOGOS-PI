@@ -1,13 +1,11 @@
-/* =================== CONTAINER GERAL =================== */
 .arrastaSolta-container {
   width: 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
   font-family: 'Chewy', cursive;
-  background-image: url('../assets/ARRASTA/xx.png');
+  background-image: url('../assets/ARRASTA/vv.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -26,14 +24,10 @@
   box-sizing: border-box;
 }
 
-.arrasta-logo {
-  height: 80px;
-  width: 100px;
-  object-fit: contain;
-  transition: all 0.3s ease;
-}
-
 .header-botoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 10px 10px;
 }
 
@@ -51,17 +45,18 @@
 
 .musicaAS-btn {
   border: none;
-  font-size: 24px;
+  font-size: 26px;
   color: #fff;
   padding: 10px 10px;
   height: 50px;
   width: 50px;
   border-radius: 50%;
   cursor: pointer;
-  background: linear-gradient(135deg, #3e7db4, #104366);
+  background-color: #f03f20;
+  color: #f5f2f2;
   transition: all 0.3s ease;
   margin-right: 10px;
-
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
 }
 
 .musicaAS-btn:hover {
@@ -137,7 +132,6 @@
   min-height: 150px;
 }
 
-
 /* =================== BOTÕES =================== */
 .botoes-jogo {
   display: flex;
@@ -168,108 +162,50 @@
 }
 
 /* Botões de Header (Sair e Reiniciar) */
-/* =================== HEADER BOTÕES (Sair + Reiniciar) =================== */
-.header-botoes {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Botões de Header (Sair e Reiniciar) */
 .botao-sair-arrasta,
 .botao-reinicia-arrasta {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 14px;
   border-radius: 50px;
-  font-size: 14px;
+  font-weight: bold;
+  font-size: 24px;
   height: 50px;
   width: 50px;
-  font-weight: 600;
   cursor: pointer;
   color: #fff;
+  background-color: #e6583f;
   border: none;
   outline: none;
-  background: rgba(255, 255, 255, 0.1);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
   transition: all 0.3s ease;
   backdrop-filter: blur(4px);
 }
 
-/* Botão Sair */
-.botao-sair-arrasta {
-  background: linear-gradient(135deg, #d94444, #9b1d1d);
-}
-.botao-sair-arrasta:hover {
-  background: linear-gradient(135deg, #e75c5c, #b82a2a);
-  transform: scale(1.05);
-}
-
-/* Botão Reiniciar */
-.botao-reinicia-arrasta {
-  background: linear-gradient(135deg, #4a6edb, #1f3f8c);
-}
+.botao-sair-arrasta:hover,
 .botao-reinicia-arrasta:hover {
-  background: linear-gradient(135deg, #5d7ce2, #1b4f72);
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
-
 
 /* =================== ANIMAÇÕES DE ACERTO/ERRO =================== */
-
 @keyframes popAcertoVivo {
-  0% {
-    transform: scale(1);
-    background: rgba(251, 251, 252, 0.95);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  30% {
-    transform: scale(1.3);
-    background: #4CAF50;
-    box-shadow: 0 0 15px #4CAF50;
-    color: #fff;
-  }
-  60% {
-    transform: scale(1.2);
-    background: linear-gradient(135deg, #4CAF50, #81C784);
-    box-shadow: 0 0 20px #4CAF50;
-  }
-  100% {
-    transform: scale(1);
-    background: rgba(251, 251, 252, 0.95);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    color: rgb(34, 34, 34);
-  }
+  0% { transform: scale(1); background: rgba(251, 251, 252, 0.95); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); }
+  30% { transform: scale(1.1); background: #4CAF50; box-shadow: 0 0 15px #4CAF50; color: #fff; }
+  60% { transform: scale(1.1); background: linear-gradient(135deg, #4CAF50, #81C784); box-shadow: 0 0 20px #4CAF50; }
+  100% { transform: scale(1); background: rgba(251, 251, 252, 0.95); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); color: rgb(34, 34, 34); }
 }
 
 @keyframes shakeErroVivo {
-  0% {
-    transform: translateX(0) rotate(0deg);
-    background: rgba(251, 251, 252, 0.95);
-  }
+  0% { transform: translateX(0) rotate(0deg); background: rgba(251, 251, 252, 0.95); }
   20% { transform: translateX(-8px) rotate(-5deg); background: #f44336; color: #fff; }
   40% { transform: translateX(8px) rotate(5deg); background: #f44336; color: #fff; }
   60% { transform: translateX(-5px) rotate(-3deg); background: linear-gradient(135deg, #f44336, #FF7961); color: #fff; }
   80% { transform: translateX(5px) rotate(3deg); background: linear-gradient(135deg, #f44336, #FF7961); color: #fff; }
-  100% {
-    transform: translateX(0) rotate(0deg);
-    background: rgba(251, 251, 252, 0.95);
-    color: rgb(34, 34, 34);
-  }
+  100% { transform: translateX(0) rotate(0deg); background: rgba(251, 251, 252, 0.95); color: rgb(34, 34, 34); }
 }
 
-.acerto {
-  animation: popAcertoVivo 0.8s ease forwards;
-  border: 2px solid #4CAF50;
-}
-
-.erro {
-  animation: shakeErroVivo 0.8s ease forwards;
-  border: 2px solid #f44336;
-}
-
-
+.acerto { animation: popAcertoVivo 0.8s ease forwards; border: 2px solid #4CAF50; }
+.erro { animation: shakeErroVivo 0.8s ease forwards; border: 2px solid #f44336; }
 
 /* =================== MODAL =================== */
 .modalArrasta {
@@ -278,70 +214,46 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
 }
 
 .modalArrasta-content {
-  background: linear-gradient(135deg, #4facfe, #00f2fe);
+  background: #e2e5e7;
   border-radius: 20px;
   padding: 25px 20px;
   text-align: center;
   position: relative;
   max-width: 400px;
-  width: 90%;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-  border: 2px solid #1e90ff;
-  transform: perspective(600px) rotateX(2deg);
+  width: 100%;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(123, 162, 212, 0.959);
+  transition: all 0.3s ease;
 }
 
 .modalArrasta-content h2 {
   font-family: 'Chewy', cursive;
-  font-size: 20px;
+  font-size: 23px;
   margin-bottom: 12px;
-  color: #fff;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.15);
+  color: #114992;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .modalArrasta-content p {
   font-family: 'Chewy', cursive;
-  font-size: 14px;
-  color: #e0f7ff;
+  font-size: 20px;
+  color: #114992;
   margin: 4px 0;
+  font-weight: bolder;
 }
 
 .modal-img {
-  width: 100px;
-  height: 100px;
-  margin-bottom: 12px;
-  border-radius: 12px;
-  border: 2px solid #fff;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
-.fechar-arrastaModal {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  background: #1e90ff;
-  color: #fff;
-  border: none;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 16px;
-  box-shadow: 0 3px 5px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
-}
-
-.fechar-arrastaModal:hover {
-  transform: scale(1.15);
+ height: auto;
+ width: auto;
 }
 
 .modalArrasta-content button {
@@ -353,18 +265,15 @@
   cursor: pointer;
   color: #fff;
   border: none;
-  background: linear-gradient(135deg, #0072ff, #00c6ff);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-  transition: transform 0.2s ease;
+  background-color: #cf2c2c;
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .modalArrasta-content button:hover {
+  background-color: #c02929;
   transform: translateY(-2px);
 }
-
-
-
-
 
 
 /* =================== RESPONSIVIDADE =================== */
@@ -378,11 +287,15 @@
     border-radius: 50px;
   }
 
+  .arrastaSolta-header {
+    margin-top: 20px;
+  }
+
   .habito, .habito-solto{ 
     gap: 10px; 
     font-size: 15px; 
     font-weight: bold; 
-    height: 80px; 
+    height: 90px; 
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -392,6 +305,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
+
 
   .habito-img, .habito-solto img { 
     width: 35px; 
@@ -406,11 +320,17 @@
     gap: 12px; /* 🔹 Mantém o espaçamento entre os blocos */
   }
 
-  .habito-texto,
+  .habito-texto {
+    text-align: center;
+    font-weight: 500;
+    font-size: 16px;
+    margin-top: -2px;
+  }
   .habito-solto span {
     text-align: center;
-    font-weight: bold;
-    font-size: 12px;
+    font-weight: 500;
+    font-size: 14px;
+    margin-top: -2px;
   }
 }
 
@@ -427,7 +347,7 @@
     justify-content: space-between;
     padding: 0 40px;
     align-items: center;
-    margin-top: -14px;
+    margin-top: 20px;
   }
 
   .botao-reinicia-arrasta, .botao-sair-arrasta, .musicaAS-btn{
@@ -478,13 +398,50 @@
 
 /* TABLETS (768px - 1024px) */
 @media (max-width: 1024px) {
-  .arrastaSolta-tempo { font-size: 22px; }
-  .musicaAS-btn { font-size: 20px; padding: 6px; }
+   .arrastaSolta-header {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 25px;
+    position: relative;
+  }
 
+  .header-botoes {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .botao-sair-arrasta,
+  .botao-reinicia-arrasta {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 50%;
+    background-color: #e6583f;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+  }
+
+  .musicaAS-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .arrastaSolta-tempo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 22px;
+  }
+ 
   .campo-habitos {
     align-items: center;
     justify-content: center;
-    margin-top: -12px;
+    margin-top: 10px;
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(7, 1fr);
     gap: 8px;
@@ -514,30 +471,78 @@
   .campos-destino { 
     flex-direction: column; 
     gap: 6px; 
-    margin-top: -40px; 
+    margin-top: -110px; 
   }
 
   .campo-destino-certos, .campo-destino-errados { 
     width: 85%; 
     grid-auto-rows: 70px; 
-    gap: 8px; /* Mantém espaçamento entre os blocos */
+    gap: 10px; /* Mantém espaçamento entre os blocos */
     min-height: 200px; 
   }
 }
 
 
 /* CELULARES MÉDIOS (480px - 767px) */
-@media (max-width: 767px) {
-  .arrastaSolta-tempo { font-size: 16px; margin-top: -23px; }
+@media (max-width: 479px) {
+ .arrastaSolta-header {
+  width: 80%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
 
-  .botao-reinicia-arrasta, .botao-sair-arrasta, .musicaAS-btn{
+.header-botoes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.botao-sair-arrasta,
+.botao-reinicia-arrasta {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  border-radius: 50%;
+  background-color: #e6583f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: none;
+  outline: none;
+  margin-top: 1px;
+}
+
+.arrastaSolta-tempo {
+  position: absolute;
+  left: 15px; /* 🔹 fixa no canto esquerdo */
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.musicaAS-btn {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  border-radius: 50%;
+  margin: 0;
+  background-color: #f03f20;
+  color: #fff;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  border: none;
+  outline: none;
+}
+
+
+  .botao-reinicia-arrasta, .botao-sair-arrasta{
     width: 37px;
     height: 37px;
     border-radius: 50px;
     font-size: 18px;
     margin-top: -23px;
   }
-
 
   .campo-habitos {
     align-items: center;
@@ -571,22 +576,74 @@
 
 /* CELULARES PEQUENOS (<480px) */
 @media (max-width: 479px) {
-  .arrasta-logo { height: 40px; width: 60px; }
-  .arrastaSolta-tempo { font-size: 16px; }
-  .musicaAS-btn { font-size: 16px; padding: 4px; }
+ .arrastaSolta-header {
+  width: 80%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: relative;
+}
+
+.header-botoes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.botao-sair-arrasta,
+.botao-reinicia-arrasta {
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  border-radius: 50%;
+  background-color: #e6583f;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  border: none;
+  outline: none;
+  margin-top: 1px;
+}
+
+.arrastaSolta-tempo {
+  position: absolute;
+  left: 15px; /* 🔹 fixa no canto esquerdo */
+  font-size: 16px;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.musicaAS-btn {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  border-radius: 50%;
+  margin: 0;
+  background-color: #f03f20;
+  color: #fff;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.4);
+  border: none;
+  outline: none;
+}
+
 
   .campo-habitos {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(7, 1fr);
     gap: 3px;
     height: 380px;
+    margin-top: 50px;
   }
 
   .habito, .habito-solto { font-size: 8px; height: 50px; }
   .habito-img, .habito-solto img { width: 20px; height: 18px; }
   .habito-texto, .habito-solto span { font-size: 10px; font-weight: bold;}
 
-  .campos-destino { flex-direction: column; gap: 7px; }
-  .campo-destino-certos, .campo-destino-errados { width:92%; grid-auto-rows: 50px; min-height: 130px; }
+  .campos-destino { flex-direction: column; gap: 1px; }
+  .campo-destino-certos, .campo-destino-errados { width:92%; grid-auto-rows: 50px; min-height: 130px; margin-top: 20px; }
+
+  .modalArrasta-content {
+    width: 80%;
+  }
 
 }

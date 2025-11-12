@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../styles/JogoEscovacao.css";
 import { Sparkles, Star } from "lucide-react";
-
+import MENUPNG from '../assets/ESCOVACAO/MENUPNG.png';
 import meninaLimpa1 from "../assets/ESCOVACAO/11.png";
 import meninaLimpa2 from "../assets/ESCOVACAO/22.png";
 import meninaSuja1 from "../assets/ESCOVACAO/33.png";
 import meninaSuja2 from "../assets/ESCOVACAO/44.png";
 
+import FIM from "../assets/ESCOVACAO/FIM.png";
 import escova from "../assets/ESCOVACAO/ESCOVA.png";
 import enxaguante from "../assets/ESCOVACAO/MENTA.png";
 import brilhoSom from "../assets/ESCOVACAO/BRILHO.mp3";
@@ -30,6 +31,7 @@ export default function JogoEscovacao() {
   const [mostrarRefrescante, setMostrarRefrescante] = useState(false);
   const [agua, setAgua] = useState([]);
   const [enxaguantePos, setEnxaguantePos] = useState({ x: 0, y: 0 });
+  const [jogoFinalizado, setJogoFinalizado] = useState(false); // ✅ Novo estado
 
   const areaRef = useRef(null);
   const brilhoPlayedRef = useRef(false);
@@ -47,6 +49,7 @@ export default function JogoEscovacao() {
     brilhoPlayedRef.current = false;
     contatoCountRef.current = 0;
     refrescantePlayedRef.current = false;
+    setJogoFinalizado(false); // reinicia o estado final
     gerarManchas();
     gerarFumaca();
   };
@@ -88,7 +91,7 @@ export default function JogoEscovacao() {
       x: 220 + Math.random() * 50,
       y: 80 + Math.random() * 30,
       sizeClass: classesTamanho[Math.floor(Math.random() * classesTamanho.length)],
-      vida: 60,
+      vida: 80,
     }));
     setFumaca(novasFumacas);
   };
@@ -104,6 +107,15 @@ export default function JogoEscovacao() {
       setTimeout(() => setMostrarBrilho(false), 2500);
     }
   }, [manchas, jogoIniciado, somAtivo]);
+
+  // ✅ Detecta fim completo do jogo
+  useEffect(() => {
+    if (jogoIniciado && manchas.length === 0 && fumaca.length === 0 && dentesLimpos) {
+      setTimeout(() => {
+        setJogoFinalizado(true);
+      }, 4100);
+    }
+  }, [manchas, fumaca, dentesLimpos, jogoIniciado]);
 
   // Movimento da escova
   useEffect(() => {
@@ -173,84 +185,78 @@ export default function JogoEscovacao() {
     };
   }, [escovaSelecionada, somAtivo]);
 
+  // Movimento do enxaguante
+  useEffect(() => {
+    if (!enxaguanteSelecionado) return;
 
-  // Movimento do enxaguante (arrastar e apagar fumaça)
-  // Movimento do enxaguante (arrastar e apagar fumaça)
-useEffect(() => {
-  if (!enxaguanteSelecionado) return;
+    const area = areaRef.current;
+    if (!area) return;
 
-  const area = areaRef.current;
-  if (!area) return;
+    const enxaguanteLargura = 80;
 
-  const enxaguanteLargura = 80;
+    const handleMouseMove = (e) => {
+      const rect = area.getBoundingClientRect();
+      const x = e.clientX - rect.left - enxaguanteLargura / 2;
+      const y = e.clientY - rect.top - enxaguanteLargura / 2;
+      setEnxaguantePos({ x, y });
 
-  const handleMouseMove = (e) => {
-    const rect = area.getBoundingClientRect();
-    const x = e.clientX - rect.left - enxaguanteLargura / 2;
-    const y = e.clientY - rect.top - enxaguanteLargura / 2;
-    setEnxaguantePos({ x, y });
+      let tocouFumaca = false;
 
-    let tocouFumaca = false;
+      setFumaca((prevFumaca) => {
+        const novas = prevFumaca
+          .map((f) => {
+            const fx = f.x - 30;
+            const fy = f.y + 130;
+            const distancia = Math.hypot(fx - x, fy - y);
 
-    setFumaca((prevFumaca) => {
-      const novas = prevFumaca
-        .map((f) => {
-          const fx = f.x - 30; // Ajuste de margem
-          const fy = f.y + 130; // Ajuste de margem
-          const distancia = Math.hypot(fx - x, fy - y);
+            if (distancia <= enxaguanteLargura / 2) {
+              tocouFumaca = true;
+              return { ...f, vida: f.vida - 1 };
+            }
+            return f;
+          })
+          .filter((f) => f.vida > 0);
 
-          if (distancia <= enxaguanteLargura / 2) {
-            tocouFumaca = true;
-            return { ...f, vida: f.vida - 1 };
+        if (novas.length === 0 && !refrescantePlayedRef.current) {
+          refrescantePlayedRef.current = true;
+          setMostrarRefrescante(true);
+          if (somAtivo) {
+            aguaAudioRef.current?.play().catch(() => {});
           }
-          return f;
-        })
-        .filter((f) => f.vida > 0);
-
-      // Só tocar o som quando todas as fumacas forem removidas
-      if (novas.length === 0 && !refrescantePlayedRef.current) {
-        refrescantePlayedRef.current = true;
-        setMostrarRefrescante(true);
-        if (somAtivo) {
-          aguaAudioRef.current?.play().catch(() => {});
+          setTimeout(() => setMostrarRefrescante(false), 3000);
         }
-        setTimeout(() => setMostrarRefrescante(false), 3000);
-      }
 
-      if (tocouFumaca) {
-        const id = Math.random();
-        setAgua((prev) => [...prev, { id, x, y }]);
-        setTimeout(() => {
-          setAgua((prev) => prev.filter((a) => a.id !== id));
-        }, 600);
-      }
+        if (tocouFumaca) {
+          const id = Math.random();
+          setAgua((prev) => [...prev, { id, x, y }]);
+          setTimeout(() => {
+            setAgua((prev) => prev.filter((a) => a.id !== id));
+          }, 600);
+        }
 
-      return novas;
-    });
-  };
+        return novas;
+      });
+    };
 
-  const handleClickAnywhere = () => {
-    setEnxaguanteSelecionado(false);
-    setEnxaguanteAtivo(false);
-    aguaAudioRef.current?.pause();
-    aguaAudioRef.current.currentTime = 0;
-  };
+    const handleClickAnywhere = () => {
+      setEnxaguanteSelecionado(false);
+      setEnxaguanteAtivo(false);
+      aguaAudioRef.current?.pause();
+      aguaAudioRef.current.currentTime = 0;
+    };
 
-  document.body.classList.add("cursor-none");
-  window.addEventListener("mousemove", handleMouseMove);
-  window.addEventListener("click", handleClickAnywhere);
+    document.body.classList.add("cursor-none");
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("click", handleClickAnywhere);
 
-  return () => {
-    window.removeEventListener("mousemove", handleMouseMove);
-    window.removeEventListener("click", handleClickAnywhere);
-    document.body.classList.remove("cursor-none");
-    aguaAudioRef.current?.pause();
-    aguaAudioRef.current.currentTime = 0;
-  };
-}, [enxaguanteSelecionado, somAtivo]);
-
-    
- 
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("click", handleClickAnywhere);
+      document.body.classList.remove("cursor-none");
+      aguaAudioRef.current?.pause();
+      aguaAudioRef.current.currentTime = 0;
+    };
+  }, [enxaguanteSelecionado, somAtivo]);
 
   const handleSelecionarEscova = (e) => {
     e.stopPropagation();
@@ -279,14 +285,15 @@ useEffect(() => {
       {!jogoIniciado ? (
         <div className="escovacao-menu">
           <h1 className="escovacao-titulo">Jogo da Escovação</h1>
+          <img src={MENUPNG} alt="Ícone de Escovação" className="escovacao-img-menu" />
           <button className="escovacao-btn jogar" onClick={iniciarJogo}>
-            Jogar
+            JOGAR
           </button>
           <button
             className="escovacao-btn sair"
             onClick={() => (window.location.href = "/")}
           >
-            Sair
+            SAIR
           </button>
         </div>
       ) : (
@@ -296,16 +303,16 @@ useEffect(() => {
               className="escovacao-btn voltar"
               onClick={() => (window.location.href = "/")}
             >
-              ⏴
+              ⮜
             </button>
             <button
               className="escovacao-btn acessorios"
               onClick={() => setMostrarModal(true)}
             >
-              Acessórios
+              ⚙
             </button>
             <button className="escovacao-btn som" onClick={alternarSom}>
-              {somAtivo ? "🔊" : "🔇"}
+              {somAtivo ? "♫" : "🔇"}
             </button>
           </header>
 
@@ -457,6 +464,32 @@ useEffect(() => {
                   onClick={() => setMostrarModal(false)}
                 >
                   FECHAR
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* ✅ Modal final do jogo */}
+          {jogoFinalizado && (
+            <div className="escovacao-modal" onClick={() => setJogoFinalizado(false)}>
+              <div
+                className="escovacao-modal-conteudo"
+                onClick={(e) => e.stopPropagation()}
+              >
+                 <img src={FIM} alt="img-fim" className="escovacao-modal-conteudo-img" />
+                <h2 className="escovacao-modal-titulo">PARABÉNS!</h2>
+                <p className="escovacao-modal-texto">
+      
+                  DENTES LIMPOS E HÁLITO REFRESCANTE!
+                </p>
+                <button
+                  className="escovacao-modal-btn-fechar"
+                  onClick={() => {
+                    setJogoFinalizado(false);
+                    setJogoIniciado(false);
+                  }}
+                >
+                  VOLTAR AO MENU
                 </button>
               </div>
             </div>

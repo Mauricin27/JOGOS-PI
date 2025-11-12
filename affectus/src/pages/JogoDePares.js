@@ -288,8 +288,8 @@ export default function JogoDeTrio() {
     <div className="jogo-montar-pares">
       <header className="header-montar-pares">
         <div className="botoes-header-jogo-pares">
-          <button onClick={() => (window.location.href = "/")}> ⬅ </button>
-          <button onClick={() => iniciarNivel(nivelAtual)}> ↻ </button>
+          <button onClick={() => (window.location.href = "/")}> ⮜ </button>
+          <button onClick={() => iniciarNivel(nivelAtual)}> 🗘 </button>
         </div>
 
         <div className="contador-mostrar-pares">
@@ -300,7 +300,7 @@ export default function JogoDeTrio() {
           onClick={() => setSomLigado(!somLigado)}
           className="botao-som-jogo-pares"
         >
-          {somLigado ? "🔊" : "🔇"}
+          {somLigado ? "♫" : "🔇"}
         </button>
       </header>
 
@@ -334,25 +334,25 @@ export default function JogoDeTrio() {
             className={botaoAtivo === "esquerda" ? "ativo" : ""}
             onClick={() => moverDirecao("esquerda")}
           >
-            ←
+            ⬅
           </button>
           <button
             className={botaoAtivo === "cima" ? "ativo" : ""}
             onClick={() => moverDirecao("cima")}
           >
-            ↑
+            ⬆
           </button>
           <button
             className={botaoAtivo === "direita" ? "ativo" : ""}
             onClick={() => moverDirecao("direita")}
           >
-            →
+            ➡
           </button>
           <button
             className={botaoAtivo === "baixo" ? "ativo" : ""}
             onClick={() => moverDirecao("baixo")}
           >
-            ↓
+            ⬇
           </button>
         </div>
       </div>

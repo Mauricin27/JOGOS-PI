@@ -44,8 +44,8 @@
   border: 2px solid #89b8ec;
   font-weight: bold;
   border-radius: 50px;
-  height: 50px;
-  width: 50px;
+  height: 45px;
+  width: 45px;
   cursor: pointer;
   font-size: 26px;
   transition: all 0.2s ease;
@@ -58,34 +58,81 @@
   box-shadow: 0 6px 12px rgba(0,0,0,0.3);
 }
 
-/* ====== Cronômetro ====== */
-.cronometro {
-  font-size: 30px;
-  font-weight: 900;
-  text-align: center;
+/* ===== Barra de Vidas ===== */
+/* ===== Barra de Vidas ===== */
+.vidas-container {
+  position: relative;
   flex-grow: 1;
-  letter-spacing: 2px;
-  color: rgb(240, 235, 235);
+  height: 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(114, 207, 247, 0.4);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 0 10px;
+  transition: all 0.3s ease;
 }
+
+.barra-vidas {
+  height: 100%;
+  background: linear-gradient(90deg, #29eb63, #13b154);
+  transition: all 0.3s ease;
+}
+
+.barra-vidas.medio {
+  background: linear-gradient(90deg, #ffdf2f, #e0b600);
+}
+
+.barra-vidas.critico {
+  background: linear-gradient(90deg, #ff4040, #c90000);
+  animation: piscar-vida 0.7s infinite;
+}
+
+@keyframes piscar-vida {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* ===== Responsividade específica da barra ===== */
+
+/* 📱 Celulares (telas até 600px) */
+@media (max-width: 600px) {
+  .vidas-container {
+    width: 70%;
+    height: 14px;
+    border-width: 1.5px;
+    border-radius: 8px;
+    margin: 0 auto;
+  }
+
+  .barra-vidas {
+    height: 100%;
+  }
+}
+
+
+
 
 /* ====== Tabuleiro ====== */
 .tabuleiro-reflexos {
   display: grid;
-  grid-template-columns: repeat(2, 150px);
-  gap: 20px;
-  margin-top: 80px; /* dá espaço entre o header e o tabuleiro */
+  grid-template-columns: repeat(2, 180px);
+  grid-template-rows: repeat(3, 180px);
+  gap: 16px;
+  border-radius: 14px;
+  margin-top: 20px;
   margin-bottom: 25px;
+  background-color: #050533;
 }
 
 /* ====== Blocos ====== */
 .bloco {
-  width: 150px;
-  height: 150px;
-  background: white;
+  width: 180px;
+  height: 180px;
+  background-color: rgba(44, 99, 201, 0.45);
   opacity: 0.5;
   border-radius: 18px;
+  border: 2px solid rgba(32, 32, 109, 0.5);
   cursor: pointer;
-  box-shadow: inset 0 0 0 3px rgba(255,255,255,0.5), 0 6px 10px rgba(0,0,0,0.3);
   transition: all 0.15s ease;
 }
 
@@ -97,33 +144,54 @@
 .bloco.ativo {
   background: radial-gradient(circle at 30% 30%, #44dd98 0%, #21bb76 40%, #058b53 100%);
   opacity: 1;
-  box-shadow: 0 0 5px #1ca158d7, inset 0 0 10px #f0ecec;
+  box-shadow: 0 0 8px #1ca158d7, inset 0 0 10px #f0ecec;
 }
 
+/* ====== Clique correto / errado ====== */
+.bloco.correto {
+  animation: piscar-verde 0.25s ease;
+}
+@keyframes piscar-verde {
+  0% { background-color: #4fffaf; transform: scale(1.05); }
+  50% { background-color: #00ff88; transform: scale(1.1); }
+  100% { background-color: #4fffaf; transform: scale(1); }
+}
 
-
+.bloco.errado {
+  animation: piscar-vermelho 0.25s ease;
+}
+@keyframes piscar-vermelho {
+  0% { background-color: #ff3b3b; transform: scale(1.05); }
+  50% { background-color: #ff0000; transform: scale(1.1); }
+  100% { background-color: #ff3b3b; transform: scale(1); }
+}
+  
 /* ====== Botão Iniciar ====== */
 .iniciar-jogo-reflexo {
+  position: absolute;
   background: radial-gradient(circle at 30% 30%, #72cff7 0%, #3baee4 40%, #0091c9 100%);
   color: #020f30;
   border: 2px solid #89b8ec;
   border-radius: 34px;
-  padding: 14px 28px;
+  padding: 12px 22px;
   font-size: 22px;
   font-weight: 800;
   cursor: pointer;
-  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
-  transition: all 0.15s ease;
-  margin-top: 10px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10;
+  bottom: 6%;
 }
 
 .iniciar-jogo-reflexo:hover {
-  transform: translateY(-3px);
+  background-color: #3535a5;
 }
 
-.iniciar-jogo-reflexo.invisivel {
-  visibility: hidden; 
+.iniciar-jogo-reflexo.oculto {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -60%);
 }
+
 
 /* ===== Modal de Fim de Jogo ===== */
 .modal-fim-reflexo {
@@ -209,9 +277,9 @@
 @media (max-width: 600px) {
     .header-jogo-reflexo {
     justify-content: center;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
     padding: 0 20px;
-    margin-left: 60px;
+    margin-left: 10px;
   }
 
   .reflexo-btns {
@@ -222,11 +290,21 @@
     margin-bottom: 100px;
     width: 100%;
   }
-  .tabuleiro-reflexos {
-    grid-template-columns: repeat(2, 150px);
-    gap: 12px;
+
+   .vidas-container {
+    width: 70%;
+    max-width: 300px;
+    height: 14px;
+    border-width: 1.5px;
+    border-radius: 8px;
+    margin: 0 auto;
   }
 
+  .barra-vidas {
+    height: 100%;
+    width: 50%;
+  }
+ 
   .reflexo-sair-btn,
   .botao-reiniciar-reflexo {
     width: 35px;
@@ -234,14 +312,19 @@
     font-size: 18px;
   }
 
-  .bloco {
-    width: 150px;
-    height: 150px;
-    border-radius: 14px;
-  }
 
   .cronometro {
     font-size: 20px;
+  }
+
+  .tabuleiro-reflexos {
+    grid-template-columns: repeat(2, 120px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 12px;
+  }
+  .bloco {
+    width: 120px;
+    height: 120px;
   }
 
   .iniciar-jogo-reflexo {
@@ -264,11 +347,6 @@
     margin-bottom: 120px;
   }
 
-  .tabuleiro-reflexos {
-    grid-template-columns: repeat(2, 230px);
-    gap: 10px;
-  }
-
   .reflexo-sair-btn,
   .botao-reiniciar-reflexo {
     width: 45px;
@@ -276,32 +354,57 @@
     font-size: 22px;
   }
 
+  .tabuleiro-reflexos {
+    grid-template-columns: repeat(2, 150px);
+    grid-template-rows: repeat(3, 150px);
+    gap: 15px;
+  }
   .bloco {
-    width: 230px;
-    height: 230px;
+    width: 150px;
+    height: 150px;
   }
 
-  .cronometro {
-    font-size: 22px;
+  .vidas-container {
+    width: 85%;
+    height: 16px;
+    border-width: 2px;
+    border-radius: 9px;
+    margin: 0 auto;
+  }
+
+  .barra-vidas {
+    height: 100%;
+  }
+  
+  .iniciar-jogo-reflexo {
+    font-size: 20px;
+    padding: 12px 12px;
   }
 }
 
 /* 💻 Notebooks e PCs grandes */
 @media (min-width: 901px) {
-  .tabuleiro-reflexos {
-    grid-template-columns: repeat(2, 250px);
-    gap: 15px;
-  }
 
-   .reflexo-sair-btn,
-  .botao-reiniciar-reflexo {
-    width: 55px;
-    height: 55px;
-    font-size: 26px;
+   .tabuleiro-reflexos {
+    grid-template-columns: repeat(2, 200px);
+    grid-template-rows: repeat(3, 200px);
+    gap: 18px;
   }
-
   .bloco {
-    width: 250px;
-    height: 250px;
+    width: 200px;
+    height: 200px;
+  }
+  
+  .reflexo-sair-btn,
+  .botao-reiniciar-reflexo {
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+
+  .iniciar-jogo-reflexo {
+    font-size: 20px;
+    padding: 12px 12px;
+
   }
 }

@@ -14,10 +14,10 @@ import SODA from '../assets/ARRASTA/SODA.png';
 import SUJO from '../assets/ARRASTA/SUJO.png';
 import escovaDente from '../assets/ARRASTA/ESCOVA-DENTE.png';
 import morder from '../assets/ARRASTA/MORDER.png';
-import ruimGif from '../assets/ARRASTA/RUIM.gif';
-import bomGif from '../assets/ARRASTA/BOM.gif';
-import otimoGif from '../assets/ARRASTA/OTIMO.gif';
-import errouGif from '../assets/ARRASTA/errou.gif';
+import ruimGif from '../assets/ARRASTA/BRONZE.png';
+import bomGif from '../assets/ARRASTA/PRATA.png';
+import otimoGif from '../assets/ARRASTA/OURO.png';
+import errouGif from '../assets/ARRASTA/ERROU.png';
 import popSound from '../assets/ARRASTA/DROPA.mp3';
 import beepAcerto from '../assets/ARRASTA/ACERTA.mp3';
 import beepErro from '../assets/ARRASTA/ERRA.mp3';
@@ -34,7 +34,7 @@ const HABITOS = [
   { id: 9, img: morder, texto: "Roer unha suja", correto: false },
   { id: 10, img: DORMIR, texto: "Dormir sem escovar", correto: false },
   { id: 11, img: SODA, texto: "Tomar refri todo dia", correto: false },
-  { id: 12, img: FUMAR, texto: "Fumar faz mal", correto: false },
+  { id: 12, img: FUMAR, texto: "Cigarro faz mal aos dentes", correto: false },
   { id: 13, img: SUJO, texto: "Não usar fio dental", correto: false },
   { id: 14, img: naoIr, texto: "Não ir ao dentista", correto: false },
 ];
@@ -160,14 +160,14 @@ export default function ArrastaSolta() {
     <div className="arrastaSolta-container">
       <header className="arrastaSolta-header">
         <div className="header-botoes">
-          <button className="botao-sair-arrasta" onClick={() => window.location.href = "/"}> 🢀 </button>
-          <button className="botao-reinicia-arrasta" onClick={reiniciar}> ↻ </button>
+          <button className="botao-sair-arrasta" onClick={() => window.location.href = "/"}> ⮜ </button>
+          <button className="botao-reinicia-arrasta" onClick={reiniciar}> 🗘 </button>
         </div>
 
         <span className="arrastaSolta-tempo">⏱ {formatarTempo(segundos)}</span>
 
           <button className="musicaAS-btn" onClick={() => setSonsAtivos(!sonsAtivos)}>
-            {sonsAtivos ? "🔊" : "🔇"}
+            {sonsAtivos ? "♫" : "🔇"}
           </button>
       </header>
 
@@ -235,11 +235,10 @@ export default function ArrastaSolta() {
       {modalAberto && (
         <div className="modalArrasta">
           <div className="modalArrasta-content">
-            <button className="fechar-arrastaModal" onClick={() => setModalAberto(false)}>X</button>
             <img src={modalResultado.img} alt="Resultado" className="modal-img"/>
             <h2>{modalResultado.msg}</h2>
-            <p>✔ Acertos: {modalResultado.acertos}</p>
-            <p>❌ Erros: {modalResultado.erros}</p>
+            <p>Acertos: {modalResultado.acertos}</p>
+            <p>Erros: {modalResultado.erros}</p>
             <p>⏱ Tempo total: {formatarTempo(modalResultado.tempo || 0)}</p>
             <button onClick={reiniciar}>JOGAR NOVAMENTE</button>
           </div>

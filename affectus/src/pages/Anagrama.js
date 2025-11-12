@@ -15,11 +15,11 @@ const palavras = [
   { dica: "Parte do corpo que mastiga", palavra: "DENTE" },
   { dica: "O profissional que cuida dos dentes", palavra: "DENTISTA" },
   { dica: "É usado para enxaguar a boca", palavra: "ENXAGUANTE" },
-  { dica: "Parte branca do dente", palavra: "ESMALTE" },
-  { dica: "Problema causado por cárie", palavra: "CAVIDADE" },
-  { dica: "Usado para passar entre os dentes", palavra: "FIO" },
+  { dica: "Parte vermelha que fica na boca", palavra: "LÍNGUA" },
+  { dica: "Problema causado por não escovar", palavra: "CÁRIE" },
+  { dica: "Precisamos cuidar para ficar saudável", palavra: "SORRISO" },
   { dica: "Mantém a boca saudável", palavra: "HIGIENE" },
-  { dica: "Deve-se escovar após as refeições", palavra: "REFEICAO" },
+  { dica: "Devemos fazer após comer", palavra: "ESCOVAR" },
 ];
 
 export default function AnagramaJogo() {
@@ -163,7 +163,7 @@ export default function AnagramaJogo() {
               className="anagrama-header-btn-som"
               aria-label="Ativar ou desativar sons"
             >
-              {somAtivo ? "🔊" : "🔇"}
+              {somAtivo ? "♫" : "🔇"}
             </button>
           </div>
         </div>

@@ -4,7 +4,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 15px;
   font-family: 'Chewy', cursive;
   background-image: url("../assets/EQUACAO/ee.png");
   background-position: center;
@@ -14,9 +13,9 @@
 
 /* ===== CONTAINER PRINCIPAL ===== */
 .container-jogo-equacao {
-  width: 80%;
-  max-width: 1100px;
-  min-height: 760px;
+  width: 95%;
+  max-width: 1400px;
+  min-height: 830px;
   background-color: rgb(15, 107, 64);
   border-radius: 25px;
   border: 3px solid rgb(23, 121, 75);
@@ -43,7 +42,7 @@
 
 .lado-esq-equacao button,
 .lado-dir-equacao button {
-  background-color: rgb(247, 85, 11);
+  background-color: rgb(211, 95, 49);
   border: none;
   font-size: 26px;
   height: 50px;
@@ -52,7 +51,7 @@
   border-radius: 50px;
   cursor: pointer;
   color: white;
-  border: 2px solid rgb(184, 74, 24);
+  border: 2px solid rgb(204, 103, 57);
   font-weight: 600;
   transition: all 0.3s ease;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.4);
@@ -97,8 +96,8 @@
 
 .texto-equacao {
   font-weight: 700;
-  color: rgb(240, 236, 236);
-  font-size: 40px;
+  color: rgb(245, 242, 242);
+  font-size: 44px;
   margin-left: 20px;
 }
 

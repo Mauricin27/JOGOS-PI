@@ -65,28 +65,27 @@
 
 .anagrama-header-btn-som {
   margin-left: 12px;
-  padding: 7px 7px;
-  font-size: 20px;
+  font-size: 26px;
   background: transparent;
   border-radius: 50px;
   height: 45px;
   width: 45px;
   border: none;
-  border: 2px solid #070707;
   cursor: pointer;
-  background: linear-gradient(145deg, #fcf15f, #e64709);
+  border: 2px solid #ebc90d;
+  background: linear-gradient(145deg, #ffd54f, #ff9800);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 .anagrama-header-btn-som:hover {
-  background-color: #6b4691;
+  transform: translateY(-2px) scale(1.05);
 }
 
 /*  ÁREA DO JOGO */
 .anagrama-jogo-area {
   width: 100%;
   max-width: 1250px;
-  background: linear-gradient(188deg, #7a4db6, #522f75);
+  background: linear-gradient(188deg, #905ed1, #522f75);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.7);
   border-radius: 14px;
   padding: 25px;
@@ -107,7 +106,7 @@
   padding: 10px 16px;
   border: none;
   border-radius: 10px;
-  margin-top: -5px;
+  top: 30px;
 }
 
 /*  LETRAS EMBARALHADAS */
@@ -145,8 +144,8 @@
   color: #242424;
   font-size: 36px;
   border: none;
-  width: 120px;
-  height: 130px;
+  width: 110px;
+  height: 110px;
   font-weight: bold;
   cursor: pointer;
   background-size: cover;
@@ -158,7 +157,7 @@
 }
 
 .anagrama-letra-btn:hover {
-  transform: scale(1.07) rotate(-3deg);
+  transform: scale(1.02) rotate(-3deg);
 }
 
 @keyframes cairResposta {
@@ -201,8 +200,8 @@
 }
 
 .anagrama-resposta-letra-container {
-  width: 120px;
-  height: 140px;
+  width: 110px;
+  height: 110px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -222,9 +221,10 @@
 }
 
 .anagrama-proxima-btn {
-  background: linear-gradient(145deg, #fcf15f, #e64709);
-  width: 48px;
-  height: 48px;
+  border: 2px solid #ebc90d;
+  background: linear-gradient(145deg, #ffd54f, #ff9800);
+  width: 50px;
+  height: 50px;
   font-size: 32px;
   font-family: 'Chewy', cursive;
   font-weight: 700;
@@ -233,7 +233,6 @@
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
-  border: 2px solid #000000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -261,7 +260,7 @@
 
 .anagrama-footer-btn-reiniciar,
 .anagrama-footer-btn-sair {
-  background: linear-gradient(145deg, #fcf15f, #e64709);
+  background: linear-gradient(145deg, #ffd54f, #ff9800);
   width: 48px;
   height: 48px;
   font-size: 25px;
@@ -272,7 +271,7 @@
   border-radius: 50%;
   cursor: pointer;
   transition: all 0.2s ease;
-  border: 2px solid #000000;
+  border: 2px solid #ebc90d;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -282,7 +281,6 @@
 
 .anagrama-footer-btn-reiniciar:hover,
 .anagrama-footer-btn-sair:hover {
-  background: linear-gradient(145deg, #ffd54f, #ff9800);
   transform: translateY(-2px) scale(1.05);
 }
 
@@ -302,12 +300,12 @@
 }
 
 .anagrama-modal-content {
-  background: linear-gradient(135deg, #a67dd8, #8958c9);
+  background: linear-gradient(188deg, #905ed1, #522f75);
   padding: 30px;
   border-radius: 20px;
   text-align: center;
   max-width: 400px;
-  color: #fff;
+  color: #ece5e5;
   box-shadow: 0 10px 25px rgba(0,0,0,0.3);
   font-family: 'Chewy', cursive;
   animation: popIn 0.3s ease-out;
@@ -328,13 +326,25 @@
   font-weight: 600;
   font-size: 22px;
   margin: 10px 0;
-  color: #fff;
+  color: #ece5e5;
   text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
 }
 
+.anagrama-modal-btn-voltar {
+  border: 2px solid #ebc90d;
+  background: linear-gradient(145deg, #d6af2e, #ee930a);
+  border-radius: 20px;
+  color: #000000;
+  padding: 10px 10px;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  font-family: 'Chewy', cursive;
+}
+
 .anagrama-modal-btn-voltar:hover {
-  background: linear-gradient(to right, #FF512F 0%, #bd7613  51%, #FF512F  100%);
-  color: #f0ecec;
+ background: linear-gradient(145deg, #d4ae30, #cc7d06);
+  color: #000000;
   transform: scale(1.05);
 }
 
@@ -539,14 +549,14 @@
 @media (max-width: 600px) {
   .anagrama-jogo-area {
     padding: 10px;
-    min-height: 380px;
+    min-height: 360px;
   }
 
   .anagrama-letra-btn,
   .anagrama-carta-movida {
     width: 55px;
-    height: 65px;
-    font-size: 22px;
+    height: 55px;
+    font-size: 18px;
   }
 
   .anagrama-resposta-letra-container {
@@ -557,9 +567,9 @@
 
   .anagrama-footer-btn-reiniciar,
   .anagrama-footer-btn-sair {
-    width: 40px;
-    height: 40px;
-    font-size: 12px;
+    width: 35px;
+    height: 35px;
+    font-size: 18px;
   }
 
   .anagrama-header-left {
@@ -573,8 +583,9 @@
   }
 
   .anagrama-header-btn-som {
-    padding: 5px;
-    font-size: 14px;
+    font-size: 18px;
+    height: 40px;
+    width: 40px;
   }
 
   .anagrama-proxima-btn {

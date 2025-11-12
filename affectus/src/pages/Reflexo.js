@@ -4,81 +4,85 @@ import "../styles/Reflexo.css";
 export default function JogoReflexo() {
   const [blocoAtivo, setBlocoAtivo] = useState(null);
   const [pontuacao, setPontuacao] = useState(0);
-  const [tempo, setTempo] = useState(20);
+  const [vidas, setVidas] = useState(5);
   const [jogando, setJogando] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
-  const intervaloRef = useRef(null);
-  const historicoRef = useRef([]); // guarda os últimos blocos ativados
+  const [animacaoBloco, setAnimacaoBloco] = useState(null);
 
-  const blocos = [0, 1, 2, 3];
+  const historicoRef = useRef([]);
+  const bloqueandoClickRef = useRef(false);
+  const blocos = [0, 1, 2, 3, 4, 5];
 
-  function ativarBlocoAleatorio() {
+  // Escolher bloco aleatório sem repetir o anterior
+  function escolherAleatorio() {
     let aleatorio;
-    let tentativas = 0;
-
     do {
       aleatorio = Math.floor(Math.random() * blocos.length);
-      tentativas++;
-    } while (
-      historicoRef.current.length >= 2 &&
-      historicoRef.current.at(-1) === aleatorio &&
-      historicoRef.current.at(-2) === aleatorio &&
-      tentativas < 10
-    );
-
+    } while (historicoRef.current.at(-1) === aleatorio);
     historicoRef.current.push(aleatorio);
     if (historicoRef.current.length > 3) historicoRef.current.shift();
+    return aleatorio;
+  }
 
-    setBlocoAtivo(aleatorio);
+  function ativarBloco() {
+    if (!jogando) return;
+    setBlocoAtivo(escolherAleatorio());
   }
 
   function iniciarJogo() {
-    clearInterval(intervaloRef.current);
     historicoRef.current = [];
     setPontuacao(0);
-    setTempo(20);
-    setJogando(true);
+    setVidas(5);
     setMostrarModal(false);
-    ativarBlocoAleatorio();
+    setJogando(true);
+    setAnimacaoBloco(null);
+    setBlocoAtivo(escolherAleatorio());
   }
 
   function reiniciarJogo() {
-    clearInterval(intervaloRef.current);
-    historicoRef.current = [];
     setPontuacao(0);
-    setTempo(20);
+    setVidas(5);
     setJogando(false);
     setBlocoAtivo(null);
     setMostrarModal(false);
+    setAnimacaoBloco(null);
+    bloqueandoClickRef.current = false;
   }
 
-  useEffect(() => {
-    if (jogando) {
-      intervaloRef.current = setInterval(() => {
-        setTempo((t) => {
-          if (t <= 1) {
-            clearInterval(intervaloRef.current);
-            setJogando(false);
-            setBlocoAtivo(null);
-            setMostrarModal(true);
-            return 0;
-          }
-          return t - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(intervaloRef.current);
-  }, [jogando]);
-
+  // Clique nos blocos
   function clicarBloco(index) {
-    if (!jogando) return;
+    if (!jogando || bloqueandoClickRef.current) return;
+    bloqueandoClickRef.current = true;
 
     if (index === blocoAtivo) {
+      // Acertou
       setPontuacao((p) => p + 1);
-      setBlocoAtivo(null);
+      setAnimacaoBloco({ index, tipo: "correto" });
+
       setTimeout(() => {
-        ativarBlocoAleatorio();
-      }, 5);
+        setAnimacaoBloco(null);
+        ativarBloco();
+        bloqueandoClickRef.current = false;
+      }, 0);
+    } else {
+      // Errou
+      setPontuacao((p) => Math.max(0, p - 1));
+      setVidas((v) => {
+        if (v <= 1) {
+          setJogando(false);
+          setMostrarModal(true);
+          setBlocoAtivo(null);
+          return 0;
+        }
+        return v - 1;
+      });
+      setAnimacaoBloco({ index, tipo: "errado" });
+
+      setTimeout(() => {
+        setAnimacaoBloco(null);
+        ativarBloco();
+        bloqueandoClickRef.current = false;
+      }, 200);
     }
   }
 
@@ -90,27 +94,37 @@ export default function JogoReflexo() {
             className="reflexo-sair-btn"
             onClick={() => (window.location.href = "/")}
           >
-            ⮜ 
+            ⮜
           </button>
           <button className="botao-reiniciar-reflexo" onClick={reiniciarJogo}>
             🗘
           </button>
-          <div className="cronometro">⏱ {tempo}s</div>
+
+          {/* BARRA DE VIDAS */}
+          <div className="vidas-container">
+            <div
+              className={`barra-vidas ${vidas <= 2 ? "critico" : vidas <= 3 ? "medio" : ""}`}
+              style={{ width: `${(vidas / 5) * 100}%` }}
+            ></div>
+          </div>
         </div>
       </header>
 
       <div className="tabuleiro-reflexos">
-        {blocos.map((b, i) => (
+        {blocos.map((_, i) => (
           <div
             key={i}
             onClick={() => clicarBloco(i)}
-            className={`bloco ${i === blocoAtivo ? "ativo" : ""}`}
+            className={`bloco 
+              ${i === blocoAtivo ? "ativo" : ""} 
+              ${animacaoBloco?.index === i ? animacaoBloco.tipo : ""}
+            `}
           />
         ))}
       </div>
 
       <button
-        className={`iniciar-jogo-reflexo ${jogando || mostrarModal ? "invisivel" : ""}`}
+        className={`iniciar-jogo-reflexo ${jogando || mostrarModal ? "oculto" : ""}`}
         onClick={iniciarJogo}
       >
         INICIAR JOGO
@@ -119,15 +133,13 @@ export default function JogoReflexo() {
       {mostrarModal && (
         <div className="modal-fim-reflexo">
           <div className="modal-conteudo-reflexo">
-            <h2>⏱ TEMPO ESGOTADO!</h2>
+            <h2>FIM DE JOGO</h2>
             <p>
               SUA PONTUAÇÃO: <strong>{pontuacao}</strong>
             </p>
-            <div className="botoes-modal-reflexo">
-              <button onClick={iniciarJogo} className="btn-modal-jogar-reflexo">
-                JOGAR NOVAMENTE
-              </button>
-            </div>
+            <button onClick={iniciarJogo} className="btn-modal-jogar-reflexo">
+              JOGAR NOVAMENTE
+            </button>
           </div>
         </div>
       )}

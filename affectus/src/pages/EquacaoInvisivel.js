@@ -6,18 +6,19 @@ import MESTRE from "../assets/EQUACAO/MESTRE.png";
 import BOARD from "../assets/EQUACAO/BOARD.png";
 
 export default function EquacaoInvisivel() {
-  const perguntas = [
-    { conta: "? + 5 = 8", resposta: 3, opcoes: [2, 3, 5, 4] },
-    { conta: "? - 4 = 2", resposta: 6, opcoes: [6, 5, 8, 7] },
-    { conta: "? + 7 = 12", resposta: 5, opcoes: [5, 6, 4, 8] },
-    { conta: "? - 3 = 1", resposta: 4, opcoes: [2, 3, 4, 5] },
-    { conta: "? + 2 = 7", resposta: 5, opcoes: [5, 6, 4, 7] },
-    { conta: "? - 5 = 3", resposta: 8, opcoes: [8, 6, 7, 9] },
-    { conta: "? + 4 = 9", resposta: 5, opcoes: [5, 6, 4, 3] },
-    { conta: "? - 2 = 5", resposta: 7, opcoes: [6, 7, 5, 8] },
-    { conta: "? + 6 = 11", resposta: 5, opcoes: [4, 5, 6, 7] },
-    { conta: "? - 1 = 3", resposta: 4, opcoes: [4, 3, 5, 2] },
+ const perguntas = [
+    { conta: "? + 6 = 12", resposta: 6, opcoes: [5, 6, 7, 8] },
+    { conta: "? - 3 = 9", resposta: 12, opcoes: [10, 12, 11, 9] },
+    { conta: "? + 4 = 15", resposta: 11, opcoes: [9, 10, 11, 12] },
+    { conta: "? - 7 = 8", resposta: 15, opcoes: [13, 14, 15, 16] },
+    { conta: "? + 5 = 18", resposta: 13, opcoes: [12, 13, 14, 15] },
+    { conta: "? - 2 = 6", resposta: 8, opcoes: [7, 8, 9, 10] },
+    { conta: "? + 3 = 9", resposta: 6, opcoes: [5, 6, 7, 8] },
+    { conta: "? - 4 = 10", resposta: 14, opcoes: [12, 13, 14, 15] },
+    { conta: "? + 7 = 20", resposta: 13, opcoes: [11, 12, 13, 14] },
+    { conta: "? - 5 = 5", resposta: 10, opcoes: [9, 10, 11, 12] },
   ];
+
 
   const [indice, setIndice] = useState(0);
   const [acertos, setAcertos] = useState(0);

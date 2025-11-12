@@ -54,7 +54,7 @@ export default function JogoPirata() {
     { pergunta: "O que causa mau hálito?", opcoes: ["Escovar", "Restos de comida", "Beber água"], correta: 1, imagem: Pergunta9 },
     { pergunta: "Quem cuida dos dentes?", opcoes: ["Médico", "Dentista", "Professor"], correta: 1, imagem: Pergunta10 },
     { pergunta: "Quantos dentes temos quando adultos?", opcoes: ["20", "32", "40"], correta: 1, imagem: Pergunta11 },
-    { pergunta: "Qual parte do dente vemos?", opcoes: ["Raiz", "Esmalte", "Polpa"], correta: 1, imagem: Pergunta12 },
+    { pergunta: "Como escovamos os dentes?", opcoes: ["Pente", "Escova", "Sabonete"], correta: 1, imagem: Pergunta12 },
   ];
 
   const delay = (ms) => new Promise((res) => setTimeout(res, ms));
@@ -66,60 +66,76 @@ export default function JogoPirata() {
     audioRef.current.play().catch(() => {});
   };
 
+  // 🔹 Movimento mais rápido e fluído
   const mover = async (passos, som) => {
     if (!jogoIniciado) return;
     let novaPos = posicao;
     setAnimacao(passos > 0 ? "acerto" : "erro");
 
+    const duracaoPasso = 550; // era 600ms, agora mais rápido e responsivo
     for (let i = 0; i < Math.abs(passos); i++) {
       novaPos += passos > 0 ? 1 : -1;
       novaPos = Math.max(0, Math.min(11, novaPos));
       setPosicao(novaPos);
       tocarSom(som);
-      await delay(600);
+      await delay(duracaoPasso);
     }
 
     setAnimacao("");
     return novaPos;
   };
 
-  const responder = async (i) => {
-    if (!jogoIniciado) return;
+  // 🔹 Clique mais responsivo e com feedback visual imediato
+  // 🔹 Clique mais responsivo e com delay para exibir próxima pergunta após o navio se mover
+const responder = async (i) => {
+  if (!jogoIniciado) return;
 
-    setAnimacao("fadeOut");
-    await delay(600);
-    setMostrarPergunta(false);
-    await delay(600);
+  // animação de saída da pergunta atual
+  setAnimacao("fadeOut");
+  await delay(800); // pequeno fade antes de esconder
+  setMostrarPergunta(false);
 
-    const pergunta = perguntas[perguntaIndex];
-    const correta = i === pergunta.correta;
+  const pergunta = perguntas[perguntaIndex];
+  const correta = i === pergunta.correta;
 
-    const novaPos = await mover(correta ? 1 : -1, correta ? audioAcerto : audioErro);
+  // feedback sonoro e visual imediato
+  tocarSom(correta ? audioAcerto : audioErro);
+  setAnimacao(correta ? "acerto" : "erro");
 
-    // Derrota se retroceder para a última casa (0)
-    if (novaPos === 0 && perguntaIndex > 0 && !correta) {
-      setDerrota(true);
-      setJogoIniciado(false);
-      return;
-    }
+  // movimenta o navio (já com animação)
+  const novaPos = await mover(
+    correta ? 1 : -1,
+    correta ? audioAcerto : audioErro
+  );
 
-    // Derrota se acabar perguntas sem chegar no tesouro
-    const proxima = perguntaIndex + 1;
-    if (proxima >= perguntas.length && novaPos < 11) {
-      setDerrota(true);
-      setJogoIniciado(false);
-      return;
-    }
+  // ⏳ delay para deixar o navio terminar o movimento antes da próxima pergunta aparecer
+  await delay(1200);
 
-    // Vitória
-    if (novaPos >= 11) {
-      setFimDeJogo(true);
-      return;
-    }
+  // checagens de derrota e fim de jogo
+  if (novaPos === 0 && perguntaIndex > 0 && !correta) {
+    setDerrota(true);
+    setJogoIniciado(false);
+    return;
+  }
 
-    setPerguntaIndex(proxima);
-    setMostrarPergunta(true);
+  const proxima = perguntaIndex + 1;
+  if (proxima >= perguntas.length && novaPos < 11) {
+    setDerrota(true);
+    setJogoIniciado(false);
+    return;
+  }
+
+  if (novaPos >= 11) {
+    setFimDeJogo(true);
+    return;
+  }
+
+  // reexibe a próxima pergunta (com leve entrada)
+  setPerguntaIndex(proxima);
+  setAnimacao("fadeIn");
+  setMostrarPergunta(true);
   };
+
 
   const iniciarJogo = () => {
     setPosicao(0);
@@ -141,7 +157,6 @@ export default function JogoPirata() {
   const navioStyle = calcularPosicaoNavio(posicao);
   const progressoAtual = Math.min((posicao / 11) * 100, 100);
 
-  // Efeitos para tocar sons de vitória e derrota
   useEffect(() => {
     if (fimDeJogo && somAtivo) {
       audioVitoria.current.pause();
@@ -158,11 +173,21 @@ export default function JogoPirata() {
     }
   }, [derrota, somAtivo]);
 
+  // ⛵ Animações de erro e acerto mais visuais
+  useEffect(() => {
+    if (animacao === "erro") {
+      document.body.classList.add("pirata-erro-tela");
+      const timeout = setTimeout(() => document.body.classList.remove("pirata-erro-tela"), 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [animacao]);
+
+  // Mantém o return original do usuário
   return (
     <div className="jogo-pirata-container">
       <header className="jogo-header-pirata">
         <button className="botao-voltar-pirata" onClick={() => (window.location.href = "/")}>
-          ←
+          ⮜ 
         </button>
 
         <div className="barra-progresso-pirata">
@@ -170,7 +195,7 @@ export default function JogoPirata() {
         </div>
 
         <button className="botao-som-pirata" onClick={() => setSomAtivo(!somAtivo)}>
-          {somAtivo ? "🔊" : "🔇"}
+          {somAtivo ? "♫" : "🔇"}
         </button>
       </header>
 
@@ -195,14 +220,14 @@ export default function JogoPirata() {
 
         {!jogoIniciado && !fimDeJogo && (
           <button className="botao-comecar-pirata" onClick={iniciarJogo}>
-            Começar jogo
+            JOGAR
           </button>
         )}
 
         {jogoIniciado && mostrarPergunta && !fimDeJogo && (
           <div className={`pergunta-flutuante-pirata ${animacao}`}>
             <div className="conteudo-pergunta-pirata">
-              <h3 className="titulo-pergunta-pirata">🧭 Pergunta:</h3>
+              <h3 className="titulo-pergunta-pirata">🏴‍☠️  Pergunta:</h3>
               <img src={perguntas[perguntaIndex].imagem} alt="Pergunta" className="img-pergunta-pirata" />
               <p className="texto-pergunta-pirata">{perguntas[perguntaIndex].pergunta}</p>
               <div className="divisor-pirata"></div>
