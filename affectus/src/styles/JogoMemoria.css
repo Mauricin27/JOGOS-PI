@@ -8,6 +8,23 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: url("../assets/JogoMemoria/fundo.png") center/cover no-repeat;
   box-sizing: border-box;
+  font-family: 'Chewy', cursive;
+}
+
+.jogoMemoria-container {
+   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.jogoMemoria-container img {
+   user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
 }
 
 .jogoMemoria-topbar {
@@ -98,6 +115,10 @@
   height: 230px;
   overflow: hidden;
   transition: transform 0.3s ease;
+}
+
+.carta-memoria:hover {
+  transform: scale(1.05);
 }
 
 .carta-inner {
@@ -196,6 +217,7 @@
   backdrop-filter: blur(6px);
   animation: fadeIn 0.3s ease-in-out;
   overflow: hidden; /* evita scroll */
+  font-family: 'Chewy', cursive;
 }
 
 .vitoria-carta {
@@ -228,12 +250,15 @@
   font-size: 2rem;
   margin-bottom: 15px;
   word-wrap: break-word;
+  font-family: 'Chewy', cursive;
 }
 
 .vitoria-carta p {
   font-size: 1.2rem;
   margin-bottom: 25px;
+  font-family: 'Chewy', cursive;
 }
+
 
 .vitoria-acoes {
   display: flex;
@@ -390,3 +415,72 @@
   .vitoria-carta h2 { font-size: 1.2rem; }
   .vitoria-carta p { font-size: 0.9rem; }
 }
+
+.memoria-conquista-pop {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: popIn 0.4s ease, fadeOut 0.5s ease 2.5s forwards;
+  z-index: 9999;
+  max-width: 90%;
+}
+
+.memoria-conquista-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+}
+
+.memoria-conquista-texto {
+  font-weight: bold;
+  font-size: 16px;
+  color: #141414;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .memoria-conquista-pop {
+    top: auto;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .memoria-conquista-texto {
+    font-size: 14px;
+  }
+
+  .memoria-conquista-img {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+

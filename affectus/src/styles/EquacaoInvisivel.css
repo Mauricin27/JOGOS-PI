@@ -23,6 +23,20 @@
   text-align: center;
   animation: surgir 0.6s ease;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+
+   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.container-jogo-equacao img {
+   user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  pointer-events: none;
 }
 
 /* ===== CABEÇALHO ===== */
@@ -298,5 +312,73 @@
     width: 120px;
     height: 95px;
     font-size: 1.4rem;
+  }
+}
+
+.equacao-conquista-pop {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(245, 248, 255, 0.95);
+  border: 2px solid rgba(90, 140, 255, 0.4);
+  border-radius: 12px;
+  padding: 14px 18px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: popIn 0.4s ease, fadeOut 0.5s ease 2s forwards;
+  z-index: 9999;
+  max-width: 90%;
+  backdrop-filter: blur(6px);
+}
+
+.equacao-conquista-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+}
+
+.equacao-conquista-texto {
+  font-weight: bold;
+  font-size: 16px;
+  color: #1a1a1a;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+/* 📱 Responsividade */
+@media (max-width: 480px) {
+  .equacao-conquista-pop {
+    bottom: 15px;
+    top: auto;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: column;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .equacao-conquista-texto {
+    font-size: 14px;
+  }
+}
+
+/*  Animações */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
   }
 }

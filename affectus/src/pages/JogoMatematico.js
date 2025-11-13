@@ -8,8 +8,11 @@ import VENCEU from "../assets/MATEMATICA/VENCEU.mp3";
 import PERDEU from "../assets/MATEMATICA/PERDEU.mp3";
 import QUADRO from "../assets/MATEMATICA/BOARD.png";
 import REPROVADO from "../assets/MATEMATICA/REPROVADO.png";
+import CEREBRO from "../assets/MATEMATICA/CIENTISTA.png";
+import TROFEU from "../assets/MATEMATICA/MAGICO.png";
 
 export default function JogoMatematico() {
+  // ARRAY DE PERGUNTAS, COM CONTA, RESPOSTA CORRETA E OPCOES
   const perguntas = [
     { conta: "2 + 3", resposta: 5, opcoes: [5, 7, 10, 3] },
     { conta: "4 - 2", resposta: 2, opcoes: [2, 3, 5, 1] },
@@ -23,15 +26,19 @@ export default function JogoMatematico() {
     { conta: "9 - 4", resposta: 5, opcoes: [6, 4, 3, 5] },
   ];
 
-  const [indice, setIndice] = useState(0);
-  const [acertos, setAcertos] = useState(0);
-  const [erros, setErros] = useState(0);
-  const [finalizado, setFinalizado] = useState(false);
-  const [respostaClicada, setRespostaClicada] = useState(null);
-  const [somAtivo, setSomAtivo] = useState(true);
+  // ESTADOS DO JOGO
+  const [indice, setIndice] = useState(0); // CONTROLE DO INDICE DA PERGUNTA ATUAL
+  const [acertos, setAcertos] = useState(0); // CONTROLE DE ACERTOS
+  const [erros, setErros] = useState(0); // CONTROLE DE ERROS
+  const [finalizado, setFinalizado] = useState(false); // FLAG PARA FINAL DO JOGO
+  const [respostaClicada, setRespostaClicada] = useState(null); // FLAG PARA RESPOSTA CLICADA
+  const [somAtivo, setSomAtivo] = useState(true); // FLAG PARA SOM ATIVO
+  const [mostrarConquista, setMostrarConquista] = useState(null); // FLAG PARA MOSTRAR CONQUISTA
 
+  // CALCULA O PROGRESSO DO JOGO EM PORCENTAGEM
   const progresso = ((indice + 1) / perguntas.length) * 100;
 
+  // FUNCAO PARA TOCAR SOM
   function tocarSom(src) {
     if (somAtivo) {
       const audio = new Audio(src);
@@ -39,12 +46,24 @@ export default function JogoMatematico() {
     }
   }
 
+  // FUNCAO PARA VERIFICAR RESPOSTA SELECIONADA
   function verificarResposta(opcao) {
     setRespostaClicada(opcao);
 
     if (opcao === perguntas[indice].resposta) {
-      setAcertos(acertos + 1);
+      const novosAcertos = acertos + 1;
+      setAcertos(novosAcertos);
       tocarSom(somAcerto);
+
+      // CONQUISTAS DE ACERTOS
+      if (novosAcertos === 5) {
+        setMostrarConquista("cerebro");
+        setTimeout(() => setMostrarConquista(null), 4000);
+      }
+      if (novosAcertos === 10) {
+        setMostrarConquista("trofeu");
+        setTimeout(() => setMostrarConquista(null), 4000);
+      }
     } else {
       setErros(erros + 1);
       tocarSom(somErro);
@@ -60,6 +79,7 @@ export default function JogoMatematico() {
     }, 1000);
   }
 
+  // FUNCAO PARA REINICIAR O JOGO
   function reiniciarJogo() {
     setIndice(0);
     setAcertos(0);
@@ -71,9 +91,8 @@ export default function JogoMatematico() {
   return (
     <div className="container-geral">
       <div className="container-jogo">
-        {/* Header */}
+        {/* HEADER DO JOGO */}
         <div className="header-jogo">
-          {/* Botões no lugar da logo */}
           <div className="botoes-header">
             <button className="btn-sair" onClick={() => (window.location.href = "/")}>
               ⮜
@@ -84,7 +103,7 @@ export default function JogoMatematico() {
           </div>
 
           <div className="header-centro">
-            {!finalizado && <h2 className="titulo-jogo">Desafio Matemático</h2>}
+            {!finalizado && <h2 className="titulo-jogo">Desafio Matematico</h2>}
             <div className="barra-progresso">
               <div
                 className="barra-preenchida"
@@ -98,7 +117,7 @@ export default function JogoMatematico() {
           </button>
         </div>
 
-        {/* Pergunta */}
+        {/* MOSTRAR PERGUNTA */}
         {!finalizado && (
           <div className="professor-container">
             <img src={professor} className="professor-img" alt="professor" />
@@ -108,7 +127,7 @@ export default function JogoMatematico() {
           </div>
         )}
 
-        {/* Respostas */}
+        {/* MOSTRAR OPCOES DE RESPOSTA */}
         {!finalizado && (
           <div className="respostas-container">
             {perguntas[indice].opcoes.map((opcao, i) => (
@@ -130,14 +149,14 @@ export default function JogoMatematico() {
           </div>
         )}
 
-        {/* Modal final */}
+        {/* MODAL FINAL DO JOGO */}
         {finalizado && (
           <div className="modal-final">
             {acertos >= 6 ? (
               <>
-                <h2>PARABÉNS! VOCÊ FOI APROVADO!</h2>
+                <h2>PARABENS! VOCE FOI APROVADO!</h2>
                 {somAtivo && <audio autoPlay src={VENCEU}></audio>}
-                <p>Você acertou {acertos} de {perguntas.length}!</p>
+                <p>Voce acertou {acertos} de {perguntas.length}!</p>
                 <img src={FORMOU} className="modal-img" alt="venceu" />
                 <button className="btn-reiniciar" onClick={reiniciarJogo}>
                   Jogar Novamente
@@ -145,15 +164,42 @@ export default function JogoMatematico() {
               </>
             ) : (
               <>
-                <h2>OPS... VOCÊ FOI REPROVADO!</h2>
+                <h2>OPS... VOCE FOI REPROVADO!</h2>
                 {somAtivo && <audio autoPlay src={PERDEU}></audio>}
-                <p>Você acertou {acertos} de {perguntas.length}.</p>
+                <p>Voce acertou {acertos} de {perguntas.length}.</p>
                 <img src={REPROVADO} className="modal-img" alt="perdeu" />
                 <button className="btn-reiniciar" onClick={reiniciarJogo}>
                   Jogar Novamente
                 </button>
               </>
             )}
+          </div>
+        )}
+
+        {/* POPUPS DE CONQUISTA */}
+        {mostrarConquista === "cerebro" && (
+          <div className="matematica-conquista-pop">
+            <img
+              src={CEREBRO}
+              alt="Cerebro Rapido"
+              className="matematica-conquista-img"
+            />
+            <p className="matematica-conquista-texto">
+              Conquista desbloqueada: Cientista Incrivel!
+            </p>
+          </div>
+        )}
+
+        {mostrarConquista === "trofeu" && (
+          <div className="matematica-conquista-pop">
+            <img
+              src={TROFEU}
+              alt="Genio das Equacoes"
+              className="matematica-conquista-img"
+            />
+            <p className="matematica-conquista-texto">
+               Conquista desbloqueada: Magico das Equacoes!
+            </p>
           </div>
         )}
       </div>

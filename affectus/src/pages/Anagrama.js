@@ -9,6 +9,10 @@ import TROFEU from '../assets/ANAGRAMA/AUSTRONAUTA.gif';
 import PREMIO from '../assets/ANAGRAMA/POSITIVO.png';
 import NEGATIVO from '../assets/ANAGRAMA/NEGATIVO.png';
 
+//  NOVO  ícones das conquistas
+import CONQUISTA1 from '../assets/ANAGRAMA/CONQUISTA1.png';
+import CONQUISTA2 from '../assets/ANAGRAMA/CONQUISTA2.png';
+
 const palavras = [
   { dica: "Se usa para limpar os dentes", palavra: "ESCOVA" },
   { dica: "Usa-se junto da escova", palavra: "CREME" },
@@ -32,16 +36,21 @@ export default function AnagramaJogo() {
   const [somAtivo, setSomAtivo] = useState(true);
   const [mostrarPremio, setMostrarPremio] = useState(false);
   const [mostrarErro, setMostrarErro] = useState(false);
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [mostrarConquista, setMostrarConquista] = useState(null); // 🏅 NOVO
+
   const palavraAtual = palavras[indicePalavra].palavra;
   const dicaAtual = palavras[indicePalavra].dica;
   const totalPalavras = palavras.length;
+
   const [letrasEmbaralhadas, setLetrasEmbaralhadas] = useState([]);
+
   const audioAcertoRef = useRef(new Audio(ACERTOU));
   const audioErroRef = useRef(new Audio(ERROU));
   const audioParabensRef = useRef(new Audio(AVANCA));
   const audioVitoriaRef = useRef(new Audio(VITORIA));
-  const [mostrarModal, setMostrarModal] = useState(false);
 
+  // USEEFFECT — EMBARALHA AS LETRAS E RESETA O ESTADO TODA VEZ QUE MUDA A PALAVRA
   useEffect(() => {
     const embaralhadas = [...palavraAtual].sort(() => Math.random() - 0.5);
     setLetrasEmbaralhadas(embaralhadas);
@@ -51,6 +60,7 @@ export default function AnagramaJogo() {
     setCompletou(false);
   }, [palavraAtual]);
 
+  // FUNÇÃO PRINCIPAL DO JOGO — VERIFICA SE A LETRA CLICADA ESTÁ CORRETA
   function vereficarLetra(letra, index) {
     if (completou) return;
 
@@ -61,17 +71,29 @@ export default function AnagramaJogo() {
       setCartasSelecionadas((prev) => [...prev, index]);
       setPontuacao((prev) => prev + 5);
 
+      // TOCA SOM DE ACERTO
       if (somAtivo) {
         audioAcertoRef.current.pause();
         audioAcertoRef.current.currentTime = 0;
         audioAcertoRef.current.play();
       }
 
+      // SE COMPLETAR TODAS AS LETRAS, MOSTRA MENSAGEM E CONQUISTAS
       if (novaResposta.length === palavraAtual.length) {
         setCompletou(true);
         setMostrarPremio(true);
         setTimeout(() => setMostrarPremio(false), 980);
 
+        // CONQUISTA DE 5 PALAVRAS
+        if (indicePalavra + 1 === 5) {
+          setMostrarConquista({
+            img: CONQUISTA1,
+            texto: "Conquista desbloqueada: 5 Palavras!",
+          });
+          setTimeout(() => setMostrarConquista(null), 5000);
+        }
+
+        // SE AINDA HÁ PALAVRAS, AVANÇA
         if (indicePalavra + 1 < palavras.length) {
           setMensagem("Parabéns!");
           if (somAtivo) {
@@ -80,6 +102,13 @@ export default function AnagramaJogo() {
             audioParabensRef.current.play().catch(() => {});
           }
         } else {
+          // CONQUISTA FINAL AO TERMINAR TODAS
+          setMostrarConquista({
+            img: CONQUISTA2,
+            texto: "Conquista desbloqueada: Mestre do Anagrama!",
+          });
+          setTimeout(() => setMostrarConquista(null), 5000);
+
           setMensagem("Parabéns! Você completou todas as palavras!");
           setTimeout(() => {
             if (somAtivo) {
@@ -88,10 +117,11 @@ export default function AnagramaJogo() {
               audioVitoriaRef.current.play().catch(() => {});
             }
             setMostrarModal(true);
-          }, 2000);
+          }, 3000); // ATRASO PARA MOSTRAR CONQUISTA ANTES DO MODAL
         }
       }
     } else {
+      // SE ERRAR, MOSTRA ANIMAÇÃO DE ERRO E TOCA SOM
       if (somAtivo) {
         audioErroRef.current.pause();
         audioErroRef.current.currentTime = 0;
@@ -102,6 +132,7 @@ export default function AnagramaJogo() {
     }
   }
 
+  // FUNÇÃO PARA AVANÇAR PARA A PRÓXIMA PALAVRA
   function proximaPalavra() {
     if (indicePalavra + 1 < palavras.length) {
       setIndicePalavra(indicePalavra + 1);
@@ -110,6 +141,7 @@ export default function AnagramaJogo() {
       setCompletou(false);
       setCartasSelecionadas([]);
     } else {
+      // SE TERMINAR TODAS AS PALAVRAS, MOSTRA MODAL FINAL
       setCompletou(true);
       setMensagem("Fim de jogo!");
       if (somAtivo) {
@@ -121,6 +153,7 @@ export default function AnagramaJogo() {
     }
   }
 
+  // FUNÇÃO PARA REINICIAR TODO O JOGO
   function reiniciarJogo() {
     setIndicePalavra(0);
     setResposta([]);
@@ -260,6 +293,18 @@ export default function AnagramaJogo() {
       {mostrarErro && (
         <div className="anagrama-erro-container">
           <img src={NEGATIVO} alt="Negativo gif" className="anagrama-erro-img" />
+        </div>
+      )}
+
+      {/* 🏅 NOVO — POP DE CONQUISTA */}
+      {mostrarConquista && (
+        <div className="anagrama-conquista-pop">
+          <img
+            src={mostrarConquista.img}
+            alt="Conquista"
+            className="anagrama-conquista-img"
+          />
+          <p className="anagrama-conquista-texto">{mostrarConquista.texto}</p>
         </div>
       )}
     </div>

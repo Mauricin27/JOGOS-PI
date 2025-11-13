@@ -8,8 +8,12 @@
   justify-content: center;
   align-items: center;
   background: linear-gradient(145deg, #123e91, #102f68);
-}
 
+   user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
 
 
 /* Conteúdo do jogo acima do fundo */

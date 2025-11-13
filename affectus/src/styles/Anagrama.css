@@ -604,3 +604,93 @@
     font-size: 13px;
   }
 }
+
+
+.anagrama-conquista-pop {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 12px 16px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: popIn 0.4s ease, fadeOut 0.5s ease 4s forwards;
+  z-index: 9999;
+}
+
+.anagrama-conquista-img {
+  width: 100px;
+  height: 100px;
+}
+
+.anagrama-conquista-texto {
+  font-weight: bold;
+  font-size: 16px;
+  color: #1b1b1b;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .anagrama-conquista-pop {
+    top: 15px;
+    right: 15px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    gap: 8px;
+  }
+
+  .anagrama-conquista-img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .anagrama-conquista-texto {
+    font-size: 14px;
+  }
+}
+
+/* 📱 Telas pequenas (celulares) */
+@media (max-width: 480px) {
+  .anagrama-conquista-pop {
+    top: auto;
+    bottom: 15px;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: column;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 6px;
+  }
+
+  .anagrama-conquista-img {
+    width: 45px;
+    height: 45px;
+  }
+
+  .anagrama-conquista-texto {
+    font-size: 13px;
+    max-width: 80vw;
+  }
+}
+

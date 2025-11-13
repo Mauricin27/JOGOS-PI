@@ -339,3 +339,85 @@
     font-size: 18px;
   }
 }
+
+
+/* === 🏆 CONQUISTA DO JOGO DA VELHA === */
+
+.velha-conquista-pop {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid rgba(255, 215, 0, 0.6);
+  border-radius: 14px;
+  padding: 14px 18px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: popIn 0.4s ease, fadeOut 0.5s ease 4s forwards;
+  z-index: 9999;
+  max-width: 90%;
+  backdrop-filter: blur(6px);
+}
+
+.velha-conquista-img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+  animation: brilhoDourado 1.5s ease-in-out infinite alternate;
+}
+
+.velha-conquista-texto {
+  font-weight: bold;
+  font-size: 16px;
+  color: #1a1a1a;
+  text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+/* 📱 Responsividade */
+@media (max-width: 480px) {
+  .velha-conquista-pop {
+    bottom: 15px;
+    top: auto;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: column;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .velha-conquista-texto {
+    font-size: 14px;
+  }
+}
+
+/* ✨ Animações */
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* 💫 Brilho do troféu */
+@keyframes brilhoDourado {
+  from {
+    filter: drop-shadow(0 0 6px rgba(93, 32, 173, 0.9));
+  }
+  to {
+    filter: drop-shadow(0 0 15px rgba(131, 44, 245, 0.9));
+  }
+}

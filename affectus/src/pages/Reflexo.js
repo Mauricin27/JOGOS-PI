@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useState, useRef } from "react";
 import "../styles/Reflexo.css";
 
 export default function JogoReflexo() {
@@ -8,6 +8,7 @@ export default function JogoReflexo() {
   const [jogando, setJogando] = useState(false);
   const [mostrarModal, setMostrarModal] = useState(false);
   const [animacaoBloco, setAnimacaoBloco] = useState(null);
+  const [mostrarConquista, setMostrarConquista] = useState(false);
 
   const historicoRef = useRef([]);
   const bloqueandoClickRef = useRef(false);
@@ -37,6 +38,7 @@ export default function JogoReflexo() {
     setJogando(true);
     setAnimacaoBloco(null);
     setBlocoAtivo(escolherAleatorio());
+    setMostrarConquista(false);
   }
 
   function reiniciarJogo() {
@@ -47,6 +49,7 @@ export default function JogoReflexo() {
     setMostrarModal(false);
     setAnimacaoBloco(null);
     bloqueandoClickRef.current = false;
+    setMostrarConquista(false);
   }
 
   // Clique nos blocos
@@ -57,6 +60,13 @@ export default function JogoReflexo() {
     if (index === blocoAtivo) {
       // Acertou
       setPontuacao((p) => p + 1);
+
+      // ⚡ Desbloqueia conquista após 10 pontos
+      if (pontuacao + 1 === 10) {
+        setMostrarConquista(true);
+        setTimeout(() => setMostrarConquista(false), 3000);
+      }
+
       setAnimacaoBloco({ index, tipo: "correto" });
 
       setTimeout(() => {
@@ -103,7 +113,9 @@ export default function JogoReflexo() {
           {/* BARRA DE VIDAS */}
           <div className="vidas-container">
             <div
-              className={`barra-vidas ${vidas <= 2 ? "critico" : vidas <= 3 ? "medio" : ""}`}
+              className={`barra-vidas ${
+                vidas <= 2 ? "critico" : vidas <= 3 ? "medio" : ""
+              }`}
               style={{ width: `${(vidas / 5) * 100}%` }}
             ></div>
           </div>
@@ -124,7 +136,9 @@ export default function JogoReflexo() {
       </div>
 
       <button
-        className={`iniciar-jogo-reflexo ${jogando || mostrarModal ? "oculto" : ""}`}
+        className={`iniciar-jogo-reflexo ${
+          jogando || mostrarModal ? "oculto" : ""
+        }`}
         onClick={iniciarJogo}
       >
         INICIAR JOGO
@@ -141,6 +155,15 @@ export default function JogoReflexo() {
               JOGAR NOVAMENTE
             </button>
           </div>
+        </div>
+      )}
+
+      {/*  CONQUISTA */}
+      {mostrarConquista && (
+        <div className="reflexo-conquista-pop">
+          <p className="reflexo-conquista-texto">
+            ⚡ Conquista desbloqueada: Reflexo Relâmpago!
+          </p>
         </div>
       )}
     </div>

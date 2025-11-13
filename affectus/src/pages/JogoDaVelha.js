@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import "../styles/JogoDaVelha.css";
 
 import somCliqueMP3 from "../assets/JOGOVELHA/CLICOU.mp3";
 import somVitoriaMP3 from "../assets/JOGOVELHA/ACERTOU.mp3";
 import somErroMP3 from "../assets/JOGOVELHA/PERDEU.mp3";
+import TROFEU from "../assets/JOGOVELHA/MAGO.png";
 
 export default function JogoDaVelha() {
   const [tabuleiro, setTabuleiro] = useState(Array(9).fill(null));
@@ -14,13 +15,17 @@ export default function JogoDaVelha() {
   const [trioVencedor, setTrioVencedor] = useState([]);
   const [mostrarModal, setMostrarModal] = useState(true);
   const [mostrarModalResultado, setMostrarModalResultado] = useState(false);
+  const [mostrarConquista, setMostrarConquista] = useState(false);
 
-  const somClique = new Audio(somCliqueMP3);
-  const somVitoria = new Audio(somVitoriaMP3);
-  const somErro = new Audio(somErroMP3);
+  //  MEMORIZA OS SONS PARA NÃO RECRIAR A CADA RENDER
+  const somClique = useMemo(() => new Audio(somCliqueMP3), []);
+  const somVitoria = useMemo(() => new Audio(somVitoriaMP3), []);
+  const somErro = useMemo(() => new Audio(somErroMP3), []);
 
-  // --- VERIFICA VENCEDOR ---
-  const verificarVencedor = (b) => {
+  //  VERIFICA VENCEDOR 
+  // ESTA FUNÇÃO CHECA TODAS AS COMBINAÇÕES POSSÍVEIS DE LINHAS, COLUNAS E DIAGONAIS
+  // PARA IDENTIFICAR SE EXISTE UM VENCEDOR. RETORNA O VENCEDOR E O TRIO DE POSIÇÕES.
+  const verificarVencedor = useCallback((b) => {
     const combinacoes = [
       [0, 1, 2],
       [3, 4, 5],
@@ -37,10 +42,13 @@ export default function JogoDaVelha() {
       }
     }
     return { vencedor: null, trio: [] };
-  };
+  }, []);
 
-  // --- IA ---
-  const jogadaIa = (b) => {
+  
+  // ESTA FUNÇÃO DEFINE A LÓGICA DA INTELIGÊNCIA ARTIFICIAL.
+  // ELA ESCOLHE UMA JOGADA BASEADA EM CHANCES, TENTANDO VENCER OU BLOQUEAR O JOGADOR.
+  // SE NÃO HOUVER MOVIMENTOS CRÍTICOS, ESCOLHE UMA CASA ALEATÓRIA.
+  const jogadaIa = useCallback((b) => {
     const chanceErro = Math.random() < 0.15;
     const vazias = b.map((v, i) => (v === null ? i : null)).filter((v) => v !== null);
 
@@ -64,21 +72,29 @@ export default function JogoDaVelha() {
     if (cantos.length) return cantos[Math.floor(Math.random() * cantos.length)];
 
     return vazias[Math.floor(Math.random() * vazias.length)];
-  };
+  }, [verificarVencedor]);
 
-  // --- CLIQUE ---
-  const aoClicar = (indice) => {
-    if (tabuleiro[indice] || vencedor || jogarContraIa === null) return;
+  // CLIQUE 
+  // ESTA FUNÇÃO É CHAMADA QUANDO O JOGADOR CLICA EM UMA CASA DO TABULEIRO.
+  // ELA REGISTRA A JOGADA, ALTERNA O TURNO E REPRODUZ O SOM DO CLIQUE.
+  const aoClicar = useCallback(
+    (indice) => {
+      if (tabuleiro[indice] || vencedor || jogarContraIa === null) return;
 
-    const novoTabuleiro = [...tabuleiro];
-    novoTabuleiro[indice] = vezDoX ? "X" : "O";
-    setTabuleiro(novoTabuleiro);
-    setVezDoX(!vezDoX);
+      const novoTabuleiro = [...tabuleiro];
+      novoTabuleiro[indice] = vezDoX ? "X" : "O";
+      setTabuleiro(novoTabuleiro);
+      setVezDoX(!vezDoX);
 
-    if (somAtivo) somClique.play();
-  };
+      if (somAtivo) somClique.play();
+    },
+    [tabuleiro, vencedor, jogarContraIa, vezDoX, somAtivo, somClique]
+  );
 
-  // --- MONITORA JOGO ---
+  //  MONITORA O JOGO 
+  // ESTE USEEFFECT É RESPONSÁVEL POR VERIFICAR CONSTANTEMENTE O ESTADO DO JOGO.
+  // ELE DETECTA QUANDO ALGUÉM VENCE, REPRODUZ OS SONS DE VITÓRIA OU DERROTA,
+  // E TAMBÉM FAZ A IA JOGAR AUTOMATICAMENTE QUANDO FOR SUA VEZ.
   useEffect(() => {
     const { vencedor: ganhador, trio } = verificarVencedor(tabuleiro);
 
@@ -86,49 +102,67 @@ export default function JogoDaVelha() {
       setTrioVencedor(trio);
       setVencedor(ganhador || null);
 
-      // 🔊 Som
       if (somAtivo) {
         if (ganhador === "X" || (ganhador && !jogarContraIa)) somVitoria.play();
         else if (ganhador === "O" && jogarContraIa) somErro.play();
       }
 
-      // ⏳ Delay para abrir modal de resultado
-      setTimeout(() => setMostrarModalResultado(true), 2500);
+      // CONQUISTA AO VENCER A IA
+      if (jogarContraIa && ganhador === "X") {
+        setMostrarConquista(true);
+        setTimeout(() => setMostrarConquista(false), 6000);
+      }
 
+      setTimeout(() => setMostrarModalResultado(true), 2500);
       return;
     }
 
-    // IA
     if (jogarContraIa && !vezDoX && !ganhador) {
       const indiceIa = jogadaIa(tabuleiro);
       setTimeout(() => aoClicar(indiceIa), 600);
     }
-  }, [tabuleiro, vezDoX, jogarContraIa, somAtivo]);
+  }, [
+    tabuleiro,
+    vezDoX,
+    jogarContraIa,
+    somAtivo,
+    verificarVencedor,
+    jogadaIa,
+    aoClicar,
+    somErro,
+    somVitoria,
+  ]);
 
-  // --- REINICIA ---
-  const reiniciarJogo = () => {
+  // FUNÇÕES AUXILIARES 
+  // ESTA FUNÇÃO REINICIA TODO O JOGO, LIMPA O TABULEIRO E RESETA OS ESTADOS.
+  const reiniciarJogo = useCallback(() => {
     setTabuleiro(Array(9).fill(null));
     setVezDoX(true);
     setVencedor(null);
     setTrioVencedor([]);
     setMostrarModalResultado(false);
-  };
+  }, []);
 
-  const sairJogo = () => alert("Saindo do jogo...");
-  const alternarSom = () => setSomAtivo(!somAtivo);
+  // ESTA FUNÇÃO ATIVA OU DESATIVA OS SONS
+  const alternarSom = useCallback(() => setSomAtivo((prev) => !prev), []);
 
-  const escolherModo = (modo) => {
-    setJogarContraIa(modo === "ia");
-    reiniciarJogo();
-    setMostrarModal(false);
-  };
+  // ESTA FUNÇÃO PERMITE AO JOGADOR ESCOLHER O MODO DE JOGO 2 JOGADORES OU CONTRA IA.
+  const escolherModo = useCallback(
+    (modo) => {
+      setJogarContraIa(modo === "ia");
+      reiniciarJogo();
+      setMostrarModal(false);
+    },
+    [reiniciarJogo]
+  );
 
-  const abrirModal = () => setMostrarModal(true);
+  // ESTA FUNÇÃO REABRE O MODAL DE ESCOLHA DE MODO.
+  const abrirModal = useCallback(() => setMostrarModal(true), []);
 
   return (
     <div className="container-principal-velha">
       <div className="container-jogo-velha">
-        {/* Modal Escolha de Modo */}
+        {/* MODAL ESCOLHA */}
         {mostrarModal && (
           <div className="modal-fundo">
             <div className="modal-conteudo">
@@ -143,12 +177,20 @@ export default function JogoDaVelha() {
           </div>
         )}
 
-        {/* Modal Resultado */}
+        {/* MODAL RESULTADO */}
         {mostrarModalResultado && (
           <div className="modal-fundo">
             <div className="modal-conteudo">
               {vencedor ? (
-                <h2 className={jogarContraIa ? (vencedor === "X" ? "texto-vencedor-jogo-velha" : "texto-empate-jogo-velha") : "texto-vencedor-jogo-velha"}>
+                <h2
+                  className={
+                    jogarContraIa
+                      ? vencedor === "X"
+                        ? "texto-vencedor-jogo-velha"
+                        : "texto-empate-jogo-velha"
+                      : "texto-vencedor-jogo-velha"
+                  }
+                >
                   {jogarContraIa
                     ? vencedor === "X"
                       ? "VOCÊ VENCEU!"
@@ -165,45 +207,73 @@ export default function JogoDaVelha() {
           </div>
         )}
 
-        {/* Header */}
+        {/* HEADER */}
         <header className="header-barra-topo-velha">
           <div className="grupo-botoes-esquerda-velha">
-            <button className="botao-sair-jogo-velha" onClick={() => window.location.href="/"}>⮜</button>
-            <button className="botao-reiniciar-jogo-velha" onClick={reiniciarJogo}>🗘</button>
+            <button
+              className="botao-sair-jogo-velha"
+              onClick={() => (window.location.href = "/")}
+            >
+              ⮜
+            </button>
+            <button className="botao-reiniciar-jogo-velha" onClick={reiniciarJogo}>
+              🗘
+            </button>
           </div>
           <h1 className="titulo-jogo-velha">JOGO DA VELHA</h1>
           <div className="grupo-botoes-direita-velha">
-            <button className="botao-modo-abrir-modal" onClick={abrirModal}>⚙</button>
-            <button className="botao-som-efeitos-velha" onClick={alternarSom}>{somAtivo ? "♫" : "🔇"}</button>
+            <button className="botao-modo-abrir-modal" onClick={abrirModal}>
+              ⚙
+            </button>
+            <button className="botao-som-efeitos-velha" onClick={alternarSom}>
+              {somAtivo ? "♫" : "🔇"}
+            </button>
           </div>
         </header>
 
-        {/* Tabuleiro */}
+        {/* TABULEIRO */}
         <div className="grade-tabuleiro-jogo-velha">
           {tabuleiro.map((celula, indice) => (
             <div
-               key={indice}
-               className={`celula-tabuleiro-jogo
-               ${celula ? "celula-preenchida-jogo" : ""}
-               ${trioVencedor.includes(indice) ? "celula-vencedora" : ""}
-               ${celula === "X" ? "vez-x-jogador" : celula === "O" ? "vez-o-jogador" : ""}`}
-               onClick={() => aoClicar(indice)}
+              key={indice}
+              className={`celula-tabuleiro-jogo
+              ${celula ? "celula-preenchida-jogo" : ""}
+              ${trioVencedor.includes(indice) ? "celula-vencedora" : ""}
+              ${celula === "X" ? "vez-x-jogador" : celula === "O" ? "vez-o-jogador" : ""}`}
+              onClick={() => aoClicar(indice)}
             >
               {celula}
             </div>
           ))}
         </div>
 
-        {/* Status */}
+        {/* STATUS */}
         <div className="area-status-jogo-velha">
           {jogarContraIa === null ? (
             <p>Escolha o modo de jogo para começar</p>
           ) : !vencedor && !tabuleiro.every((c) => c) ? (
             <p>
-              VEZ DE: <span className={vezDoX ? "vez-x-jogador" : "vez-o-jogador"}>{vezDoX ? "X" : "O"}</span>
+              VEZ DE:{" "}
+              <span className={vezDoX ? "vez-x-jogador" : "vez-o-jogador"}>
+                {vezDoX ? "X" : "O"}
+              </span>
             </p>
           ) : null}
         </div>
+
+        {/*  CONQUISTA */}
+        {mostrarConquista && (
+          <div className="velha-conquista-pop">
+            <img
+              src={TROFEU}
+              alt="Estrategista Supremo"
+              className="velha-conquista-img"
+            />
+            <p className="velha-conquista-texto">
+               Conquista desbloqueada: Estrategista Supremo!
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

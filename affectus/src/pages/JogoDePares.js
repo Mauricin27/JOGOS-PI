@@ -18,7 +18,13 @@ import somFumaca from "../assets/JODOPARES/FORMOU.mp3";
 import somVitoria from "../assets/JODOPARES/1.mp3";
 import somBeep from "../assets/JODOPARES/MOVER.mp3";
 
-// Cores (fundo transparente)
+// Imagens de conquistas
+import CONQUISTA1 from "../assets/JODOPARES/CON1.png";
+import CONQUISTA2 from "../assets/JODOPARES/CON2.png";
+import CONQUISTA3 from "../assets/JODOPARES/CON3.png";
+import CONQUISTA4 from "../assets/JODOPARES/CON4.png";
+
+// ===== Configurações =====
 const cores = {
   1: "rgba(255, 105, 97, 0.9)",
   2: "rgba(255, 214, 102, 0.9)",
@@ -33,10 +39,7 @@ const cores = {
   11: "rgba(119, 187, 255, 0.9)",
 };
 
-// Níveis
 const niveis = [4, 6, 8, 10];
-
-// Imagens por nível
 const imagensPorNivel = [
   [img1, img2, img3, img4],
   [img1, img2, img3, img4, img5, img6],
@@ -82,6 +85,7 @@ export default function JogoDeTrio() {
   const [vitoria, setVitoria] = useState(false);
   const [modalProximoNivel, setModalProximoNivel] = useState(false);
   const [selecionado, setSelecionado] = useState(null);
+  const [mostrarConquista, setMostrarConquista] = useState(null);
   const animandoRef = useRef(false);
   const [grade, setGrade] = useState({ linhas: 0, colunas: 0 });
   const [botaoAtivo, setBotaoAtivo] = useState(null);
@@ -138,6 +142,11 @@ export default function JogoDeTrio() {
   useEffect(() => {
     iniciarNivel(nivelAtual);
   }, [nivelAtual, iniciarNivel]);
+
+  function mostrarPopupConquista(tipo) {
+    setMostrarConquista(tipo);
+    setTimeout(() => setMostrarConquista(null), 2500);
+  }
 
   const detectarTodosTrios = useCallback(
     (array) => {
@@ -200,6 +209,8 @@ export default function JogoDeTrio() {
           setTriosEncontrados((prev) => {
             const novo = prev + 1;
             if (novo >= niveis[nivelAtual]) {
+              // Mostra conquistas por nível
+              mostrarPopupConquista(`nivel${nivelAtual + 1}`);
               if (nivelAtual + 1 < niveis.length) {
                 setTimeout(() => setModalProximoNivel(true), 800);
               } else {
@@ -356,6 +367,35 @@ export default function JogoDeTrio() {
           </button>
         </div>
       </div>
+
+      {/* ======== POPUPS DE CONQUISTA ======== */}
+      {mostrarConquista === "nivel1" && (
+        <div className="jogo-pares-conquista-pop">
+          <img src={CONQUISTA1} alt="Conquista Nível 1" className="jogo-pares-conquista-img" />
+          <p className="jogo-pares-conquista-texto">🎯 Conquista: Aprendiz dos Pares!</p>
+        </div>
+      )}
+
+      {mostrarConquista === "nivel2" && (
+        <div className="jogo-pares-conquista-pop">
+          <img src={CONQUISTA2} alt="Conquista Nível 2" className="jogo-pares-conquista-img" />
+          <p className="jogo-pares-conquista-texto">⚡ Conquista: Desafiador das Cores!</p>
+        </div>
+      )}
+
+      {mostrarConquista === "nivel3" && (
+        <div className="jogo-pares-conquista-pop">
+          <img src={CONQUISTA3} alt="Conquista Nível 3" className="jogo-pares-conquista-img" />
+          <p className="jogo-pares-conquista-texto">🔥 Conquista: Mestre das Combinações!</p>
+        </div>
+      )}
+
+      {mostrarConquista === "nivel4" && (
+        <div className="jogo-pares-conquista-pop">
+          <img src={CONQUISTA4} alt="Conquista Nível 4" className="jogo-pares-conquista-img" />
+          <p className="jogo-pares-conquista-texto">🏆 Conquista: Lenda dos Pares!</p>
+        </div>
+      )}
 
       {modalProximoNivel && (
         <div className="modal-vitoria-etapas">
